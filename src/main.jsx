@@ -5,7 +5,7 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <p>TEST</p>
+        <h1>TTC NextBus</h1>
       </div>
     );
   }
