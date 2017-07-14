@@ -17,7 +17,7 @@ module.exports = {
           path.resolve(process.cwd(), 'src')
         ],
         query: {
-          presets: [["react-app"]]
+          presets: [["react"]]
         },
         loader: 'babel-loader',
       },
