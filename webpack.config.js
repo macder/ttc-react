@@ -1,13 +1,13 @@
 const path = require('path');
 
 // ui build root
-const uiBuildPath = path.resolve(process.cwd(), 'build');
+const buildPath = path.resolve(process.cwd(), 'build');
 
 module.exports = {
   entry: './src/main.jsx',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(uiBuildPath, '')
+    path: buildPath
   },
   module: {
     rules: [
