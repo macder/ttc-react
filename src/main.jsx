@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import AutoCompleteField from './containers/AutoCompleteField.jsx';
+import ScheduleSelect from './containers/ScheduleSelect.jsx';
 
 class Main extends React.Component {
 
@@ -8,9 +8,7 @@ class Main extends React.Component {
     return (
       <div>
         <h1>TTC NextBus</h1>
-        <AutoCompleteField
-          placeholder = "Type a route number"
-        />
+        <ScheduleSelect />
       </div>
     );
   }
