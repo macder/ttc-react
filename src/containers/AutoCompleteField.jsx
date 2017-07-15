@@ -7,20 +7,24 @@ export default class AutoCompleteField extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
-      dataSource: [],
+      dataSource: [
+        {textKey: 'Some Text1', valueKey: 'someFirstValue'},
+        {textKey: 'Some Text2', valueKey: 'someSecondValue'},
+      ],
     };
+
+    this.dataSourceConfig = {
+      text: 'textKey',
+      value: 'valueKey',
+    };
+
     this.handleUpdateInput = this.handleUpdateInput.bind(this);
   }
 
   handleUpdateInput(value) {
-    this.setState({
-      dataSource: [
-        value,
-        value + value,
-        value + value + value,
-      ],
-    });
+
   }
 
   render() {
@@ -30,7 +34,7 @@ export default class AutoCompleteField extends React.Component {
           <AutoComplete
             hintText = {this.props.placeholder}
             dataSource = {this.state.dataSource}
-            onUpdateInput = {this.handleUpdateInput}
+            dataSourceConfig = {this.dataSourceConfig}
           />
         </MuiThemeProvider>
       </div>
