@@ -4,7 +4,8 @@ module.exports = {
   entry: './src/main.jsx',
   output: {
     filename: 'bundle.js',
-    path: __dirname + '/build'
+    path: __dirname + '/build',
+    publicPath: '/build/',
   },
   module: {
     rules: [

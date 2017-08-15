@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Search from './modules/search/containers/Search.jsx';
 
-class Main extends Component {
-  render() {
-    return (
-      <div>
-        <h1>TTC NextBus</h1>
-      </div>
-    );
-  }
-}
 
-ReactDOM.render(<Main />, document.getElementById('root'));
+ReactDOM.render(
+  <div>
+    <h1>TTC NextBus</h1>
+    <Search />
+  </div>, document.getElementById('root')
+);
