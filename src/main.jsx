@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import ScheduleSelect from './containers/ScheduleSelect.jsx';
+import ScheduleSelect from './modules/search/containers/ScheduleSelect.jsx';
 
 
 ReactDOM.render(
