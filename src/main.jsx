@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import ScheduleSelect from './modules/search/containers/Search.jsx';
+import Search from './modules/search/containers/Search.jsx';
 
 
 ReactDOM.render(
   <div>
     <h1>TTC NextBus</h1>
-    <ScheduleSelect />
+    <Search />
   </div>, document.getElementById('root')
 );

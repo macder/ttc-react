@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import AutoCompleteField from '../../core/containers/AutoCompleteField.jsx';
 
 
-export default class ScheduleSelect extends React.Component {
+export default class Search extends React.Component {
 
   constructor(props) {
     super(props);
