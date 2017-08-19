@@ -19,6 +19,8 @@ class SearchFormContainer extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
 
+  handleRouteSelect() {
+    // console.log('search container handleRouteSelect');
   }
 
   render() {
@@ -41,6 +43,7 @@ class SearchFormContainer extends React.Component {
           placeholder = "Route number"
           dataSource = {routeList}
           dataStructure = {dataStructure}
+          onSelected = {this.handleRouteSelect}
         />
         <AutoCompleteField
           placeholder = "Direction"
