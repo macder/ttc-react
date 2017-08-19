@@ -23,9 +23,11 @@ export default class AutoCompleteField extends React.Component {
       <div>
         <MuiThemeProvider>
           <AutoComplete
-            hintText = {this.props.placeholder}
+            floatingLabelText = {this.props.placeholder}
             dataSource = {this.props.dataSource}
             dataSourceConfig = {this.props.dataStructure}
+            onUpdateInput={this.handleUpdateInput}
+            onNewRequest={this.props.onSelected}
           />
         </MuiThemeProvider>
       </div>
