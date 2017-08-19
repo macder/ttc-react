@@ -1,0 +1,3 @@
+export const LOAD_ROUTES_REQUEST = 'search/LOAD_ROUTES_REQUEST';
+export const LOAD_ROUTES_FAILURE = 'search/LOAD_ROUTES_FAILURE';
+export const LOAD_ROUTES_SUCCESS = 'search/LOAD_ROUTES_SUCCESS';
