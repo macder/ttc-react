@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 
 export default class AutoCompleteField extends React.Component {
@@ -40,4 +41,10 @@ export default class AutoCompleteField extends React.Component {
       </div>
     );
   }
+}
+
+AutoCompleteField.propTypes = {
+  placeholder: PropTypes.string.isRequired,
+  dataSource: PropTypes.array.isRequired,
+  dataStructure: PropTypes.object.isRequired,
 }

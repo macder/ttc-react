@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import PropTypes from 'prop-types';
 import AutoCompleteField from '../../core/containers/AutoCompleteField.js';
 
 import * as actions from '../actions.js'
@@ -39,6 +40,11 @@ class SearchFormContainer extends React.Component {
       </div>
     );
   }
+}
+
+SearchFormContainer.propTypes = {
+  state: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
 }
 
 
