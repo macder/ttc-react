@@ -26,16 +26,35 @@ class SearchFormContainer extends React.Component {
   }
 
   render() {
+
+    const routeList = [
+      {text: '5-Avenue Road', value: '5'},
+      {text: '6-Bay', value: '6'},
+      {text: '7-Bathurst', value: '7'},
+      {text: '8-Broadview', value: '8'},
+    ];
+
+    const dataStructure = {
+      text: 'text',
+      value: 'value',
+    };
+
     return (
       <div>
         <AutoCompleteField
           placeholder = "Route number"
+          dataSource = {routeList}
+          dataStructure = {dataStructure}
         />
         <AutoCompleteField
           placeholder = "Direction"
+          dataSource = {routeList}
+          dataStructure = {dataStructure}
         />
         <AutoCompleteField
           placeholder = "Stop"
+          dataSource = {routeList}
+          dataStructure = {dataStructure}
         />
       </div>
     );
