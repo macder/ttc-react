@@ -1,21 +1,22 @@
 const path = require('path');
+const ROOT_PATH = path.resolve(__dirname);
 
 module.exports = {
-  entry: './src/main.jsx',
+  entry: path.resolve(ROOT_PATH, 'src/main.js'),
   output: {
     filename: 'bundle.js',
-    path: __dirname + '/build',
-    publicPath: '/build/',
+    path: path.resolve(ROOT_PATH, 'build'),
+    publicPath: '/build',
   },
   module: {
     rules: [
       {
-        test: /\.jsx$/,
+        test: /\.js$/,
         include: [
           path.resolve(process.cwd(), 'src')
         ],
         query: {
-          presets: [["react"]]
+          presets: ['react', 'es2015']
         },
         loader: 'babel-loader',
       },
