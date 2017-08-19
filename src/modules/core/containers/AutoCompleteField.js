@@ -4,6 +4,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
 export default class AutoCompleteField extends React.Component {
 
   constructor(props) {
