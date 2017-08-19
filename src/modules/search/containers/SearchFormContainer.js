@@ -11,18 +11,14 @@ class SearchFormContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    /*console.log(props);
-    const action = actions.loadRoutesRequest();
-    props.dispatch(action);*/
-
   }
 
   componentWillUpdate(nextProps, nextState) {
-    // console.log(nextProps);
+
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // console.log(prevProps);
+
   }
 
   render() {
