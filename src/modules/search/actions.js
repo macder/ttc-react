@@ -15,3 +15,11 @@ export const loadRoutesSuccess = () => {
     populated: true
   }
 };
+
+
+export const selectedRoute = (route) => {
+  return {
+    type: t.SELECTED_ROUTE,
+    selected: route
+  }
+};

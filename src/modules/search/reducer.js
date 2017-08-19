@@ -28,6 +28,12 @@ const searchReducer = (state = initialState, action = {}) => {
         fetchingRoutes: action.fetch,
         loadedRoutes: action.populated
       });
+
+    case t.SELECTED_ROUTE:
+      return Object.assign({}, state, {
+        selectedRoute: action.selected
+      });
+
     default:
       return state
   }
