@@ -86,3 +86,15 @@ export const loadRouteConfigFailure = (e) => {
     error: e.message
   }
 };
+
+/**
+ *
+ * @return {object}
+ */
+export const loadDirectionsRequest = () => {
+  return {
+    type: t.LOAD_DIRECTIONS_REQUEST,
+    fetching: true,
+  }
+};
+

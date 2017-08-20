@@ -18,13 +18,16 @@ const initialState = {
   },
 
   directionField: {
+    fetching: false,
     populated: false,
-    selected: null
+    selected: null,
+    data: []
   },
 
   stopField: {
     populated: false,
-    selected: null
+    selected: null,
+    data: []
   },
 
 
@@ -89,6 +92,14 @@ const searchReducer = (state = initialState, action = {}) => {
           error: action.error
         }),
       });
+
+    case t.LOAD_DIRECTIONS_REQUEST:
+      return Object.assign({}, state, {
+        directionField: Object.assign({}, state.directionField, {
+          fetching: action.fetching,
+        }),
+      });
+
     default:
       return state
   }
