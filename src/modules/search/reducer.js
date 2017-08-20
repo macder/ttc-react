@@ -1,17 +1,23 @@
 import * as t from './actionTypes.js';
 
 const initialState = {
-  fetchingRoutes: false,
-  fetchingDirections: false,
-  fetchingStops: false,
 
-  loadedRoutes: false,
-  loadedDirections: false,
-  loadedStops: false,
+  data: {
+    routeList: [],
+    routeConfig: [],
+  },
 
-  selectedRoute: false,
-  selectedDirection: false,
-  selectedStop: false,
+  route: {
+    fetching: false,
+    populated: false,
+    selected: null
+  },
+
+  direction: {
+    fetching: false,
+    populated: false,
+    selected: null
+  },
 };
 
 const searchReducer = (state = initialState, action = {}) => {
