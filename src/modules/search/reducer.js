@@ -2,71 +2,83 @@ import * as t from './actionTypes.js';
 
 const initialState = {
 
-  data: {
-    routeList: [],
-    routeConfig: [],
+  routeList: {
+    fetching: false,
+    data: []
   },
 
-  route: {
+  routeConfig: {
     fetching: false,
+    data: []
+  },
+
+  routeField: {
     populated: false,
     selected: null
   },
 
-  direction: {
-    fetching: false,
+  directionField: {
     populated: false,
     selected: null
   },
 
-  stops: {
-    fetching: false,
+  stopField: {
     populated: false,
     selected: null
   },
+
+
 };
-
 const searchReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case t.LOAD_ROUTES_FAILURE:
       return Object.assign({}, state, {
-        route: Object.assign({}, state.route, {
+        routeList: Object.assign({}, state.routeList, {
           fetching: action.fetching,
+          error: action.error
+        }),
+        routeField: Object.assign({}, state.routeField, {
           populated: action.populated,
         }),
       });
 
     case t.LOAD_ROUTES_REQUEST:
       return Object.assign({}, state, {
-        route: Object.assign({}, state.route, {
+        routeList: Object.assign({}, state.routeList, {
           fetching: action.fetching,
-          populated: action.populated,
         }),
       });
 
     case t.LOAD_ROUTES_SUCCESS:
       return Object.assign({}, state, {
-        data: Object.assign({}, state.data, {
-          routeList: action.payload
-        }),
-        route: Object.assign({}, state.route, {
+        routeList: Object.assign({}, state.routeList, {
           fetching: action.fetching,
+          data: action.payload
+        }),
+        routeField: Object.assign({}, state.routeField, {
           populated: action.populated,
         }),
       });
 
     case t.SELECTED_ROUTE:
       return Object.assign({}, state, {
-        route: Object.assign({}, state.route, {
+        routeField: Object.assign({}, state.routeField, {
           selected: action.selected,
         }),
       });
 
     case t.LOAD_ROUTE_CONFIG_REQUEST:
       return Object.assign({}, state, {
-        direction: Object.assign({}, state.direction, {
+        routeConfig: Object.assign({}, state.routeConfig, {
           fetching: action.fetching,
-          populated: action.populated,
+        }),
+      });
+
+    case t.LOAD_ROUTE_CONFIG_SUCCESS:
+      return Object.assign({}, state, {
+        routeConfig: Object.assign({}, state.routeConfig, {
+          fetching: action.fetching,
+          data: action.payload
         }),
       });
 
