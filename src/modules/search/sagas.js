@@ -36,8 +36,8 @@ function* fetchRouteList(action) {
 
     const list = data.map(function(obj) {
       return {
-        text: obj.title,
-        value: obj.tag
+        id: obj.tag,
+        title: obj.title,
       }
     });
     yield put(actions.loadRoutesSuccess(list));

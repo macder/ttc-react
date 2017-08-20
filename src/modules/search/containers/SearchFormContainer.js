@@ -46,8 +46,8 @@ class SearchFormContainer extends React.Component {
     ];
 
     const dataStructure = {
-      text: 'text',
-      value: 'value',
+      text: 'title',
+      value: 'id',
     };
 
     return (
