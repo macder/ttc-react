@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 import AutoCompleteField from '../../core/containers/AutoCompleteField.js';
 
-import * as actions from '../actions.js'
+import * as action from '../actions.js'
 
 class SearchFormContainer extends React.Component {
 
@@ -17,8 +17,8 @@ class SearchFormContainer extends React.Component {
   componentWillMount() {
     //routeList not populated
     if(!this.props.state.route.populated){
-      const action = actions.loadRoutesRequest();
-      this.props.dispatch(action);
+      // const action = action.loadRoutesRequest();
+      this.props.dispatch(action.loadRoutesRequest());
     }
   }
 
@@ -28,8 +28,8 @@ class SearchFormContainer extends React.Component {
 
   handleRouteSelect(value) {
     // const action = actions.selectedRoute(value);
-    this.props.dispatch(actions.selectedRoute(value));
-    this.props.dispatch(actions.loadRouteConfigRequest());
+    this.props.dispatch(action.selectedRoute(value));
+    this.props.dispatch(action.loadRouteConfigRequest());
   }
 
   render() {
