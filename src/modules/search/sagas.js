@@ -1,13 +1,12 @@
 import "regenerator-runtime/runtime";
-import axios from 'axios';
 
 import { delay } from 'redux-saga'
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 
 import * as t from './actionTypes';
 import * as actions from './actions';
-import xml2js from 'xml2js';
 import {fetch} from '../../services/httpRequest';
+import {parseXML} from '../../services/parsers';
 
 /**
  * Worker Saga: will be fired on LOAD_ROUTE_CONFIG_REQUEST actions
@@ -79,21 +78,6 @@ function* loadRouteList() {
  */
 function* loadRouteConfig() {
   yield takeEvery(t.LOAD_ROUTE_CONFIG_REQUEST, fetchRouteConfig);
-}
-
-/**
- * Parse an XML string into object.
- * @param {string} data - xml string.
- * @param {object} options - for xml2js
- * @return {object} The parsed object.
- */
-function parseXML(data, options) {
-  let parsed = {};
-
-  xml2js.parseString(data, options, (err, result) => {
-    parsed = result;
-  });
-  return parsed;
 }
 
 export default {loadRouteList, loadRouteConfig};
