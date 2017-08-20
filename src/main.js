@@ -16,8 +16,7 @@ let store = createStore(
   applyMiddleware(sagaMiddleware),
 );
 
-sagaMiddleware.run(search.sagas.default.loadRouteList);
-sagaMiddleware.run(search.sagas.default.loadRouteConfig);
+sagaMiddleware.run(search.sagas.default);
 
 ReactDOM.render(
   <Provider store={store} key="provider">

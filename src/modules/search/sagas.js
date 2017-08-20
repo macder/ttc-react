@@ -1,7 +1,7 @@
 import "regenerator-runtime/runtime";
 
 import { delay } from 'redux-saga'
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 
 import * as t from './actionTypes';
 import * as actions from './actions';
@@ -77,4 +77,12 @@ function* loadRouteConfig() {
   yield takeEvery(t.LOAD_ROUTE_CONFIG_REQUEST, fetchRouteConfig);
 }
 
-export default {loadRouteList, loadRouteConfig};
+
+export default function* rootSaga() {
+  yield all ([
+    loadRouteList(),
+    loadRouteConfig(),
+    // loadDirections()
+  ])
+}
+
