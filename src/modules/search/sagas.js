@@ -7,25 +7,7 @@ import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import * as t from './actionTypes';
 import * as actions from './actions';
 import xml2js from 'xml2js';
-
-/**
- * Fetch a HTTP GET response
- * @param {string} url
- * @return {object} The response.
- */
-function* fetch (url) {
-  let data = {};
-
-  yield axios({
-    method: 'get',
-    url: url,
-    responseType: 'text'
-  })
-    .then(function(response) {
-      data = response.data;
-  });
-  return data;
-}
+import {fetch} from '../../services/httpRequest';
 
 /**
  * Worker Saga: will be fired on LOAD_ROUTE_CONFIG_REQUEST actions
