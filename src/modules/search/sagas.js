@@ -52,13 +52,10 @@ function* fetchRouteList(action) {
       }
     });
 
-    // console.log(list);
     yield put(actions.loadRoutesSuccess(list));
 
   } catch (e) {
-    // console.log('asdfasdfasdfasdf');
     yield put(actions.loadRoutesFailure(e));
-      // {type: t.LOAD_ROUTES_FAILURE, message: e.message});
   }
 }
 
