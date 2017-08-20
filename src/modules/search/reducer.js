@@ -62,6 +62,14 @@ const searchReducer = (state = initialState, action = {}) => {
         }),
       });
 
+    case t.LOAD_ROUTE_CONFIG_REQUEST:
+      return Object.assign({}, state, {
+        direction: Object.assign({}, state.direction, {
+          fetching: action.fetching,
+          populated: action.populated,
+        }),
+      });
+
     default:
       return state
   }
