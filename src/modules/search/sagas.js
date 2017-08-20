@@ -23,7 +23,7 @@ function* fetch (url, callback) {
 }
 
 // worker Saga: will be fired on LOAD_ROUTES_REQUEST actions
-function* fetchRoutes(action) {
+function* fetchRouteList(action) {
   try {
     const url = 'http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=ttc';
     const options = {
