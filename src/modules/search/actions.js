@@ -1,5 +1,9 @@
 import * as t from './actionTypes';
 
+/**
+ *
+ * @return {object}
+ */
 export const loadRoutesFailure = () => {
   return {
     type: t.LOAD_ROUTES_FAILURE,
@@ -8,6 +12,10 @@ export const loadRoutesFailure = () => {
   }
 };
 
+/**
+ *
+ * @return {object}
+ */
 export const loadRoutesRequest = () => {
   return {
     type: t.LOAD_ROUTES_REQUEST,
@@ -16,6 +24,11 @@ export const loadRoutesRequest = () => {
   }
 };
 
+/**
+ *
+ * @param {object} payload.
+ * @return {object}
+ */
 export const loadRoutesSuccess = (payload) => {
   return {
     type: t.LOAD_ROUTES_SUCCESS,
@@ -25,6 +38,11 @@ export const loadRoutesSuccess = (payload) => {
   }
 };
 
+/**
+ *
+ * @param {object} route.
+ * @return {object}
+ */
 export const selectedRoute = (route) => {
   return {
     type: t.SELECTED_ROUTE,
