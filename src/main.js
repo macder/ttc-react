@@ -8,15 +8,14 @@ import reducer from './rootReducer'
 import search from './modules/search';
 
 const sagaMiddleware = createSagaMiddleware();
+const SearchForm = search.containers.default.SearchFormContainer;
 
 let store = createStore(
   reducer,
   applyMiddleware(sagaMiddleware)
 );
 
-sagaMiddleware.run(search.sagas.default);
-
-const SearchForm = search.containers.default.SearchFormContainer;
+sagaMiddleware.run(search.sagas.default.loadRouteList);
 
 ReactDOM.render(
   <Provider store={store} key="provider">

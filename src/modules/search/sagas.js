@@ -74,4 +74,4 @@ function parseXML(data, options) {
   return parsed;
 }
 
-export default loadRouteList;
+export default {loadRouteList};
