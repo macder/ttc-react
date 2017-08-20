@@ -22,22 +22,38 @@ const initialState = {
 
 const searchReducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case t.LOAD_ROUTES_FAILURE:
+      return Object.assign({}, state, {
+        route: Object.assign({}, state.route, {
+          fetching: action.fetching,
+          populated: action.populated,
+        }),
+      });
 
     case t.LOAD_ROUTES_REQUEST:
       return Object.assign({}, state, {
-        fetchingRoutes: action.fetch,
-        loadedRoutes: action.populated
+        route: Object.assign({}, state.route, {
+          fetching: action.fetching,
+          populated: action.populated,
+        }),
       });
 
     case t.LOAD_ROUTES_SUCCESS:
       return Object.assign({}, state, {
-        fetchingRoutes: action.fetch,
-        loadedRoutes: action.populated
+        data: Object.assign({}, state.data, {
+          routeList: action.payload
+        }),
+        route: Object.assign({}, state.route, {
+          fetching: action.fetching,
+          populated: action.populated,
+        }),
       });
 
     case t.SELECTED_ROUTE:
       return Object.assign({}, state, {
-        selectedRoute: action.selected
+        route: Object.assign({}, state.route, {
+          selected: action.selected,
+        }),
       });
 
     default:
