@@ -5,7 +5,7 @@ import axios from 'axios';
  * @param {string} url
  * @return {object} The response.
  */
-export function* fetch (url) {
+export function* httpGet (url) {
   let data = {};
 
   yield axios({

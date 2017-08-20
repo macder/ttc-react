@@ -5,7 +5,7 @@ import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 
 import * as t from './actionTypes';
 import * as actions from './actions';
-import {fetch} from '../../services/httpRequest';
+import {httpGet} from '../../services/httpRequest';
 import {parseXML} from '../../services/parsers';
 
 /**
@@ -22,7 +22,7 @@ function* fetchRouteConfig(action) {
       explicitArray: false,
     };
 
-    const data = parseXML(yield call(fetch, url), options).body.route;
+    const data = parseXML(yield call(httpGet, url), options).body.route;
     yield put(actions.loadRouteConfigSuccess(data));
 
   } catch (e) {
@@ -43,7 +43,7 @@ function* fetchRouteList(action) {
       explicitArray: false,
     };
 
-    const data = parseXML(yield call(fetch, url), options).body.route;
+    const data = parseXML(yield call(httpGet, url), options).body.route;
 
     const list = data.map(function(obj) {
       return {
