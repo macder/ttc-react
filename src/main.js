@@ -12,7 +12,8 @@ const SearchForm = search.containers.default.SearchFormContainer;
 
 let store = createStore(
   reducer,
-  applyMiddleware(sagaMiddleware)
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(sagaMiddleware),
 );
 
 sagaMiddleware.run(search.sagas.default.loadRouteList);
