@@ -15,9 +15,7 @@ class SearchFormContainer extends React.Component {
   }
 
   componentWillMount() {
-    //routeList not populated
     if(!this.props.state.route.populated){
-      // const action = action.loadRoutesRequest();
       this.props.dispatch(action.loadRoutesRequest());
     }
   }
@@ -27,7 +25,6 @@ class SearchFormContainer extends React.Component {
   }
 
   handleRouteSelect(value) {
-    // const action = actions.selectedRoute(value);
     this.props.dispatch(action.selectedRoute(value));
     this.props.dispatch(action.loadRouteConfigRequest());
   }
