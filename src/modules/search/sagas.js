@@ -48,13 +48,23 @@ function* fetchRouteList(action) {
 }
 
 /*
-  Starts fetchRoutes on each dispatched `LOAD_ROUTES_REQUEST` action.
-  Allows concurrent fetches.
+
 */
+/**
+ * Starts fetchRoutes on each dispatched `LOAD_ROUTES_REQUEST` action.
+ * Allows concurrent fetches.
+ *
+ */
 function* loadRouteList() {
-  yield takeLatest(t.LOAD_ROUTES_REQUEST, fetchRoutes);
+  yield takeEvery(t.LOAD_ROUTES_REQUEST, fetchRouteList);
 }
 
+/**
+ * Parse an XML string into object.
+ * @param {string} data - xml string.
+ * @param {object} options - for xml2js
+ * @return {object} The parsed object.
+ */
 function parseXML(data, options) {
   let parsed = {};
 
