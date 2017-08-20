@@ -4,11 +4,12 @@ import * as t from './actionTypes';
  *
  * @return {object}
  */
-export const loadRoutesFailure = () => {
+export const loadRoutesFailure = (e) => {
   return {
     type: t.LOAD_ROUTES_FAILURE,
     fetching: false,
     populated: false,
+    error: e.message
   }
 };
 
@@ -54,10 +55,22 @@ export const selectedRoute = (route) => {
  *
  * @return {object}
  */
-export const loadRouteConfigRequest = () => {
+export const loadRouteConfigRequest = (routeTag) => {
   return {
     type: t.LOAD_ROUTE_CONFIG_REQUEST,
     fetching: true,
-    populated: false
+    payload: routeTag
+  }
+};
+
+/**
+ *
+ * @return {object}
+ */
+export const loadRouteConfigSuccess = (payload) => {
+  return {
+    type: t.LOAD_ROUTE_CONFIG_SUCCESS,
+    fetching: false,
+    payload: payload
   }
 };

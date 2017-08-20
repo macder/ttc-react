@@ -15,7 +15,7 @@ class SearchFormContainer extends React.Component {
   }
 
   componentWillMount() {
-    if(!this.props.state.route.populated){
+    if(!this.props.state.routeField.populated){
       this.props.dispatch(action.loadRoutesRequest());
     }
   }
@@ -26,7 +26,7 @@ class SearchFormContainer extends React.Component {
 
   handleRouteSelect(value) {
     this.props.dispatch(action.selectedRoute(value));
-    this.props.dispatch(action.loadRouteConfigRequest());
+    this.props.dispatch(action.loadRouteConfigRequest(value.id));
   }
 
   render() {
@@ -52,7 +52,7 @@ class SearchFormContainer extends React.Component {
       <div>
         <AutoCompleteField
           placeholder = "Route number or name"
-          dataSource = {this.props.state.data.routeList}
+          dataSource = {this.props.state.routeList.data}
           dataStructure = {dataStructure}
           onSelected = {this.handleRouteSelect}
         />
