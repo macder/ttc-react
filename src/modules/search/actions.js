@@ -74,3 +74,15 @@ export const loadRouteConfigSuccess = (payload) => {
     payload: payload
   }
 };
+
+/**
+ *
+ * @return {object}
+ */
+export const loadRouteConfigFailure = (e) => {
+  return {
+    type: t.LOAD_ROUTE_CONFIG_FAILURE,
+    fetching: false,
+    error: e.message
+  }
+};

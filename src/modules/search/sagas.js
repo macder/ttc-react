@@ -26,7 +26,7 @@ function* fetchRouteConfig(action) {
     yield put(actions.loadRouteConfigSuccess(data));
 
   } catch (e) {
-    yield put({type: t.LOAD_ROUTE_CONFIG_FAILURE, message: e.message});
+    yield put(actions.loadRouteConfigFailure(e));
   }
 }
 
