@@ -14,20 +14,24 @@ class SearchFormContainer extends React.Component {
     this.handleRouteSelect = this.handleRouteSelect.bind(this);
   }
 
+  componentWillMount() {
+    //routeList not populated
+    if(!this.props.state.route.populated){
+      const action = actions.loadRoutesRequest();
+      this.props.dispatch(action);
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    // console.log(nextProps);
+  }
+
   handleRouteSelect(value) {
     const action = actions.selectedRoute(value);
     this.props.dispatch(action);
   }
 
   render() {
-
-    const routeList = [
-      /* {text: title, value: tag} */
-      {text: '5-Avenue Road', value: '5'},
-      {text: '6-Bay', value: '6'},
-      {text: '7-Bathurst', value: '7'},
-      {text: '8-Broadview', value: '8'},
-    ];
 
     const directionList = [
       /* {text: title, value: tag} */
@@ -50,7 +54,7 @@ class SearchFormContainer extends React.Component {
       <div>
         <AutoCompleteField
           placeholder = "Route number or name"
-          dataSource = {routeList}
+          dataSource = {this.props.state.data.routeList}
           dataStructure = {dataStructure}
           onSelected = {this.handleRouteSelect}
         />
@@ -73,7 +77,6 @@ SearchFormContainer.propTypes = {
   state: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
 }
-
 
 const mapStateToProps = (state) => {
   return {state: state.searchState}
