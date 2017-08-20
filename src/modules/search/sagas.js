@@ -8,7 +8,12 @@ import * as t from './actionTypes';
 import * as actions from './actions';
 import xml2js from 'xml2js';
 
-function* fetch (url, callback) {
+/**
+ * Fetch a HTTP GET response
+ * @param {string} url
+ * @return {object} The response.
+ */
+function* fetch (url) {
   let data = {};
 
   yield axios({
@@ -22,7 +27,10 @@ function* fetch (url, callback) {
   return data;
 }
 
-// worker Saga: will be fired on LOAD_ROUTES_REQUEST actions
+/**
+ * Worker Saga: will be fired on LOAD_ROUTES_REQUEST actions
+ * @param {object} action - redux action
+ */
 function* fetchRouteList(action) {
   try {
     const url = 'http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=ttc';
@@ -47,9 +55,6 @@ function* fetchRouteList(action) {
   }
 }
 
-/*
-
-*/
 /**
  * Starts fetchRoutes on each dispatched `LOAD_ROUTES_REQUEST` action.
  * Allows concurrent fetches.
