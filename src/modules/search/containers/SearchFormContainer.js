@@ -27,8 +27,9 @@ class SearchFormContainer extends React.Component {
   }
 
   handleRouteSelect(value) {
-    const action = actions.selectedRoute(value);
-    this.props.dispatch(action);
+    // const action = actions.selectedRoute(value);
+    this.props.dispatch(actions.selectedRoute(value));
+    this.props.dispatch(actions.loadRouteConfigRequest());
   }
 
   render() {
