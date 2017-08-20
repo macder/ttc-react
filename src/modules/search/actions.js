@@ -49,3 +49,15 @@ export const selectedRoute = (route) => {
     selected: route
   }
 };
+
+/**
+ *
+ * @return {object}
+ */
+export const loadRouteConfigRequest = () => {
+  return {
+    type: t.LOAD_ROUTE_CONFIG_REQUEST,
+    fetching: true,
+    populated: false
+  }
+};
