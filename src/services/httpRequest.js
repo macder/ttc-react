@@ -6,7 +6,6 @@ import axios from 'axios';
  * @return {object} The response.
  */
 export function* fetch (url) {
-  console.log('fetchTest');
   let data = {};
 
   yield axios({
@@ -17,8 +16,5 @@ export function* fetch (url) {
     .then(function(response) {
       data = response.data;
   });
-  // console.log(data);
   return data;
 }
-
-// export default {fetch}
