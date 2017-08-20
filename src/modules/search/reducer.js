@@ -18,6 +18,12 @@ const initialState = {
     populated: false,
     selected: null
   },
+
+  stops: {
+    fetching: false,
+    populated: false,
+    selected: null
+  },
 };
 
 const searchReducer = (state = initialState, action = {}) => {
