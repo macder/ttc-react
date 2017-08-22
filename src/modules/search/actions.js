@@ -1,4 +1,5 @@
 import * as t from './actionTypes';
+import Immutable from 'immutable';
 
 /**
  *
@@ -17,12 +18,23 @@ export const loadRoutesFailure = (e) => {
  *
  * @return {object}
  */
+export const actionTest = () => {
+  return {
+    type: t.ACTION_TEST,
+    test: 'hello!'
+  }
+};
+
+/**
+ *
+ * @return {object}
+ */
 export const loadRoutesRequest = () => {
   return {
     type: t.LOAD_ROUTES_REQUEST,
     fetching: true,
     populated: false
-  }
+  };
 };
 
 /**

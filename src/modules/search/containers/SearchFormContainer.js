@@ -14,19 +14,22 @@ class SearchFormContainer extends React.Component {
     this.handleRouteSelect = this.handleRouteSelect.bind(this);
   }
 
-  componentWillMount() {
-    if(!this.props.state.routeField.populated){
-      this.props.dispatch(action.loadRoutesRequest());
-    }
+  componentDidMount() {
+    this.props.dispatch(action.actionTest());
+    this.props.dispatch(action.loadRoutesRequest());
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    // console.log(nextProps);
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    if (nextProps.state !== this.props.state) {
+      // console.log('state change');
+    }
   }
 
   handleRouteSelect(value) {
     this.props.dispatch(action.selectedRoute(value));
-    this.props.dispatch(action.loadRouteConfigRequest(value.id));
+    // this.props.dispatch(action.loadRouteConfigRequest(value.id));
+    // this.props.dispatch(action.loadDirectionsRequest());
   }
 
   render() {
@@ -48,11 +51,14 @@ class SearchFormContainer extends React.Component {
       value: 'id',
     };
 
+    // this.props.state.routeList.data
+    // this.props.state.route.data
+
     return (
       <div>
         <AutoCompleteField
           placeholder = "Route number or name"
-          dataSource = {this.props.state.routeList.data}
+          dataSource = {directionList}
           dataStructure = {dataStructure}
           onSelected = {this.handleRouteSelect}
         />
@@ -72,11 +78,12 @@ class SearchFormContainer extends React.Component {
 }
 
 SearchFormContainer.propTypes = {
-  state: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  //state: PropTypes.object.isRequired,
+  //dispatch: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return {state: state.searchState}
 }
 

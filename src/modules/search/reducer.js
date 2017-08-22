@@ -1,76 +1,83 @@
 import * as t from './actionTypes.js';
+import Immutable from 'immutable';
 
-const initialState = {
+const initialState = Immutable.fromJS({
 
-  routeList: {
-    fetching: false,
-    data: []
+  test: 'wordfd',
+
+  data: {
+    routeList: {
+      fetching: false,
+      payload: []
+    },
+
+    routeConfig: {
+      fetching: false,
+      payload: null
+    },
   },
+});
 
-  routeConfig: {
-    fetching: false,
-    data: []
-  },
-
-  routeField: {
-    populated: false,
-    selected: null
-  },
-
-  directionField: {
-    fetching: false,
-    populated: false,
-    selected: null,
-    data: []
-  },
-
-  stopField: {
-    populated: false,
-    selected: null,
-    data: []
-  },
-
-
-};
 const searchReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case t.LOAD_ROUTES_FAILURE:
+
+    case t.ACTION_TEST:
+      // console.log(action.test, state.get('test'));
+      const test = state.setIn(['prop1'], Immutable.fromJS({}));
+      // console.log(test, state);
+      return test;
+
+    /*case t.LOAD_ROUTES_FAILURE:
       return Object.assign({}, state, {
-        routeList: Object.assign({}, state.routeList, {
-          fetching: action.fetching,
-          error: action.error
+        data: Object.assign({}, state.data, {
+          routeList: Object.assign({}, state.data.routeList, {
+            fetching: action.fetching,
+            error: action.error
+          }),
         }),
         routeField: Object.assign({}, state.routeField, {
           populated: action.populated,
         }),
-      });
+      });*/
 
     case t.LOAD_ROUTES_REQUEST:
-      return Object.assign({}, state, {
-        routeList: Object.assign({}, state.routeList, {
-          fetching: action.fetching,
+      console.log('case t.LOAD_ROUTES_REQUEST', action.fetching);
+      const nextState = state.setIn(['data', 'routeList', 'fetching'], action.fetching);
+      return nextState;
+      /*return Object.assign({}, state, {
+        data: Object.assign({}, state.data, {
+          routeList: Object.assign({}, state.data.routeList, {
+            fetching: action.fetching,
+          }),
         }),
-      });
+      });*/
 
-    case t.LOAD_ROUTES_SUCCESS:
+    /*case t.LOAD_ROUTES_SUCCESS:
       return Object.assign({}, state, {
-        routeList: Object.assign({}, state.routeList, {
-          fetching: action.fetching,
-          data: action.payload
+        data: Object.assign({}, state.data, {
+          routeList: Object.assign({}, state.data.routeList, {
+            fetching: action.fetching,
+            payload: action.payload
+          }),
         }),
-        routeField: Object.assign({}, state.routeField, {
-          populated: action.populated,
+        fields: Object.assign({}, state.fields, {
+          route: Object.assign({}, state.fields.route, {
+            populated: action.populated,
+          }),
         }),
-      });
+      });*/
 
-    case t.SELECTED_ROUTE:
+    /*case t.SELECTED_ROUTE:
       return Object.assign({}, state, {
-        routeField: Object.assign({}, state.routeField, {
-          selected: action.selected,
+        fields: Object.assign({}, state.fields, {
+          route: Object.assign({}, state.fields.route, {
+            selected: action.selected,
+          }),
         }),
       });
 
     case t.LOAD_ROUTE_CONFIG_REQUEST:
+      console.log('LOAD_ROUTE_CONFIG_REQUEST')
       return Object.assign({}, state, {
         routeConfig: Object.assign({}, state.routeConfig, {
           fetching: action.fetching,
@@ -78,6 +85,7 @@ const searchReducer = (state = initialState, action = {}) => {
       });
 
     case t.LOAD_ROUTE_CONFIG_SUCCESS:
+      console.log('LOAD_ROUTE_CONFIG_SUCCESS')
       return Object.assign({}, state, {
         routeConfig: Object.assign({}, state.routeConfig, {
           fetching: action.fetching,
@@ -94,11 +102,12 @@ const searchReducer = (state = initialState, action = {}) => {
       });
 
     case t.LOAD_DIRECTIONS_REQUEST:
+      console.log('LOAD_DIRECTIONS_REQUEST')
       return Object.assign({}, state, {
         directionField: Object.assign({}, state.directionField, {
           fetching: action.fetching,
         }),
-      });
+      });*/
 
     default:
       return state

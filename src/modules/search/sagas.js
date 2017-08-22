@@ -1,19 +1,24 @@
 import "regenerator-runtime/runtime";
 
 import { delay } from 'redux-saga'
-import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { all, call, put, select, take, takeEvery, takeLatest } from 'redux-saga/effects'
 
 import * as t from './actionTypes';
 import * as actions from './actions';
 import {httpGet} from '../../services/httpRequest';
 import {parseXML} from '../../services/parsers';
 
+// selectors
+// TODO: move to a selector file
+const getRoute = state => state.searchState.routeField;
+
 /**
  * Worker Saga: will be fired on LOAD_ROUTE_CONFIG_REQUEST actions
  * @param {object} action - redux action
  */
-function* fetchRouteConfig(action) {
-  const routeTag = action.payload;
+function* fetchRouteConfig(routeTag) {
+  console.log('fetchRouteConfig');
+  // const routeTag = action.payload;
   try {
     const url = 'http://webservices.nextbus.com/service/publicXMLFeed?command=routeConfig&a=ttc&r=' + routeTag;
     const options = {
@@ -24,11 +29,16 @@ function* fetchRouteConfig(action) {
 
     const data = parseXML(yield call(httpGet, url), options).body.route;
     yield put(actions.loadRouteConfigSuccess(data));
+    return true;
+
+    // yield call(loadDirections, data.direction);
 
   } catch (e) {
     yield put(actions.loadRouteConfigFailure(e));
+    return false;
   }
 }
+
 
 /**
  * Worker Saga: will be fired on LOAD_ROUTES_REQUEST actions
@@ -52,11 +62,22 @@ function* fetchRouteList(action) {
       }
     });
 
+    // console.log(yield select());
+
     yield put(actions.loadRoutesSuccess(list));
+
+    // console.log(yield select());
 
   } catch (e) {
     yield put(actions.loadRoutesFailure(e));
+    // console.log(yield select());
   }
+}
+
+function setDirections(){
+  console.log('directions');
+
+  // yield put(actions.loadDirectionsRequest());
 }
 
 /**
@@ -69,20 +90,57 @@ function* loadRouteList() {
 }
 
 /**
+ * Starts fetchRoutes on each dispatched `LOAD_ROUTES_REQUEST` action.
+ * Allows concurrent fetches.
+ *
+ */
+function* selectRoute() {
+  yield takeEvery(t.SELECTED_ROUTE, test);
+}
+
+function test(){
+  console.log('test - route selected');
+}
+
+/**
  * Starts fetchRouteConfig on each dispatched `LOAD_ROUTE_CONFIG_REQUEST` action.
  * Allows concurrent fetches.
  *
  */
 function* loadRouteConfig() {
-  yield takeEvery(t.LOAD_ROUTE_CONFIG_REQUEST, fetchRouteConfig);
+  while (true) {
+
+
+    yield take(t.LOAD_ROUTE_CONFIG_REQUEST);
+    const routeTag = yield select(getRoute);
+    if ( yield call (fetchRouteConfig, routeTag.selected.id) ) {
+      console.log('test');
+      //setDirections();
+      yield takeLatest(t.LOAD_DIRECTIONS_REQUEST, setDirections);
+      // call (setDirections);
+      console.log('test2');
+    }
+    // yield call (fetchRouteConfig, routeTag.selected.id);
+
+
+
+  }
 }
 
+/**
+ * Starts setDirections on each dispatched `LOAD_DIRECTIONS_REQUEST` action.
+ * Allows concurrent fetches.
+ *
+ */
+/*function* loadDirections() {
+  yield takeEvery(t.LOAD_DIRECTIONS_REQUEST, setDirections);
+}*/
 
 export default function* rootSaga() {
   yield all ([
     loadRouteList(),
-    loadRouteConfig(),
+    selectRoute()
+    // loadRouteConfig()
     // loadDirections()
   ])
 }
-
