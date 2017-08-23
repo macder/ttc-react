@@ -9,6 +9,7 @@ import * as action from '../actions.js'
 class RouteSelectFieldContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.handleRouteSelect = this.handleRouteSelect.bind(this);
   }
 
   componentDidMount() {
@@ -19,11 +20,17 @@ class RouteSelectFieldContainer extends React.Component {
 
   }
 
+  handleRouteSelect(value) {
+    console.log(value);
+    // this.props.dispatch(action.selectedRoute(value));
+  }
+
   render() {
     return (
       <div>
         <RouteSelectField
           list = {this.props.list}
+          onSelected = {this.handleRouteSelect}
         />
       </div>
     );

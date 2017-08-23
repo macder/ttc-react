@@ -13,6 +13,7 @@ export default function RouteSelectField(props) {
       placeholder = "Route number or name"
       dataSource = {props.list}
       dataStructure = {dataStructure}
+      onSelected = {props.onSelected}
     />
   );
 }
