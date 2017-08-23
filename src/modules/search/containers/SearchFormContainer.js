@@ -25,7 +25,7 @@ class SearchFormContainer extends React.Component {
     return (
       <div>
         <RouteSelectFieldContainer
-          list = {this.props.state.routeList.payload}
+          list = {this.props.data.routeList.payload}
         />
       </div>
     );
@@ -38,7 +38,7 @@ SearchFormContainer.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-  return {state: state.searchState.data}
+  return {data: state.searchState.data}
 }
 
 export default connect(mapStateToProps)(SearchFormContainer);
