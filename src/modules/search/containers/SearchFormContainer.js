@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 
 import RouteSelectFieldContainer from './RouteSelectFieldContainer';
+import DirectionSelectFieldContainer from './DirectionSelectFieldContainer';
 
 import * as action from '../actions.js'
 
@@ -25,18 +26,19 @@ class SearchFormContainer extends React.Component {
     return (
       <div>
         <RouteSelectFieldContainer />
+        <DirectionSelectFieldContainer />
       </div>
     );
   }
 }
 
 SearchFormContainer.propTypes = {
-  //state: PropTypes.object.isRequired,
+  // data: PropTypes.object.isRequired,
   //dispatch: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => {
-  return {data: state.searchState.data}
+  return {}
 }
 
 export default connect(mapStateToProps)(SearchFormContainer);
