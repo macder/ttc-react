@@ -1,7 +1,6 @@
 import * as t from '../actionTypes.js';
 
 const initialState = {
-  populated: false,
   selected: null
 };
 
