@@ -10,7 +10,7 @@ import search from './modules/search';
 
 const sagaMiddleware = createSagaMiddleware();
 const SearchForm = search.containers.default.SearchFormContainer;
-const initialState = Immutable.Map();
+// const initialState = Immutable.Map();
 
 let store = createStore(
   reducer,

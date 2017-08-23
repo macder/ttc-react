@@ -1,5 +1,4 @@
 import * as t from './actionTypes';
-import Immutable from 'immutable';
 
 /**
  *
@@ -11,17 +10,6 @@ export const loadRoutesFailure = (e) => {
     fetching: false,
     populated: false,
     error: e.message
-  }
-};
-
-/**
- *
- * @return {object}
- */
-export const actionTest = () => {
-  return {
-    type: t.ACTION_TEST,
-    test: 'hello!'
   }
 };
 

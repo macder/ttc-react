@@ -1,5 +1,6 @@
 import "regenerator-runtime/runtime";
 
+import Immutable from 'immutable';
 import { delay } from 'redux-saga'
 import { all, call, put, select, take, takeEvery, takeLatest } from 'redux-saga/effects'
 
@@ -55,6 +56,14 @@ function* fetchRouteList(action) {
 
     const data = parseXML(yield call(httpGet, url), options).body.route;
 
+    /*const data = Immutable.fromJS(
+      parseXML(yield call(httpGet, url), options).body.route
+    );*/
+
+    //console.dir(data);
+    //console.dir(yield call( Immutable.fromJS, data));
+
+
     const list = data.map(function(obj) {
       return {
         id: obj.tag,
@@ -62,15 +71,10 @@ function* fetchRouteList(action) {
       }
     });
 
-    // console.log(yield select());
-
     yield put(actions.loadRoutesSuccess(list));
-
-    // console.log(yield select());
 
   } catch (e) {
     yield put(actions.loadRoutesFailure(e));
-    // console.log(yield select());
   }
 }
 

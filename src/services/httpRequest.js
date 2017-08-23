@@ -1,4 +1,5 @@
 import axios from 'axios';
+// import { delay } from 'redux-saga'
 
 /**
  * Fetch a HTTP GET response
@@ -16,5 +17,6 @@ export function* httpGet (url) {
     .then(function(response) {
       data = response.data;
   });
+  // yield delay(3000);
   return data;
 }
