@@ -14,19 +14,17 @@ class SearchFormContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(action.loadRoutesRequest());
+
   }
 
   componentWillReceiveProps(nextProps) {
-
+    console.log('SearchFormContainer new props');
   }
 
   render() {
     return (
       <div>
-        <RouteSelectFieldContainer
-          list = {this.props.data.routeList.payload}
-        />
+        <RouteSelectFieldContainer />
       </div>
     );
   }

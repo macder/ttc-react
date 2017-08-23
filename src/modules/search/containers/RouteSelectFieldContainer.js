@@ -13,16 +13,16 @@ class RouteSelectFieldContainer extends React.Component {
   }
 
   componentDidMount() {
-
+    this.props.dispatch(action.loadRoutesRequest());
   }
 
   componentWillReceiveProps(nextProps) {
-
+    console.log('RouteSelectFieldContainer new props');
   }
 
   handleRouteSelect(value) {
     console.log(value);
-    // this.props.dispatch(action.selectedRoute(value));
+    this.props.dispatch(action.selectedRoute(value));
   }
 
   render() {
@@ -43,7 +43,11 @@ RouteSelectFieldContainer.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-  return {state: state.searchState.routeField}
+  console.log(state);
+  return {
+    list: state.searchState.data.routeList.payload,
+    // state: state.searchState.routeField
+  }
 }
 
 export default connect(mapStateToProps)(RouteSelectFieldContainer);
