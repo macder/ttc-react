@@ -56,14 +56,6 @@ function* fetchRouteList(action) {
 
     const data = parseXML(yield call(httpGet, url), options).body.route;
 
-    /*const data = Immutable.fromJS(
-      parseXML(yield call(httpGet, url), options).body.route
-    );*/
-
-    //console.dir(data);
-    //console.dir(yield call( Immutable.fromJS, data));
-
-
     const list = data.map(function(obj) {
       return {
         id: obj.tag,
@@ -80,8 +72,6 @@ function* fetchRouteList(action) {
 
 function setDirections(){
   console.log('directions');
-
-  // yield put(actions.loadDirectionsRequest());
 }
 
 /**
