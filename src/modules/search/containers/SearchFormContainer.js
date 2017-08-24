@@ -12,20 +12,25 @@ class SearchFormContainer extends React.Component {
 
   constructor(props) {
     super(props);
+    this.handleGetRouteConfig = this.handleGetRouteConfig.bind(this);
   }
 
   componentDidMount() {
-
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('SearchFormContainer new props');
+  }
+
+  handleGetRouteConfig(value) {
+    this.props.dispatch(action.loadRouteConfigRequest(value.id));
   }
 
   render() {
     return (
       <div>
-        <RouteSelectFieldContainer />
+        <RouteSelectFieldContainer
+          onSelect = {this.handleGetRouteConfig}
+        />
         <DirectionSelectFieldContainer />
       </div>
     );
