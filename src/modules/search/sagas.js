@@ -17,9 +17,9 @@ const getRoute = state => state.searchState.routeField;
  * Worker Saga: will be fired on LOAD_ROUTE_CONFIG_REQUEST actions
  * @param {object} action - redux action
  */
-function* fetchRouteConfig(routeTag) {
+function* fetchRouteConfig(action) {
   console.log('fetchRouteConfig');
-  // const routeTag = action.payload;
+  const routeTag = action.payload;
   try {
     const url = 'http://webservices.nextbus.com/service/publicXMLFeed?command=routeConfig&a=ttc&r=' + routeTag;
     const options = {
@@ -29,14 +29,12 @@ function* fetchRouteConfig(routeTag) {
     };
 
     const data = parseXML(yield call(httpGet, url), options).body.route;
-    yield put(actions.loadRouteConfigSuccess(data));
-    return true;
-
-    // yield call(loadDirections, data.direction);
+    //yield put(actions.loadRouteConfigSuccess(data));
+    //return true;
 
   } catch (e) {
-    yield put(actions.loadRouteConfigFailure(e));
-    return false;
+    //yield put(actions.loadRouteConfigFailure(e));
+    //return false;
   }
 }
 
@@ -70,10 +68,6 @@ function* fetchRouteList(action) {
   }
 }
 
-function setDirections(){
-  console.log('directions');
-}
-
 /**
  * Starts fetchRoutes on each dispatched `LOAD_ROUTES_REQUEST` action.
  * Allows concurrent fetches.
@@ -84,57 +78,17 @@ function* loadRouteList() {
 }
 
 /**
- * Starts fetchRoutes on each dispatched `LOAD_ROUTES_REQUEST` action.
- * Allows concurrent fetches.
- *
- */
-function* selectRoute() {
-  yield takeEvery(t.SELECTED_ROUTE, test);
-}
-
-function test(){
-  console.log('test - route selected');
-}
-
-/**
  * Starts fetchRouteConfig on each dispatched `LOAD_ROUTE_CONFIG_REQUEST` action.
  * Allows concurrent fetches.
  *
  */
 function* loadRouteConfig() {
-  while (true) {
-
-
-    yield take(t.LOAD_ROUTE_CONFIG_REQUEST);
-    const routeTag = yield select(getRoute);
-    if ( yield call (fetchRouteConfig, routeTag.selected.id) ) {
-      console.log('test');
-      //setDirections();
-      yield takeLatest(t.LOAD_DIRECTIONS_REQUEST, setDirections);
-      // call (setDirections);
-      console.log('test2');
-    }
-    // yield call (fetchRouteConfig, routeTag.selected.id);
-
-
-
-  }
+  yield takeEvery(t.LOAD_ROUTE_CONFIG_REQUEST, fetchRouteConfig);
 }
-
-/**
- * Starts setDirections on each dispatched `LOAD_DIRECTIONS_REQUEST` action.
- * Allows concurrent fetches.
- *
- */
-/*function* loadDirections() {
-  yield takeEvery(t.LOAD_DIRECTIONS_REQUEST, setDirections);
-}*/
 
 export default function* rootSaga() {
   yield all ([
     loadRouteList(),
-    selectRoute()
-    // loadRouteConfig()
-    // loadDirections()
+    loadRouteConfig()
   ])
 }
