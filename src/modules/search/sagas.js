@@ -9,16 +9,12 @@ import * as actions from './actions';
 import {httpGet} from '../../services/httpRequest';
 import {parseXML} from '../../services/parsers';
 
-// selectors
-// TODO: move to a selector file
-const getRoute = state => state.searchState.routeField;
 
 /**
  * Worker Saga: will be fired on LOAD_ROUTE_CONFIG_REQUEST actions
  * @param {object} action - redux action
  */
 function* fetchRouteConfig(action) {
-  console.log('fetchRouteConfig');
   const routeTag = action.payload;
   try {
     const url = 'http://webservices.nextbus.com/service/publicXMLFeed?command=routeConfig&a=ttc&r=' + routeTag;
@@ -29,12 +25,10 @@ function* fetchRouteConfig(action) {
     };
 
     const data = parseXML(yield call(httpGet, url), options).body.route;
-    //yield put(actions.loadRouteConfigSuccess(data));
-    //return true;
+    yield put(actions.loadRouteConfigSuccess(data));
 
   } catch (e) {
-    //yield put(actions.loadRouteConfigFailure(e));
-    //return false;
+    yield put(actions.loadRouteConfigFailure(e));
   }
 }
 
