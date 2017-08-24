@@ -5,7 +5,7 @@ export default function DirectionSelectField(props) {
 
   const dataStructure = {
     text: 'text',
-    value: 'text',
+    value: 'value',
   };
 
   return (
