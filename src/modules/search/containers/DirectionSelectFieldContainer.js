@@ -17,7 +17,7 @@ class DirectionSelectFieldContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('DirectionSelectFieldContainer new props');
+    // console.log('DirectionSelectFieldContainer new props');
   }
 
   handleDirectionSelect(value) {
