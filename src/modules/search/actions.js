@@ -22,7 +22,7 @@ export const loadRoutesRequest = () => {
     type: t.LOAD_ROUTES_REQUEST,
     fetching: true,
     populated: false
-  }
+  };
 };
 
 /**
@@ -86,3 +86,15 @@ export const loadRouteConfigFailure = (e) => {
     error: e.message
   }
 };
+
+/**
+ *
+ * @return {object}
+ */
+export const loadDirectionsRequest = () => {
+  return {
+    type: t.LOAD_DIRECTIONS_REQUEST,
+    fetching: true,
+  }
+};
+

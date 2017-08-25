@@ -1,12 +1,14 @@
 import "regenerator-runtime/runtime";
 
+import Immutable from 'immutable';
 import { delay } from 'redux-saga'
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { all, call, put, select, take, takeEvery, takeLatest } from 'redux-saga/effects'
 
 import * as t from './actionTypes';
 import * as actions from './actions';
-import {fetch} from '../../services/httpRequest';
+import {httpGet} from '../../services/httpRequest';
 import {parseXML} from '../../services/parsers';
+
 
 /**
  * Worker Saga: will be fired on LOAD_ROUTE_CONFIG_REQUEST actions
@@ -22,13 +24,29 @@ function* fetchRouteConfig(action) {
       explicitArray: false,
     };
 
-    const data = parseXML(yield call(fetch, url), options).body.route;
-    yield put(actions.loadRouteConfigSuccess(data));
+    const data = parseXML(yield call(httpGet, url), options).body.route;
+
+    //console.dir(data.stop);
+
+    yield call(test, data);
+
+    //yield put(actions.loadRouteConfigSuccess(data));
 
   } catch (e) {
     yield put(actions.loadRouteConfigFailure(e));
   }
 }
+
+function test(data) {
+  // console.dir(data);
+
+  const b = data.direction.filter(function(item, index, array){
+    console.dir(item);
+      //return true;
+
+  });
+}
+
 
 /**
  * Worker Saga: will be fired on LOAD_ROUTES_REQUEST actions
@@ -43,7 +61,7 @@ function* fetchRouteList(action) {
       explicitArray: false,
     };
 
-    const data = parseXML(yield call(fetch, url), options).body.route;
+    const data = parseXML(yield call(httpGet, url), options).body.route;
 
     const list = data.map(function(obj) {
       return {
@@ -77,4 +95,9 @@ function* loadRouteConfig() {
   yield takeEvery(t.LOAD_ROUTE_CONFIG_REQUEST, fetchRouteConfig);
 }
 
-export default {loadRouteList, loadRouteConfig};
+export default function* rootSaga() {
+  yield all ([
+    loadRouteList(),
+    loadRouteConfig()
+  ])
+}

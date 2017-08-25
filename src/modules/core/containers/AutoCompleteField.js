@@ -36,7 +36,7 @@ export default class AutoCompleteField extends React.Component {
 }
 
 AutoCompleteField.propTypes = {
-  placeholder: PropTypes.string.isRequired,
+  /*placeholder: PropTypes.string.isRequired,
   dataSource: PropTypes.array.isRequired,
-  dataStructure: PropTypes.object.isRequired,
+  dataStructure: PropTypes.object.isRequired,*/
 }
