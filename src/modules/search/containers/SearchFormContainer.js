@@ -21,8 +21,8 @@ class SearchFormContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
   }
 
-  handleGetRouteConfig(value) {
-    this.props.dispatch(action.loadRouteConfigRequest(value.id));
+  handleGetRouteConfig(routeId) {
+    this.props.dispatch(action.loadRouteConfigRequest(routeId));
   }
 
   render() {

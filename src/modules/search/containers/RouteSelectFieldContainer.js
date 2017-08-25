@@ -20,8 +20,9 @@ class RouteSelectFieldContainer extends React.Component {
   }
 
   handleRouteSelect(value) {
-    this.props.dispatch(action.selectedRoute(value));
-    this.props.onSelect(value);
+    const routeId = value.id;
+    this.props.dispatch(action.selectedRoute(routeId));
+    this.props.onSelect(routeId);
   }
 
   render() {
