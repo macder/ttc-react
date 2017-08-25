@@ -25,11 +25,26 @@ function* fetchRouteConfig(action) {
     };
 
     const data = parseXML(yield call(httpGet, url), options).body.route;
-    yield put(actions.loadRouteConfigSuccess(data));
+
+    //console.dir(data.stop);
+
+    yield call(test, data);
+
+    //yield put(actions.loadRouteConfigSuccess(data));
 
   } catch (e) {
     yield put(actions.loadRouteConfigFailure(e));
   }
+}
+
+function test(data) {
+  // console.dir(data);
+
+  const b = data.direction.filter(function(item, index, array){
+    console.dir(item);
+      //return true;
+
+  });
 }
 
 
