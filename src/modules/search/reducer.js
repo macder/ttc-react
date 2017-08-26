@@ -1,10 +1,6 @@
-import * as t from './actionTypes.js';
-//import Route from './models';
-//import Immutable from 'immutable';
-
 import { combineReducers } from 'redux';
-// import { combineReducers } from 'redux-immutable';
 import * as reducer from './reducers';
+import * as t from './actionTypes.js';
 
 export default combineReducers({
   data: reducer.default.dataReducer,
