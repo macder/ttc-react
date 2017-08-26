@@ -6,7 +6,14 @@ const routeConfig = state => state.searchState.data.routeConfig.payload
 // Get route list array for 'Route' autocomplete field
 export const getRouteList = createSelector(
   [routeList],
-  (list) => list
+  (list) => {
+    return list.map(function(obj) {
+      return {
+        id: obj.tag,
+        title: obj.title,
+      }
+    });
+  }
 );
 
 // Get complete route config object

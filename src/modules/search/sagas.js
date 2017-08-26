@@ -47,14 +47,7 @@ function* fetchRouteList(action) {
 
     const data = parseXML(yield call(httpGet, url), options).body.route;
 
-    const list = data.map(function(obj) {
-      return {
-        id: obj.tag,
-        title: obj.title,
-      }
-    });
-
-    yield put(actions.loadRoutesSuccess(list));
+    yield put(actions.loadRoutesSuccess(data));
 
   } catch (e) {
     yield put(actions.loadRoutesFailure(e));
