@@ -12,20 +12,8 @@ class SearchFormContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    // console.dir(props);
     this.handleGetRouteConfig = this.handleGetRouteConfig.bind(this);
     this.handleGetStopList = this.handleGetStopList.bind(this);
-  }
-
-  componentDidMount() {
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    console.log('SearchFormContainer will update');
-  }
-
-  componentWillReceiveProps(nextProps) {
-    //console.dir(nextProps);
   }
 
   handleGetRouteConfig(routeId) {
@@ -34,7 +22,6 @@ class SearchFormContainer extends React.Component {
 
   handleGetStopList(directionId) {
     console.log(directionId);
-    // this.props.action.loadRouteConfig(routeId);
   }
 
   render() {
@@ -57,7 +44,6 @@ SearchFormContainer.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-  // console.dir(state);
   return {}
 }
 
