@@ -110,3 +110,15 @@ export const selectedDirection = (direction) => {
     selected: direction
   }
 };
+
+/**
+ *
+ * @param {object} route.
+ * @return {object}
+ */
+export const selectedStop = (stop) => {
+  return {
+    type: t.SELECTED_STOP,
+    selected: stop
+  }
+};

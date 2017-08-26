@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import RouteSelectFieldContainer from './RouteSelectFieldContainer';
 import DirectionSelectFieldContainer from './DirectionSelectFieldContainer';
+import StopSelectFieldContainer from './StopSelectFieldContainer';
 
 import { loadRouteConfigRequest } from '../actions.js'
 
@@ -21,7 +22,7 @@ class SearchFormContainer extends React.Component {
   }
 
   handleGetStopList(directionId) {
-    console.log(directionId);
+    //console.log(directionId);
   }
 
   render() {
@@ -33,6 +34,9 @@ class SearchFormContainer extends React.Component {
         <DirectionSelectFieldContainer
           onSelect = {this.handleGetStopList}
         />
+        <StopSelectFieldContainer
+
+        />
       </div>
     );
   }
@@ -43,6 +47,7 @@ SearchFormContainer.propTypes = {
 }
 
 const mapStateToProps = (state) => {
+  // console.log(state)
   return {}
 }
 
