@@ -4,8 +4,8 @@ import AutoCompleteField from '../../core/containers/AutoCompleteField.js';
 export default function DirectionSelectField(props) {
 
   const dataStructure = {
-    text: 'text',
-    value: 'value',
+    text: 'title',
+    value: 'id',
   };
 
   return (
