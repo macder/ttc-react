@@ -14,18 +14,6 @@ class DirectionSelectFieldContainer extends React.Component {
     this.handleDirectionSelect = this.handleDirectionSelect.bind(this);
   }
 
-  componentDidMount() {
-    //console.dir(this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    //console.dir(nextProps);
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    console.log('DirectionSelectFieldContainer will update');
-  }
-
   handleDirectionSelect(value) {
     const directionId = value.id;
     this.props.action.directionSelected(directionId);
