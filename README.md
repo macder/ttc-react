@@ -1,4 +1,5 @@
 # TTC - Real-time Arrivals
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/macder/ttc-react/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/macder/ttc-react/?branch=master)
 
 **WIP**
 
