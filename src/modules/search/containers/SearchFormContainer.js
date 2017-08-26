@@ -39,8 +39,7 @@ class SearchFormContainer extends React.Component {
 }
 
 SearchFormContainer.propTypes = {
-  // data: PropTypes.object.isRequired,
-  //dispatch: PropTypes.func.isRequired,
+  action: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state) => {
