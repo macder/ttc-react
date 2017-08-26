@@ -1,75 +1,59 @@
 import "regenerator-runtime/runtime";
 
-import Immutable from 'immutable';
-import { delay } from 'redux-saga'
-import { all, call, put, select, take, takeEvery, takeLatest } from 'redux-saga/effects'
+import { all, call, put, takeEvery } from 'redux-saga/effects'
 
 import * as t from './actionTypes';
 import * as actions from './actions';
 import {httpGet} from '../../services/httpRequest';
 import {parseXML} from '../../services/parsers';
 
-
 /**
- * Worker Saga: will be fired on LOAD_ROUTE_CONFIG_REQUEST actions
+ * Worker Saga: will be fired on
+ *  LOAD_ROUTES_REQUEST and LOAD_ROUTE_CONFIG_REQUEST actions
+ * @param {object} args
  * @param {object} action - redux action
  */
-function* fetchRouteConfig(action) {
-  const routeTag = action.payload;
+function* fetch(args, action){
   try {
-    const url = 'http://webservices.nextbus.com/service/publicXMLFeed?command=routeConfig&a=ttc&r=' + routeTag;
     const options = {
       trim: true,
       mergeAttrs: true,
       explicitArray: false,
     };
 
-    const data = parseXML(yield call(httpGet, url), options).body.route;
-    yield put(actions.loadRouteConfigSuccess(data));
+    const data = parseXML(yield call(httpGet, action.url), options).body.route;
+
+    yield put(actions[args.success](data));
 
   } catch (e) {
-    yield put(actions.loadRouteConfigFailure(e));
+    yield put(actions[args.fail](e));
   }
 }
 
 /**
- * Worker Saga: will be fired on LOAD_ROUTES_REQUEST actions
- * @param {object} action - redux action
- */
-function* fetchRouteList(action) {
-  try {
-    const url = 'http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=ttc';
-    const options = {
-      trim: true,
-      mergeAttrs: true,
-      explicitArray: false,
-    };
-
-    const data = parseXML(yield call(httpGet, url), options).body.route;
-
-    yield put(actions.loadRoutesSuccess(data));
-
-  } catch (e) {
-    yield put(actions.loadRoutesFailure(e));
-  }
-}
-
-/**
- * Starts fetchRoutes on each dispatched `LOAD_ROUTES_REQUEST` action.
+ * Starts fetch on each dispatched `LOAD_ROUTES_REQUEST` action.
  * Allows concurrent fetches.
  *
  */
 function* loadRouteList() {
-  yield takeEvery(t.LOAD_ROUTES_REQUEST, fetchRouteList);
+  const args = {
+    success: 'loadRoutesSuccess',
+    fail: 'loadRoutesFailure',
+  };
+  yield takeEvery(t.LOAD_ROUTES_REQUEST, fetch, args);
 }
 
 /**
- * Starts fetchRouteConfig on each dispatched `LOAD_ROUTE_CONFIG_REQUEST` action.
+ * Starts fetch on each dispatched `LOAD_ROUTE_CONFIG_REQUEST` action.
  * Allows concurrent fetches.
  *
  */
 function* loadRouteConfig() {
-  yield takeEvery(t.LOAD_ROUTE_CONFIG_REQUEST, fetchRouteConfig);
+  const args = {
+    success: 'loadRouteConfigSuccess',
+    fail: 'loadRouteConfigFailure',
+  };
+  yield takeEvery(t.LOAD_ROUTE_CONFIG_REQUEST, fetch, args);
 }
 
 export default function* rootSaga() {

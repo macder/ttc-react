@@ -21,7 +21,8 @@ export const loadRoutesRequest = () => {
   return {
     type: t.LOAD_ROUTES_REQUEST,
     fetching: true,
-    populated: false
+    populated: false,
+    url: 'http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=ttc'
   };
 };
 
@@ -47,7 +48,8 @@ export const loadRouteConfigRequest = (routeTag) => {
   return {
     type: t.LOAD_ROUTE_CONFIG_REQUEST,
     fetching: true,
-    payload: routeTag
+    // payload: routeTag,
+    url: 'http://webservices.nextbus.com/service/publicXMLFeed?command=routeConfig&a=ttc&r=' + routeTag
   }
 };
 
