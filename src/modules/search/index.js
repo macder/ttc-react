@@ -4,5 +4,4 @@ import * as constants from './constants';
 import * as reducer from './reducer';
 import * as sagas from './sagas';
 
-
 export default { actions, containers, constants, reducer, sagas };

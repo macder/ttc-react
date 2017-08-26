@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Immutable from 'immutable';
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
@@ -9,6 +10,7 @@ import search from './modules/search';
 
 const sagaMiddleware = createSagaMiddleware();
 const SearchForm = search.containers.default.SearchFormContainer;
+// const initialState = Immutable.Map();
 
 let store = createStore(
   reducer,
@@ -16,8 +18,7 @@ let store = createStore(
   applyMiddleware(sagaMiddleware),
 );
 
-sagaMiddleware.run(search.sagas.default.loadRouteList);
-sagaMiddleware.run(search.sagas.default.loadRouteConfig);
+sagaMiddleware.run(search.sagas.default);
 
 ReactDOM.render(
   <Provider store={store} key="provider">

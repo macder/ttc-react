@@ -21,8 +21,9 @@ export const loadRoutesRequest = () => {
   return {
     type: t.LOAD_ROUTES_REQUEST,
     fetching: true,
-    populated: false
-  }
+    populated: false,
+    url: 'http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=ttc'
+  };
 };
 
 /**
@@ -41,25 +42,13 @@ export const loadRoutesSuccess = (payload) => {
 
 /**
  *
- * @param {object} route.
- * @return {object}
- */
-export const selectedRoute = (route) => {
-  return {
-    type: t.SELECTED_ROUTE,
-    selected: route
-  }
-};
-
-/**
- *
  * @return {object}
  */
 export const loadRouteConfigRequest = (routeTag) => {
   return {
     type: t.LOAD_ROUTE_CONFIG_REQUEST,
     fetching: true,
-    payload: routeTag
+    url: 'http://webservices.nextbus.com/service/publicXMLFeed?command=routeConfig&a=ttc&r=' + routeTag
   }
 };
 
@@ -84,5 +73,40 @@ export const loadRouteConfigFailure = (e) => {
     type: t.LOAD_ROUTE_CONFIG_FAILURE,
     fetching: false,
     error: e.message
+  }
+};
+
+/**
+ *
+ * @return {object}
+ */
+export const loadDirectionsRequest = () => {
+  return {
+    type: t.LOAD_DIRECTIONS_REQUEST,
+    fetching: true,
+  }
+};
+
+/**
+ *
+ * @param {object} route.
+ * @return {object}
+ */
+export const selectedRoute = (route) => {
+  return {
+    type: t.SELECTED_ROUTE,
+    selected: route
+  }
+};
+
+/**
+ *
+ * @param {object} route.
+ * @return {object}
+ */
+export const selectedDirection = (direction) => {
+  return {
+    type: t.SELECTED_DIRECTION,
+    selected: direction
   }
 };

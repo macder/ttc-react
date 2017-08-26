@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
@@ -39,4 +38,5 @@ AutoCompleteField.propTypes = {
   placeholder: PropTypes.string.isRequired,
   dataSource: PropTypes.array.isRequired,
   dataStructure: PropTypes.object.isRequired,
+  onSelected: PropTypes.func.isRequired,
 }
