@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import DirectionSelectField from '../components/DirectionSelectField';
 
 import { getDirectionList } from '../selectors'
-// import * as action from '../actions.js'
+import { selectedDirection} from '../actions.js'
 
 class DirectionSelectFieldContainer extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class DirectionSelectFieldContainer extends React.Component {
   }
 
   handleDirectionSelect(value) {
-    console.log(value);
+    this.props.action.directionSelected(value.id);
   }
 
   render() {
@@ -55,7 +56,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     action: {
-      // loadRouteConfig: bindActionCreators(loadRouteConfigRequest, dispatch)
+      directionSelected: bindActionCreators(selectedDirection, dispatch)
     }
   };
 }
