@@ -11,19 +11,11 @@ import { loadRoutesRequest, selectedRoute } from '../actions.js'
 class RouteSelectFieldContainer extends React.Component {
   constructor(props) {
     super(props);
-    console.dir(props);
     this.handleRouteSelect = this.handleRouteSelect.bind(this);
   }
 
   componentDidMount() {
     this.props.action.loadRouteList();
-  }
-
-  componentWillReceiveProps(nextProps) {
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    console.log('RouteSelectFieldContainer will update');
   }
 
   handleRouteSelect(value) {
