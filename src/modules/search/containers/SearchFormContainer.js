@@ -6,23 +6,22 @@ import PropTypes from 'prop-types';
 import RouteSelectFieldContainer from './RouteSelectFieldContainer';
 import DirectionSelectFieldContainer from './DirectionSelectFieldContainer';
 
-import * as action from '../actions.js'
+import { loadRouteConfigRequest } from '../actions.js'
 
 class SearchFormContainer extends React.Component {
 
   constructor(props) {
     super(props);
     this.handleGetRouteConfig = this.handleGetRouteConfig.bind(this);
+    this.handleGetStopList = this.handleGetStopList.bind(this);
   }
 
-  componentDidMount() {
+  handleGetRouteConfig(routeId) {
+    this.props.action.loadRouteConfig(routeId);
   }
 
-  componentWillReceiveProps(nextProps) {
-  }
-
-  handleGetRouteConfig(value) {
-    this.props.dispatch(action.loadRouteConfigRequest(value.id));
+  handleGetStopList(directionId) {
+    console.log(directionId);
   }
 
   render() {
@@ -31,19 +30,28 @@ class SearchFormContainer extends React.Component {
         <RouteSelectFieldContainer
           onSelect = {this.handleGetRouteConfig}
         />
-        <DirectionSelectFieldContainer />
+        <DirectionSelectFieldContainer
+          onSelect = {this.handleGetStopList}
+        />
       </div>
     );
   }
 }
 
 SearchFormContainer.propTypes = {
-  // data: PropTypes.object.isRequired,
-  //dispatch: PropTypes.func.isRequired,
+  action: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state) => {
   return {}
 }
 
-export default connect(mapStateToProps)(SearchFormContainer);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    action: {
+      loadRouteConfig: bindActionCreators(loadRouteConfigRequest, dispatch)
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchFormContainer);

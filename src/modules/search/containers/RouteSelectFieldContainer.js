@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import RouteSelectField from '../components/RouteSelectField';
 
-import * as action from '../actions.js'
+import { getRouteList } from '../selectors'
+import { loadRoutesRequest, selectedRoute } from '../actions.js'
 
 class RouteSelectFieldContainer extends React.Component {
   constructor(props) {
@@ -13,15 +15,13 @@ class RouteSelectFieldContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(action.loadRoutesRequest());
-  }
-
-  componentWillReceiveProps(nextProps) {
+    this.props.action.loadRouteList();
   }
 
   handleRouteSelect(value) {
-    this.props.dispatch(action.selectedRoute(value));
-    this.props.onSelect(value);
+    const routeId = value.id;
+    this.props.action.routeSelected(routeId);
+    this.props.onSelect(routeId);
   }
 
   render() {
@@ -37,15 +37,24 @@ class RouteSelectFieldContainer extends React.Component {
 }
 
 RouteSelectFieldContainer.propTypes = {
-  //state: PropTypes.object.isRequired,
-  //dispatch: PropTypes.func.isRequired,
+  action: PropTypes.object.isRequired,
+  list: PropTypes.array.isRequired,
+  onSelect: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => {
   return {
-    list: state.searchState.data.routeList.payload,
-    // state: state.searchState.routeField
+    list: getRouteList(state)
   }
 }
 
-export default connect(mapStateToProps)(RouteSelectFieldContainer);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    action: {
+      loadRouteList: bindActionCreators(loadRoutesRequest, dispatch),
+      routeSelected: bindActionCreators(selectedRoute, dispatch),
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RouteSelectFieldContainer);

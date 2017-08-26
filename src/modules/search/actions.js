@@ -41,18 +41,6 @@ export const loadRoutesSuccess = (payload) => {
 
 /**
  *
- * @param {object} route.
- * @return {object}
- */
-export const selectedRoute = (route) => {
-  return {
-    type: t.SELECTED_ROUTE,
-    selected: route
-  }
-};
-
-/**
- *
  * @return {object}
  */
 export const loadRouteConfigRequest = (routeTag) => {
@@ -98,3 +86,26 @@ export const loadDirectionsRequest = () => {
   }
 };
 
+/**
+ *
+ * @param {object} route.
+ * @return {object}
+ */
+export const selectedRoute = (route) => {
+  return {
+    type: t.SELECTED_ROUTE,
+    selected: route
+  }
+};
+
+/**
+ *
+ * @param {object} route.
+ * @return {object}
+ */
+export const selectedDirection = (direction) => {
+  return {
+    type: t.SELECTED_DIRECTION,
+    selected: direction
+  }
+};

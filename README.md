@@ -12,10 +12,11 @@ Built with [React](https://facebook.github.io/react/), [Redux](http://redux.js.o
 Coming soon
 
 ## Stack:
-**UI**
 * React
 * Redux
 * Redux-Saga
+* Reselect
+* ~~Immutable~~ WIP
 
 **Build**
 * Webpack 2

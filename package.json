@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node node_modules/.bin/webpack-dev-server",
-    "webpack": "node node_modules/webpack/bin/webpack --watch"
+    "build": "node node_modules/webpack/bin/webpack --watch",
+    "dist": "node node_modules/webpack/bin/webpack -p"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "redux": "^3.7.2",
     "redux-immutable": "^4.0.0",
     "redux-saga": "^0.15.6",
+    "reselect": "^3.0.1",
     "xml2js": "^0.4.18"
   },
   "devDependencies": {
