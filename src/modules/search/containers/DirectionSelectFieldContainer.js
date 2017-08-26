@@ -27,7 +27,9 @@ class DirectionSelectFieldContainer extends React.Component {
   }
 
   handleDirectionSelect(value) {
-    this.props.action.directionSelected(value.id);
+    const directionId = value.id;
+    this.props.action.directionSelected(directionId);
+    this.props.onSelect(directionId);
   }
 
   render() {

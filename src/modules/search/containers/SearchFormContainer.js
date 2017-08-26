@@ -14,6 +14,7 @@ class SearchFormContainer extends React.Component {
     super(props);
     // console.dir(props);
     this.handleGetRouteConfig = this.handleGetRouteConfig.bind(this);
+    this.handleGetStopList = this.handleGetStopList.bind(this);
   }
 
   componentDidMount() {
@@ -24,11 +25,16 @@ class SearchFormContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.dir(nextProps);
+    //console.dir(nextProps);
   }
 
   handleGetRouteConfig(routeId) {
     this.props.action.loadRouteConfig(routeId);
+  }
+
+  handleGetStopList(directionId) {
+    console.log(directionId);
+    // this.props.action.loadRouteConfig(routeId);
   }
 
   render() {
@@ -38,7 +44,7 @@ class SearchFormContainer extends React.Component {
           onSelect = {this.handleGetRouteConfig}
         />
         <DirectionSelectFieldContainer
-
+          onSelect = {this.handleGetStopList}
         />
       </div>
     );
@@ -51,6 +57,7 @@ SearchFormContainer.propTypes = {
 }
 
 const mapStateToProps = (state) => {
+  // console.dir(state);
   return {}
 }
 
