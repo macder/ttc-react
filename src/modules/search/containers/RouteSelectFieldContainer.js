@@ -45,8 +45,9 @@ class RouteSelectFieldContainer extends React.Component {
 }
 
 RouteSelectFieldContainer.propTypes = {
-  //state: PropTypes.object.isRequired,
-  //dispatch: PropTypes.func.isRequired,
+  action: PropTypes.object.isRequired,
+  list: PropTypes.array.isRequired,
+  onSelect: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => {
