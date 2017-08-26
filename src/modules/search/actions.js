@@ -97,3 +97,15 @@ export const selectedRoute = (route) => {
     selected: route
   }
 };
+
+/**
+ *
+ * @param {object} route.
+ * @return {object}
+ */
+export const selectedDirection = (direction) => {
+  return {
+    type: t.SELECTED_DIRECTION,
+    selected: direction
+  }
+};
