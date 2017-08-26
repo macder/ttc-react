@@ -37,6 +37,9 @@ class SearchFormContainer extends React.Component {
         <RouteSelectFieldContainer
           onSelect = {this.handleGetRouteConfig}
         />
+        <DirectionSelectFieldContainer
+
+        />
       </div>
     );
   }
