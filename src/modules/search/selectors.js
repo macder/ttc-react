@@ -2,6 +2,7 @@ import { createSelector } from 'reselect'
 
 const routeList = state => state.searchState.data.routeList.payload
 const routeConfig = state => state.searchState.data.routeConfig.payload
+const selectedDirection = state => state.searchState.directionField.selected
 
 // Get route list array for 'Route' autocomplete field
 export const getRouteList = createSelector(
@@ -31,6 +32,34 @@ export const getDirectionList = createSelector(
         return {
           id: obj.tag,
           title: obj.title,
+        }
+      });
+    }
+    return []
+  }
+);
+
+// Get stop list array for 'Stop' autocomplete field
+export const getStopList = createSelector(
+  routeConfig,
+  selectedDirection,
+  (config, directionId) => {
+    if(directionId){
+
+      const stopTags = config.direction.filter( (item) =>  {
+        return item.tag === directionId;
+      })[0].stop.map( (item) => {
+        return item.tag;
+      });
+
+      return config.stop.filter( (item) => {
+        if(stopTags.some( (e) => { return item.tag === e })){
+          return item;
+        }
+      }).map( (item) => {
+        return {
+          title: item.title,
+          id: item.tag
         }
       });
     }
