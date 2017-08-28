@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
+import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
@@ -10,11 +12,22 @@ export default class AutoCompleteField extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      input: undefined,
+    }
     this.handleUpdateInput = this.handleUpdateInput.bind(this);
   }
 
-  handleUpdateInput(value) {
+   handleClearClick() {
+    this.setState({
+       input: ''
+    })
+   }
 
+  handleUpdateInput(value) {
+    this.setState({
+      input: value
+    });
   }
 
   render() {
@@ -27,7 +40,17 @@ export default class AutoCompleteField extends React.Component {
             dataSourceConfig = {this.props.dataStructure}
             onUpdateInput={this.handleUpdateInput}
             onNewRequest={this.props.onSelected}
+            searchText={this.state.input}
           />
+        </MuiThemeProvider>
+
+        <MuiThemeProvider>
+          <IconButton
+            tooltip="Clear"
+            onClick={this.handleClearClick.bind(this)}
+          >
+            <FontIcon className="material-icons" >clear</FontIcon>
+          </IconButton>
         </MuiThemeProvider>
       </div>
     );
