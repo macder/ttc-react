@@ -58,6 +58,14 @@ const dataReducer = (state = initialState, action = {}) => {
         }),
       });
 
+    case t.LOAD_ROUTE_CONFIG_FAILURE:
+      return Object.assign({}, state, {
+        routeConfig: Object.assign({}, state.routeConfig, {
+          fetching: action.fetching,
+          error: action.error,
+        }),
+      });
+
     default:
       return state
   }
