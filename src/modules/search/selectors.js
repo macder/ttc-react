@@ -52,11 +52,17 @@ export const getStopList = createSelector(
         return item.tag;
       });
 
-      console.dir(stopTags);
-      console.dir(config.stop);
-
+      return config.stop.filter( (item) => {
+        if(stopTags.some( (e) => { return item.tag === e })){
+          return item;
+        }
+      }).map( (item) => {
+        return {
+          title: item.title,
+          id: item.tag
+        }
+      });
     }
-
-    return ['test', 'test']
+    return []
   }
 );

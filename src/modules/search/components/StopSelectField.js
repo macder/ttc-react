@@ -8,12 +8,10 @@ export default function StopSelectField(props) {
     value: 'id',
   };
 
-  const list = [];
-
   return (
     <AutoCompleteField
       placeholder = "Stop"
-      dataSource = {list}
+      dataSource = {props.list}
       dataStructure = {dataStructure}
       onSelected = {props.onSelected}
     />

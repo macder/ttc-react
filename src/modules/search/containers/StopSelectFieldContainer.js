@@ -11,20 +11,11 @@ import { selectedStop } from '../actions.js'
 class StopSelectFieldContainer extends React.Component {
   constructor(props) {
     super(props);
-    //console.dir(props);
     this.handleStopSelect = this.handleStopSelect.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    //console.dir(nextProps);
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    console.log('StopSelectFieldContainer will update');
-  }
-
   handleStopSelect(value) {
-    console.log(value);
+    // WIP - dispatch action to update state
   }
 
   render() {
