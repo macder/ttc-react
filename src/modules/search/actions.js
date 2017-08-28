@@ -122,3 +122,15 @@ export const selectedStop = (stop) => {
     selected: stop
   }
 };
+
+/**
+ *
+ * @param {object} route.
+ * @return {object}
+ */
+export const clearRoute = (route) => {
+  return {
+    type: t.CLEAR_ROUTE,
+    selected: null
+  }
+};

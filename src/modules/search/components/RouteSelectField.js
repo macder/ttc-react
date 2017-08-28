@@ -14,6 +14,7 @@ export default function RouteSelectField(props) {
       dataSource = {props.list}
       dataStructure = {dataStructure}
       onSelected = {props.onSelected}
+      onClear = {props.onClear}
     />
   );
 }

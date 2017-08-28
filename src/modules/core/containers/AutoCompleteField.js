@@ -22,6 +22,7 @@ export default class AutoCompleteField extends React.Component {
     this.setState({
        input: ''
     })
+    this.props.onClear();
    }
 
   handleUpdateInput(value) {

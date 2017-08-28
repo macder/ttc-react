@@ -11,6 +11,11 @@ const routeFieldReducer = (state = initialState, action = {}) => {
         selected: action.selected
       });
 
+    case t.CLEAR_ROUTE:
+      return Object.assign({}, state, {
+        selected: action.selected
+      });
+
     default:
       return state
   }
