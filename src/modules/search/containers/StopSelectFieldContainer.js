@@ -15,7 +15,7 @@ class StopSelectFieldContainer extends React.Component {
   }
 
   handleStopSelect(value) {
-    // WIP - dispatch action to update state
+    this.props.action.stopSelected(value.id);
   }
 
   render() {
