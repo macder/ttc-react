@@ -155,6 +155,20 @@ export const inputDirection = (input) => {
 export const clearRoute = (route) => {
   return {
     type: t.CLEAR_ROUTE,
-    selected: null
+    selected: null,
+    input: null
+  }
+};
+
+/**
+ *
+ * @param {object} route.
+ * @return {object}
+ */
+export const clearDirection = (direction) => {
+  return {
+    type: t.CLEAR_DIRECTION,
+    selected: null,
+    input: null
   }
 };
