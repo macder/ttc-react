@@ -14,11 +14,9 @@ const directionFieldReducer = (state = initialState, action = {}) => {
       });
 
     case t.CLEAR_ROUTE:
-      // console.log('direction reducer');
-      // return state;
       return Object.assign({}, state, {
         selected: null,
-        input: '',
+        input: null,
       });
 
     case t.INPUT_DIRECTION:

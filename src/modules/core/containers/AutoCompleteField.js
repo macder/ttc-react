@@ -18,20 +18,8 @@ export default class AutoCompleteField extends React.Component {
     this.handleUpdateInput = this.handleUpdateInput.bind(this);
   }
 
-  /**
-   * render
-   *
-   */
   componentWillReceiveProps(nextProps) {
-    console.log('AutoComplete', nextProps)
-    /*this.setState({
-       input: nextProps.input
-    })*/
     if(!nextProps.input){
-      //this.handleClearClick();
-      // this.props.onClear();
-
-      // console.log('clear dir')
       this.setState({
          input: ''
       })
