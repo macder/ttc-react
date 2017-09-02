@@ -28,6 +28,7 @@ class SearchFormContainer extends React.Component {
   render() {
     return (
       <div>
+      <form>
         <RouteSelectFieldContainer
           onSelect = {this.handleGetRouteConfig}
         />
@@ -37,6 +38,7 @@ class SearchFormContainer extends React.Component {
         <StopSelectFieldContainer
 
         />
+        </form>
       </div>
     );
   }
@@ -47,7 +49,7 @@ SearchFormContainer.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-  // console.log(state)
+  console.dir(state.searchState)
   return {}
 }
 

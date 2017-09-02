@@ -13,9 +13,29 @@ export default class AutoCompleteField extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: undefined,
+      input: '',
     }
     this.handleUpdateInput = this.handleUpdateInput.bind(this);
+  }
+
+  /**
+   * render
+   *
+   */
+  componentWillReceiveProps(nextProps) {
+    console.log('AutoComplete', nextProps)
+    /*this.setState({
+       input: nextProps.input
+    })*/
+    if(!nextProps.input){
+      //this.handleClearClick();
+      // this.props.onClear();
+
+      // console.log('clear dir')
+      this.setState({
+         input: ''
+      })
+    }
   }
 
    handleClearClick() {
@@ -29,6 +49,7 @@ export default class AutoCompleteField extends React.Component {
     this.setState({
       input: value
     });
+    this.props.onInput(value);
   }
 
   render() {
@@ -42,6 +63,9 @@ export default class AutoCompleteField extends React.Component {
             onUpdateInput={this.handleUpdateInput}
             onNewRequest={this.props.onSelected}
             searchText={this.state.input}
+            openOnFocus={true}
+            maxSearchResults={10}
+            filter={AutoComplete.caseInsensitiveFilter}
           />
         </MuiThemeProvider>
 

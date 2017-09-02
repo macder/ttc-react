@@ -17,3 +17,6 @@ export const SELECTED_STOP = 'search/SELECTED_STOP';
 export const CLEAR_ROUTE = 'search/CLEAR_ROUTE';
 export const CLEAR_DIRECTION = 'search/CLEAR_DIRECTION';
 export const CLEAR_STOP = 'search/CLEAR_STOP';
+
+export const INPUT_ROUTE = 'search/INPUT_ROUTE';
+export const INPUT_DIRECTION = 'search/INPUT_DIRECTION';

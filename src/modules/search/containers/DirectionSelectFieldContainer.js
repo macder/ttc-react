@@ -6,12 +6,28 @@ import {bindActionCreators} from 'redux';
 import DirectionSelectField from '../components/DirectionSelectField';
 
 import { getDirectionList } from '../selectors'
-import { selectedDirection} from '../actions.js'
+import { selectedDirection, inputDirection } from '../actions.js'
 
 class DirectionSelectFieldContainer extends React.Component {
   constructor(props) {
     super(props);
     this.handleDirectionSelect = this.handleDirectionSelect.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // console.dir(nextProps);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('directions will update');
+    if(!nextProps.selected) {
+
+    }
+  }
+
+  handleInput(input) {
+    this.props.action.directionInput(input);
   }
 
   handleDirectionSelect(value) {
@@ -26,6 +42,9 @@ class DirectionSelectFieldContainer extends React.Component {
         <DirectionSelectField
           list = {this.props.list}
           onSelected = {this.handleDirectionSelect}
+          inputSelected = {this.props.inputSelected}
+          onInput = {this.handleInput}
+          input = {this.props.input}
         />
       </div>
     );
@@ -40,6 +59,8 @@ DirectionSelectFieldContainer.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    inputSelected: (state.searchState.directionField.selected) ? true : false,
+    input: (state.searchState.directionField.input) ? true : false,
     list: getDirectionList(state),
   };
 }
@@ -47,7 +68,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     action: {
-      directionSelected: bindActionCreators(selectedDirection, dispatch)
+      directionSelected: bindActionCreators(selectedDirection, dispatch),
+      directionInput: bindActionCreators(inputDirection, dispatch)
     }
   };
 }

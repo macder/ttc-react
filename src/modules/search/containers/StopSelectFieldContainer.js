@@ -14,6 +14,10 @@ class StopSelectFieldContainer extends React.Component {
     this.handleStopSelect = this.handleStopSelect.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    // console.dir(nextProps);
+  }
+
   handleStopSelect(value) {
     this.props.action.stopSelected(value.id);
   }

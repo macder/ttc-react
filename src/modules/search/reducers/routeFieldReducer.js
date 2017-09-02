@@ -1,7 +1,10 @@
 import * as t from '../actionTypes.js';
 
 const initialState = {
-  selected: null
+  selected: null,
+  visible: false,
+  input: null
+  // hasData: false,
 };
 
 const routeFieldReducer = (state = initialState, action = {}) => {
@@ -13,7 +16,13 @@ const routeFieldReducer = (state = initialState, action = {}) => {
 
     case t.CLEAR_ROUTE:
       return Object.assign({}, state, {
-        selected: action.selected
+        selected: action.selected,
+        input: null
+      });
+
+    case t.INPUT_ROUTE:
+      return Object.assign({}, state, {
+        input: action.input
       });
 
     default:

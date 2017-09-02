@@ -125,6 +125,30 @@ export const selectedStop = (stop) => {
 
 /**
  *
+ * @param {string} input.
+ * @return {object}
+ */
+export const inputRoute = (input) => {
+  return {
+    type: t.INPUT_ROUTE,
+    input
+  }
+};
+
+/**
+ *
+ * @param {string} input.
+ * @return {object}
+ */
+export const inputDirection = (input) => {
+  return {
+    type: t.INPUT_DIRECTION,
+    input
+  }
+};
+
+/**
+ *
  * @param {object} route.
  * @return {object}
  */

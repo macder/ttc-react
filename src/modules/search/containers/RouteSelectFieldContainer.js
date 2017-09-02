@@ -6,13 +6,14 @@ import {bindActionCreators} from 'redux';
 import RouteSelectField from '../components/RouteSelectField';
 
 import { getRouteList } from '../selectors'
-import { loadRoutesRequest, selectedRoute, clearRoute } from '../actions.js'
+import { loadRoutesRequest, selectedRoute, clearRoute, inputRoute } from '../actions.js'
 
 class RouteSelectFieldContainer extends React.Component {
   constructor(props) {
     super(props);
     this.handleRouteSelect = this.handleRouteSelect.bind(this);
     this.handleClear = this.handleClear.bind(this);
+    this.handleInput = this.handleInput.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +32,10 @@ class RouteSelectFieldContainer extends React.Component {
     this.props.action.routeCleared();
   }
 
+  handleInput(input) {
+    this.props.action.routeInput(input);
+  }
+
   render() {
     return (
       <div>
@@ -38,6 +43,7 @@ class RouteSelectFieldContainer extends React.Component {
           list = {this.props.list}
           onSelected = {this.handleRouteSelect}
           onClear = {this.handleClear}
+          onInput = {this.handleInput}
         />
       </div>
     );
@@ -62,6 +68,7 @@ const mapDispatchToProps = (dispatch) => {
       loadRouteList: bindActionCreators(loadRoutesRequest, dispatch),
       routeSelected: bindActionCreators(selectedRoute, dispatch),
       routeCleared: bindActionCreators(clearRoute, dispatch),
+      routeInput: bindActionCreators(inputRoute, dispatch),
     }
   };
 }
