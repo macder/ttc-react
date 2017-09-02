@@ -49,7 +49,6 @@ SearchFormContainer.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-  console.dir(state.searchState)
   return {}
 }
 
