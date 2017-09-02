@@ -28,7 +28,6 @@ class RouteSelectFieldContainer extends React.Component {
 
   handleClear() {
     // dispatch action to clear selected
-    console.log('clear route');
     this.props.action.routeCleared();
   }
 
