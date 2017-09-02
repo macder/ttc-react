@@ -6,13 +6,19 @@ import {bindActionCreators} from 'redux';
 import DirectionSelectField from '../components/DirectionSelectField';
 
 import { getDirectionList } from '../selectors'
-import { selectedDirection, inputDirection } from '../actions.js'
+import { selectedDirection, inputDirection, clearDirection } from '../actions.js'
 
 class DirectionSelectFieldContainer extends React.Component {
   constructor(props) {
     super(props);
     this.handleDirectionSelect = this.handleDirectionSelect.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.handleClear = this.handleClear.bind(this);
+  }
+
+  handleClear() {
+    // dispatch action to clear selected
+    this.props.action.directionCleared();
   }
 
   handleInput(input) {
@@ -58,7 +64,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     action: {
       directionSelected: bindActionCreators(selectedDirection, dispatch),
-      directionInput: bindActionCreators(inputDirection, dispatch)
+      directionInput: bindActionCreators(inputDirection, dispatch),
+      directionCleared: bindActionCreators(clearDirection, dispatch)
     }
   };
 }
