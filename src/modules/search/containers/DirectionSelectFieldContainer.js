@@ -28,7 +28,7 @@ class DirectionSelectFieldContainer extends React.Component {
   handleDirectionSelect(value) {
     const directionId = value.id;
     this.props.action.directionSelected(directionId);
-    this.props.onSelect(directionId);
+    //this.props.onSelect(directionId);
   }
 
   render() {
@@ -49,7 +49,7 @@ class DirectionSelectFieldContainer extends React.Component {
 DirectionSelectFieldContainer.propTypes = {
   action: PropTypes.object.isRequired,
   list: PropTypes.array.isRequired,
-  onSelect: PropTypes.func.isRequired,
+  //onSelect: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => {

@@ -14,15 +14,10 @@ class SearchFormContainer extends React.Component {
   constructor(props) {
     super(props);
     this.handleGetRouteConfig = this.handleGetRouteConfig.bind(this);
-    this.handleGetStopList = this.handleGetStopList.bind(this);
   }
 
   handleGetRouteConfig(routeId) {
     this.props.action.loadRouteConfig(routeId);
-  }
-
-  handleGetStopList(directionId) {
-    //console.log(directionId);
   }
 
   render() {
@@ -32,12 +27,8 @@ class SearchFormContainer extends React.Component {
         <RouteSelectFieldContainer
           onSelect = {this.handleGetRouteConfig}
         />
-        <DirectionSelectFieldContainer
-          onSelect = {this.handleGetStopList}
-        />
-        <StopSelectFieldContainer
-
-        />
+        <DirectionSelectFieldContainer />
+        <StopSelectFieldContainer />
         </form>
       </div>
     );
