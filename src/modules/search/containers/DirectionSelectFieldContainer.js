@@ -11,8 +11,6 @@ import { selectedDirection, inputDirection, clearDirection } from '../actions.js
 class DirectionSelectFieldContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.handleDirectionSelect = this.handleDirectionSelect.bind(this);
-    this.handleInput = this.handleInput.bind(this);
     this.handleClear = this.handleClear.bind(this);
   }
 
@@ -36,9 +34,9 @@ class DirectionSelectFieldContainer extends React.Component {
       <div>
         <DirectionSelectField
           list = {this.props.list}
-          onSelected = {this.handleDirectionSelect}
+          onSelected = {this.handleDirectionSelect.bind(this)}
           inputSelected = {this.props.inputSelected}
-          onInput = {this.handleInput}
+          onInput = {this.handleInput.bind(this)}
           input = {this.props.input}
         />
       </div>

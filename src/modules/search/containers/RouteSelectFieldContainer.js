@@ -11,9 +11,6 @@ import { loadRoutesRequest, selectedRoute, clearRoute, inputRoute } from '../act
 class RouteSelectFieldContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.handleRouteSelect = this.handleRouteSelect.bind(this);
-    this.handleClear = this.handleClear.bind(this);
-    this.handleInput = this.handleInput.bind(this);
   }
 
   componentDidMount() {
@@ -40,9 +37,9 @@ class RouteSelectFieldContainer extends React.Component {
       <div>
         <RouteSelectField
           list = {this.props.list}
-          onSelected = {this.handleRouteSelect}
-          onClear = {this.handleClear}
-          onInput = {this.handleInput}
+          onSelected = {this.handleRouteSelect.bind(this)}
+          onClear = {this.handleClear.bind(this)}
+          onInput = {this.handleInput.bind(this)}
         />
       </div>
     );

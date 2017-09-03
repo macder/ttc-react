@@ -13,7 +13,6 @@ class SearchFormContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    this.handleGetRouteConfig = this.handleGetRouteConfig.bind(this);
   }
 
   handleGetRouteConfig(routeId) {
@@ -25,7 +24,7 @@ class SearchFormContainer extends React.Component {
       <div>
       <form>
         <RouteSelectFieldContainer
-          onSelect = {this.handleGetRouteConfig}
+          onSelect = {this.handleGetRouteConfig.bind(this)}
         />
         <DirectionSelectFieldContainer />
         <StopSelectFieldContainer />

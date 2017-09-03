@@ -11,7 +11,6 @@ import { selectedStop } from '../actions.js'
 class StopSelectFieldContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.handleStopSelect = this.handleStopSelect.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -27,7 +26,7 @@ class StopSelectFieldContainer extends React.Component {
       <div>
         <StopSelectField
           list = {this.props.list}
-          onSelected = {this.handleStopSelect}
+          onSelected = {this.handleStopSelect.bind(this)}
         />
       </div>
     );
