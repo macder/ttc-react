@@ -16,6 +16,7 @@ export default function DirectionSelectField(props) {
       onSelected = {props.onSelected}
       inputSelected = {props.inputSelected}
       onUpdateInput = {props.onUpdateInput}
+      onClear = {props.onClear}
       input = {props.input}
     />
   );
