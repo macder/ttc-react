@@ -52,6 +52,7 @@ export default class AutoCompleteField extends React.Component {
             onNewRequest={this.props.onSelected}
             searchText={this.state.input}
             openOnFocus={true}
+            fullWidth={true}
             maxSearchResults={10}
             filter={AutoComplete.caseInsensitiveFilter}
           />
