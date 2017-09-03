@@ -5,6 +5,8 @@ import AutoComplete from 'material-ui/AutoComplete';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 
+import LoadingSpinner from '../components/LoadingSpinner';
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
@@ -70,7 +72,7 @@ export default class AutoCompleteField extends React.Component {
     }
 
     return (
-      <div>loading...{this.props.placeholder}</div>
+      <LoadingSpinner />
     );
 
   }
