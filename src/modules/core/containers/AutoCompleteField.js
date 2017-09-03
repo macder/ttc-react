@@ -49,6 +49,10 @@ export default class AutoCompleteField extends React.Component {
         marginTop: 24,
       }
 
+      const iconStyle = {
+        color: '#ccc'
+      }
+
       return (
         <div>
           <AutoComplete
@@ -67,6 +71,7 @@ export default class AutoCompleteField extends React.Component {
           <IconButton
             tooltip="Clear"
             onClick={this.handleClearClick.bind(this)}
+            iconStyle={iconStyle}
             style={clearButtonStyle}
           >
             <FontIcon className="material-icons" >clear</FontIcon>
