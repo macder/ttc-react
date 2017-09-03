@@ -15,7 +15,6 @@ export default class AutoCompleteField extends React.Component {
     this.state = {
       input: '',
     }
-    this.handleUpdateInput = this.handleUpdateInput.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -48,7 +47,7 @@ export default class AutoCompleteField extends React.Component {
             floatingLabelText = {this.props.placeholder}
             dataSource = {this.props.dataSource}
             dataSourceConfig = {this.props.dataStructure}
-            onUpdateInput={this.handleUpdateInput}
+            onUpdateInput={this.handleUpdateInput.bind(this)}
             onNewRequest={this.props.onSelected}
             searchText={this.state.input}
             openOnFocus={true}
