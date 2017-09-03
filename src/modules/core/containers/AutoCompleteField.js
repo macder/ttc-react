@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 import FontIcon from 'material-ui/FontIcon';
@@ -43,30 +42,39 @@ export default class AutoCompleteField extends React.Component {
 
   render() {
     if(this.props.dataSource.length > 0) {
+
+      const clearButtonStyle = {
+        position: 'absolute',
+        margin: '24px -32px 0px',
+      }
+
+      const iconStyle = {
+        color: '#ccc'
+      }
+
       return (
         <div>
-          <MuiThemeProvider>
-            <AutoComplete
-              floatingLabelText = {this.props.placeholder}
-              dataSource = {this.props.dataSource}
-              dataSourceConfig = {this.props.dataStructure}
-              onUpdateInput={this.handleUpdateInput.bind(this)}
-              onNewRequest={this.props.onSelected}
-              searchText={this.state.input}
-              openOnFocus={true}
-              maxSearchResults={10}
-              filter={AutoComplete.caseInsensitiveFilter}
-            />
-          </MuiThemeProvider>
+          <AutoComplete
+            floatingLabelText = {this.props.placeholder}
+            dataSource = {this.props.dataSource}
+            dataSourceConfig = {this.props.dataStructure}
+            onUpdateInput={this.handleUpdateInput.bind(this)}
+            onNewRequest={this.props.onSelected}
+            searchText={this.state.input}
+            openOnFocus={true}
+            fullWidth={true}
+            maxSearchResults={10}
+            filter={AutoComplete.caseInsensitiveFilter}
+          />
 
-          <MuiThemeProvider>
-            <IconButton
-              tooltip="Clear"
-              onClick={this.handleClearClick.bind(this)}
-            >
-              <FontIcon className="material-icons" >clear</FontIcon>
-            </IconButton>
-          </MuiThemeProvider>
+          <IconButton
+            tooltip="Clear"
+            onClick={this.handleClearClick.bind(this)}
+            iconStyle={iconStyle}
+            style={clearButtonStyle}
+          >
+            <FontIcon className="material-icons" >clear</FontIcon>
+          </IconButton>
         </div>
       );
     }
