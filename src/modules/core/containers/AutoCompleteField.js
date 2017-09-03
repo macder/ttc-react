@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 import FontIcon from 'material-ui/FontIcon';
@@ -45,7 +44,7 @@ export default class AutoCompleteField extends React.Component {
     if(this.props.dataSource.length > 0) {
       return (
         <div>
-          <MuiThemeProvider>
+
             <AutoComplete
               floatingLabelText = {this.props.placeholder}
               dataSource = {this.props.dataSource}
@@ -57,16 +56,14 @@ export default class AutoCompleteField extends React.Component {
               maxSearchResults={10}
               filter={AutoComplete.caseInsensitiveFilter}
             />
-          </MuiThemeProvider>
 
-          <MuiThemeProvider>
             <IconButton
               tooltip="Clear"
               onClick={this.handleClearClick.bind(this)}
             >
               <FontIcon className="material-icons" >clear</FontIcon>
             </IconButton>
-          </MuiThemeProvider>
+
         </div>
       );
     }
