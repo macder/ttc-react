@@ -1,7 +1,9 @@
 import * as t from '../actionTypes.js';
 
 const initialState = {
-  selected: null
+  selected: null,
+  visible: false,
+  input: null
 };
 
 const stopFieldReducer = (state = initialState, action = {}) => {
