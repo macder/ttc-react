@@ -53,6 +53,7 @@ const mapStateToProps = (state) => {
     inputSelected: (state.searchState.directionField.selected) ? true : false,
     input: (state.searchState.directionField.input) ? true : false,
     list: getDirectionList(state),
+    visible: state.searchState.directionField.visible,
   };
 }
 
