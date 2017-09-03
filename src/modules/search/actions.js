@@ -122,3 +122,78 @@ export const selectedStop = (stop) => {
     selected: stop
   }
 };
+
+/**
+ *
+ * @param {string} input.
+ * @return {object}
+ */
+export const inputRoute = (input) => {
+  return {
+    type: t.INPUT_ROUTE,
+    input
+  }
+};
+
+/**
+ *
+ * @param {string} input.
+ * @return {object}
+ */
+export const inputDirection = (input) => {
+  return {
+    type: t.INPUT_DIRECTION,
+    input
+  }
+};
+
+/**
+ *
+ * @param {string} input.
+ * @return {object}
+ */
+export const inputStop = (input) => {
+  return {
+    type: t.INPUT_STOP,
+    input
+  }
+};
+
+/**
+ *
+ * @param {object} route.
+ * @return {object}
+ */
+export const clearRoute = (route) => {
+  return {
+    type: t.CLEAR_ROUTE,
+    selected: null,
+    input: null
+  }
+};
+
+/**
+ *
+ * @param {object} route.
+ * @return {object}
+ */
+export const clearDirection = (direction) => {
+  return {
+    type: t.CLEAR_DIRECTION,
+    selected: null,
+    input: null
+  }
+};
+
+/**
+ *
+ * @param {object} route.
+ * @return {object}
+ */
+export const clearStop = (stop) => {
+  return {
+    type: t.CLEAR_STOP,
+    selected: null,
+    input: null
+  }
+};

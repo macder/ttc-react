@@ -14,6 +14,10 @@ export default function StopSelectField(props) {
       dataSource = {props.list}
       dataStructure = {dataStructure}
       onSelected = {props.onSelected}
+      inputSelected = {props.inputSelected}
+      onUpdateInput = {props.onUpdateInput}
+      onClear = {props.onClear}
+      input = {props.input}
     />
   );
 }
