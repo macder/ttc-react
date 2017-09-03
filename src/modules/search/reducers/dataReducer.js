@@ -16,6 +16,14 @@ const initialState = {
 const dataReducer = (state = initialState, action = {}) => {
   switch (action.type) {
 
+    case t.CLEAR_ROUTE:
+      return Object.assign({}, state, {
+        routeConfig: Object.assign({}, state.routeConfig, {
+          fetching: false,
+          payload: {},
+        }),
+      });
+
     case t.LOAD_ROUTES_FAILURE:
       return Object.assign({}, state, {
         routeList: Object.assign({}, state.routeList, {

@@ -6,9 +6,9 @@ const initialState = {
   input: null
 };
 
-const directionFieldReducer = (state = initialState, action = {}) => {
+const stopFieldReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case t.SELECTED_DIRECTION:
+    case t.SELECTED_STOP:
       return Object.assign({}, state, {
         selected: action.selected
       });
@@ -25,7 +25,13 @@ const directionFieldReducer = (state = initialState, action = {}) => {
         input: action.input,
       });
 
-    case t.INPUT_DIRECTION:
+    case t.CLEAR_STOP:
+      return Object.assign({}, state, {
+        selected: action.selected,
+        input: action.input,
+      });
+
+    case t.INPUT_STOP:
       return Object.assign({}, state, {
         input: action.input
       });
@@ -35,4 +41,4 @@ const directionFieldReducer = (state = initialState, action = {}) => {
   }
 };
 
-export default (directionFieldReducer);
+export default (stopFieldReducer);
