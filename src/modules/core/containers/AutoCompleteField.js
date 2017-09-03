@@ -40,32 +40,41 @@ export default class AutoCompleteField extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <MuiThemeProvider>
-          <AutoComplete
-            floatingLabelText = {this.props.placeholder}
-            dataSource = {this.props.dataSource}
-            dataSourceConfig = {this.props.dataStructure}
-            onUpdateInput={this.handleUpdateInput.bind(this)}
-            onNewRequest={this.props.onSelected}
-            searchText={this.state.input}
-            openOnFocus={true}
-            maxSearchResults={10}
-            filter={AutoComplete.caseInsensitiveFilter}
-          />
-        </MuiThemeProvider>
+    console.dir(this.props.dataSource.length);
 
-        <MuiThemeProvider>
-          <IconButton
-            tooltip="Clear"
-            onClick={this.handleClearClick.bind(this)}
-          >
-            <FontIcon className="material-icons" >clear</FontIcon>
-          </IconButton>
-        </MuiThemeProvider>
-      </div>
+    if(this.props.dataSource.length > 0) {
+      return (
+        <div>
+          <MuiThemeProvider>
+            <AutoComplete
+              floatingLabelText = {this.props.placeholder}
+              dataSource = {this.props.dataSource}
+              dataSourceConfig = {this.props.dataStructure}
+              onUpdateInput={this.handleUpdateInput.bind(this)}
+              onNewRequest={this.props.onSelected}
+              searchText={this.state.input}
+              openOnFocus={true}
+              maxSearchResults={10}
+              filter={AutoComplete.caseInsensitiveFilter}
+            />
+          </MuiThemeProvider>
+
+          <MuiThemeProvider>
+            <IconButton
+              tooltip="Clear"
+              onClick={this.handleClearClick.bind(this)}
+            >
+              <FontIcon className="material-icons" >clear</FontIcon>
+            </IconButton>
+          </MuiThemeProvider>
+        </div>
+      );
+    }
+
+    return (
+      <div>loading...{this.props.placeholder}</div>
     );
+
   }
 }
 

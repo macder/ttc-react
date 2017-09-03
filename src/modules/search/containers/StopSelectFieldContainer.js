@@ -36,6 +36,7 @@ class StopSelectFieldContainer extends React.Component {
           onUpdateInput = {this.handleUpdateInput.bind(this)}
           onClear = {this.handleClear.bind(this)}
           input = {this.props.input}
+          isVisible = {this.props.visible}
         />
       </div>
     );
@@ -51,6 +52,7 @@ const mapStateToProps = (state) => {
     inputSelected: (state.searchState.stopField.selected) ? true : false,
     input: (state.searchState.stopField.input) ? true : false,
     list: getStopList(state),
+    visible: state.searchState.stopField.visible,
   };
 }
 
