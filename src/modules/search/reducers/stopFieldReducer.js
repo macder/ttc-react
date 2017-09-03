@@ -8,6 +8,11 @@ const initialState = {
 
 const stopFieldReducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case t.SELECTED_DIRECTION:
+      return Object.assign({}, state, {
+        visible: true,
+      });
+
     case t.SELECTED_STOP:
       return Object.assign({}, state, {
         selected: action.selected
@@ -17,12 +22,14 @@ const stopFieldReducer = (state = initialState, action = {}) => {
       return Object.assign({}, state, {
         selected: action.selected,
         input: action.input,
+        visible: false,
       });
 
     case t.CLEAR_DIRECTION:
       return Object.assign({}, state, {
         selected: action.selected,
         input: action.input,
+        visible: false,
       });
 
     case t.CLEAR_STOP:

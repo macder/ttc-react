@@ -8,16 +8,19 @@ export default function StopSelectField(props) {
     value: 'id',
   };
 
-  return (
-    <AutoCompleteField
-      placeholder = "Stop"
-      dataSource = {props.list}
-      dataStructure = {dataStructure}
-      onSelected = {props.onSelected}
-      inputSelected = {props.inputSelected}
-      onUpdateInput = {props.onUpdateInput}
-      onClear = {props.onClear}
-      input = {props.input}
-    />
-  );
+  if (props.isVisible) {
+    return (
+      <AutoCompleteField
+        placeholder = "Stop"
+        dataSource = {props.list}
+        dataStructure = {dataStructure}
+        onSelected = {props.onSelected}
+        inputSelected = {props.inputSelected}
+        onUpdateInput = {props.onUpdateInput}
+        onClear = {props.onClear}
+        input = {props.input}
+      />
+    );
+  }
+  return null;
 }
