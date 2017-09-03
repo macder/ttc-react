@@ -44,26 +44,24 @@ export default class AutoCompleteField extends React.Component {
     if(this.props.dataSource.length > 0) {
       return (
         <div>
+          <AutoComplete
+            floatingLabelText = {this.props.placeholder}
+            dataSource = {this.props.dataSource}
+            dataSourceConfig = {this.props.dataStructure}
+            onUpdateInput={this.handleUpdateInput.bind(this)}
+            onNewRequest={this.props.onSelected}
+            searchText={this.state.input}
+            openOnFocus={true}
+            maxSearchResults={10}
+            filter={AutoComplete.caseInsensitiveFilter}
+          />
 
-            <AutoComplete
-              floatingLabelText = {this.props.placeholder}
-              dataSource = {this.props.dataSource}
-              dataSourceConfig = {this.props.dataStructure}
-              onUpdateInput={this.handleUpdateInput.bind(this)}
-              onNewRequest={this.props.onSelected}
-              searchText={this.state.input}
-              openOnFocus={true}
-              maxSearchResults={10}
-              filter={AutoComplete.caseInsensitiveFilter}
-            />
-
-            <IconButton
-              tooltip="Clear"
-              onClick={this.handleClearClick.bind(this)}
-            >
-              <FontIcon className="material-icons" >clear</FontIcon>
-            </IconButton>
-
+          <IconButton
+            tooltip="Clear"
+            onClick={this.handleClearClick.bind(this)}
+          >
+            <FontIcon className="material-icons" >clear</FontIcon>
+          </IconButton>
         </div>
       );
     }
