@@ -63,8 +63,8 @@ export default class AutoCompleteField extends React.Component {
             searchText={this.state.input}
             openOnFocus={true}
             fullWidth={true}
-            maxSearchResults={10}
             filter={AutoComplete.caseInsensitiveFilter}
+            listStyle={{ maxHeight: 200, overflow: 'auto' }}
           />
 
           <IconButton
