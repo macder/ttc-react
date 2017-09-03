@@ -15,7 +15,7 @@ export default function DirectionSelectField(props) {
       dataStructure = {dataStructure}
       onSelected = {props.onSelected}
       inputSelected = {props.inputSelected}
-      onInput = {props.onInput}
+      onUpdateInput = {props.onUpdateInput}
       input = {props.input}
     />
   );

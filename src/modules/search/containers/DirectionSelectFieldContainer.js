@@ -19,7 +19,7 @@ class DirectionSelectFieldContainer extends React.Component {
     this.props.action.directionCleared();
   }
 
-  handleInput(input) {
+  handleUpdateInput(input) {
     this.props.action.directionInput(input);
   }
 
@@ -36,7 +36,7 @@ class DirectionSelectFieldContainer extends React.Component {
           list = {this.props.list}
           onSelected = {this.handleDirectionSelect.bind(this)}
           inputSelected = {this.props.inputSelected}
-          onInput = {this.handleInput.bind(this)}
+          onUpdateInput = {this.handleUpdateInput.bind(this)}
           input = {this.props.input}
         />
       </div>
