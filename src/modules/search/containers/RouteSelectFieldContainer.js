@@ -28,7 +28,7 @@ class RouteSelectFieldContainer extends React.Component {
     this.props.action.routeCleared();
   }
 
-  handleInput(input) {
+  handleUpdateInput(input) {
     this.props.action.routeInput(input);
   }
 
@@ -39,7 +39,7 @@ class RouteSelectFieldContainer extends React.Component {
           list = {this.props.list}
           onSelected = {this.handleRouteSelect.bind(this)}
           onClear = {this.handleClear.bind(this)}
-          onInput = {this.handleInput.bind(this)}
+          onUpdateInput = {this.handleUpdateInput.bind(this)}
         />
       </div>
     );

@@ -37,7 +37,7 @@ export default class AutoCompleteField extends React.Component {
     this.setState({
       input: value
     });
-    this.props.onInput(value);
+    this.props.onUpdateInput(value);
   }
 
   render() {
