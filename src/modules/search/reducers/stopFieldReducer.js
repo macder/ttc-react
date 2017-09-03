@@ -13,6 +13,29 @@ const stopFieldReducer = (state = initialState, action = {}) => {
         selected: action.selected
       });
 
+    case t.CLEAR_ROUTE:
+      return Object.assign({}, state, {
+        selected: action.selected,
+        input: action.input,
+      });
+
+    case t.CLEAR_DIRECTION:
+      return Object.assign({}, state, {
+        selected: action.selected,
+        input: action.input,
+      });
+
+    case t.CLEAR_STOP:
+      return Object.assign({}, state, {
+        selected: action.selected,
+        input: action.input,
+      });
+
+    case t.INPUT_STOP:
+      return Object.assign({}, state, {
+        input: action.input
+      });
+
     default:
       return state
   }

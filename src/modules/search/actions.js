@@ -184,3 +184,16 @@ export const clearDirection = (direction) => {
     input: null
   }
 };
+
+/**
+ *
+ * @param {object} route.
+ * @return {object}
+ */
+export const clearStop = (stop) => {
+  return {
+    type: t.CLEAR_STOP,
+    selected: null,
+    input: null
+  }
+};
