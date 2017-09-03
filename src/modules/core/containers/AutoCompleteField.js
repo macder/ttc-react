@@ -45,8 +45,7 @@ export default class AutoCompleteField extends React.Component {
 
       const clearButtonStyle = {
         position: 'absolute',
-        right: 0,
-        marginTop: 24,
+        margin: '24px -32px 0px',
       }
 
       const iconStyle = {
