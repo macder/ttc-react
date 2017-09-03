@@ -40,8 +40,6 @@ export default class AutoCompleteField extends React.Component {
   }
 
   render() {
-    console.dir(this.props.dataSource.length);
-
     if(this.props.dataSource.length > 0) {
       return (
         <div>

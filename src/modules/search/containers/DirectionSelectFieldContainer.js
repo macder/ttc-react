@@ -13,10 +13,6 @@ class DirectionSelectFieldContainer extends React.Component {
     super(props);
   }
 
-  componentWillUpdate() {
-    console.log('direction update');
-  }
-
   handleClear() {
     // dispatch action to clear selected
     this.props.action.directionCleared();
