@@ -149,6 +149,18 @@ export const inputDirection = (input) => {
 
 /**
  *
+ * @param {string} input.
+ * @return {object}
+ */
+export const inputStop = (input) => {
+  return {
+    type: t.INPUT_STOP,
+    input
+  }
+};
+
+/**
+ *
  * @param {object} route.
  * @return {object}
  */

@@ -20,3 +20,4 @@ export const CLEAR_STOP = 'search/CLEAR_STOP';
 
 export const INPUT_ROUTE = 'search/INPUT_ROUTE';
 export const INPUT_DIRECTION = 'search/INPUT_DIRECTION';
+export const INPUT_STOP = 'search/INPUT_STOP';
