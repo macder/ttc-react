@@ -5,6 +5,8 @@ import AutoComplete from 'material-ui/AutoComplete';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 
+import LoadingSpinner from '../components/LoadingSpinner';
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
@@ -40,32 +42,39 @@ export default class AutoCompleteField extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <MuiThemeProvider>
-          <AutoComplete
-            floatingLabelText = {this.props.placeholder}
-            dataSource = {this.props.dataSource}
-            dataSourceConfig = {this.props.dataStructure}
-            onUpdateInput={this.handleUpdateInput.bind(this)}
-            onNewRequest={this.props.onSelected}
-            searchText={this.state.input}
-            openOnFocus={true}
-            maxSearchResults={10}
-            filter={AutoComplete.caseInsensitiveFilter}
-          />
-        </MuiThemeProvider>
+    if(this.props.dataSource.length > 0) {
+      return (
+        <div>
+          <MuiThemeProvider>
+            <AutoComplete
+              floatingLabelText = {this.props.placeholder}
+              dataSource = {this.props.dataSource}
+              dataSourceConfig = {this.props.dataStructure}
+              onUpdateInput={this.handleUpdateInput.bind(this)}
+              onNewRequest={this.props.onSelected}
+              searchText={this.state.input}
+              openOnFocus={true}
+              maxSearchResults={10}
+              filter={AutoComplete.caseInsensitiveFilter}
+            />
+          </MuiThemeProvider>
 
-        <MuiThemeProvider>
-          <IconButton
-            tooltip="Clear"
-            onClick={this.handleClearClick.bind(this)}
-          >
-            <FontIcon className="material-icons" >clear</FontIcon>
-          </IconButton>
-        </MuiThemeProvider>
-      </div>
+          <MuiThemeProvider>
+            <IconButton
+              tooltip="Clear"
+              onClick={this.handleClearClick.bind(this)}
+            >
+              <FontIcon className="material-icons" >clear</FontIcon>
+            </IconButton>
+          </MuiThemeProvider>
+        </div>
+      );
+    }
+
+    return (
+      <LoadingSpinner />
     );
+
   }
 }
 
