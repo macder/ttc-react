@@ -32,6 +32,7 @@ ReactDOM.render(
       <div>
         <h1>TTC NextBus</h1>
         <SearchForm />
+        <Predictions />
       </div>
     </MuiThemeProvider>
   </Provider>, document.getElementById('root')
