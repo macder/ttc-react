@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
+import LoadingSpinner from '../../core/components/LoadingSpinner';
+
 import { getPredictions } from '../selectors'
 
 import { loadPredictionsRequest } from '../actions.js'
@@ -28,20 +30,23 @@ class PredictionsContainer extends React.Component {
 
 
   render() {
+    if(this.props.list){
+      return (
+        <div className={'c-predictions'}>
+          <ul>
+            <li>{this.props.list[0].minutes}</li>
+          </ul>
+        </div>
+      );
+    }
     return (
-      <div className={'c-predictions'}>
-        <ul>
-          <li>4 min</li>
-          <li>10 min</li>
-          <li>18 min</li>
-        </ul>
-      </div>
+      <LoadingSpinner />
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  console.dir(state);
+  // console.dir(state);
   return {
     list: getPredictions(state)
   }
