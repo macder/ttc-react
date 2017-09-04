@@ -9,10 +9,13 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import reducer from './rootReducer'
 import search from './modules/search';
+import predictions from './modules/predictions';
 
 const sagaMiddleware = createSagaMiddleware();
 const SearchForm = search.containers.default.SearchFormContainer;
 // const initialState = Immutable.Map();
+
+const Predictions = predictions.containers.default.PredictionsContainer;
 
 let store = createStore(
   reducer,
@@ -21,6 +24,7 @@ let store = createStore(
 );
 
 sagaMiddleware.run(search.sagas.default);
+sagaMiddleware.run(predictions.sagas.default);
 
 ReactDOM.render(
   <Provider store={store} key="provider">
