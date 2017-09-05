@@ -30,6 +30,9 @@ class RouteSelectFieldContainer extends React.Component {
 
   handleUpdateInput(input) {
     this.props.action.routeInput(input);
+    if(input === '') {
+      this.props.action.routeCleared();
+    }
   }
 
   render() {
