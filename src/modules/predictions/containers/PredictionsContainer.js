@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 
 import LoadingSpinner from '../../core/components/LoadingSpinner';
 
-import { getPredictions } from '../selectors'
+import { getPredictions, getRouteStopId } from '../selectors'
 
 import { loadPredictionsRequest } from '../actions.js'
 
@@ -16,18 +16,20 @@ class PredictionsContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.action.requestPredictions();
+
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.dir(nextProps);
+
   }
 
   componentWillUpdate(nextProps, nextState){
     console.log('predictions will update');
+    if(!this.props.routeStopId && nextProps.routeStopId) {
+      console.log('has route/stop ids');
+      this.props.action.requestPredictions();
+    }
   }
-
-
 
   render() {
     if(this.props.list){
@@ -48,6 +50,7 @@ class PredictionsContainer extends React.Component {
 const mapStateToProps = (state) => {
   // console.dir(state);
   return {
+    routeStopId: getRouteStopId(state),
     list: getPredictions(state)
   }
 }
