@@ -1,14 +1,33 @@
 import { createSelector } from 'reselect'
 
 const searchState = state => state.searchState
-const predictionList = state => state.predictionState.payload
+const payload = state => state.predictionState.payload
 const visible = state => state.predictionState.visible
 
 // Get prediction payload
 export const getPredictions = createSelector(
-  [predictionList],
-  (list) => list
+  [payload],
+  (payload) => {
+    if(payload){
+      if(!payload.hasOwnProperty('dirTitleBecauseNoPredictions')){
+        return payload.direction.prediction;
+      }
+    }
+    return null;
+  }
 );
+
+// Check if the route stop has predictions
+export const hasPredictions = createSelector(
+  [payload],
+  (payload) => {
+    if(payload) {
+      return (payload.hasOwnProperty('dirTitleBecauseNoPredictions')) ? false : true;
+    }
+  }
+);
+
+
 
 // Get selected route and stop ID's, or return null
 export const getRouteStopId = createSelector(
