@@ -2,6 +2,7 @@ import { createSelector } from 'reselect'
 
 const searchState = state => state.searchState
 const predictionList = state => state.predictionState.payload
+const visible = state => state.predictionState.visible
 
 // Get prediction payload
 export const getPredictions = createSelector(
@@ -21,4 +22,10 @@ export const getRouteStopId = createSelector(
     }
     return null;
   }
+);
+
+// Check if visible
+export const isVisible = createSelector(
+  [visible],
+  (visible) => visible
 );
