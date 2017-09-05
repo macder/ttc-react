@@ -26,25 +26,31 @@ class PredictionsContainer extends React.Component {
   }
 
   render() {
-    if(this.props.list){
+    if(this.props.visible){
+      if(this.props.list){
+        return (
+          <div className={'c-predictions'}>
+            <ul>
+              {this.props.list.map(function(name, index){
+              return <li key={ index }>{name.minutes} mins</li>;
+              })}
+            </ul>
+          </div>
+        );
+      }
       return (
-        <div className={'c-predictions'}>
-          <ul>
-            <li>{this.props.list[0].minutes}</li>
-          </ul>
-        </div>
+        <LoadingSpinner />
       );
     }
-    return (
-      <LoadingSpinner />
-    );
+    return null;
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     params: getRouteStopId(state),
-    list: getPredictions(state)
+    list: getPredictions(state),
+    visible: isVisible(state),
   }
 }
 
