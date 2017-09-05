@@ -21,6 +21,14 @@ const predictionsReducer = (state = initialState, action = {}) => {
         visible: action.visible,
       });
 
+    case t.LOAD_PREDICTIONS_FAILURE:
+      return Object.assign({}, state, {
+        fetching: false,
+        payload: action.payload,
+        visible: action.visible,
+        error: action.error
+      });
+
     default:
       return state
   }
