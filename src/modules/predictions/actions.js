@@ -29,9 +29,13 @@ export const loadPredictionsSuccess = (payload) => {
  *
  * @return {object}
  */
-export const loadPredictionsFailure = () => {
+export const loadPredictionsFailure = (e) => {
   return {
     type: t.LOAD_PREDICTIONS_FAILURE,
     fetching: false,
+    visible: false,
+    payload: null,
+    error: e.message,
   };
 };
+
