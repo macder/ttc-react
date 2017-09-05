@@ -27,8 +27,8 @@ const stopFieldReducer = (state = initialState, action = {}) => {
 
     case t.CLEAR_DIRECTION:
       return Object.assign({}, state, {
-        selected: action.selected,
-        input: action.input,
+        selected: null,
+        input: null,
         visible: false,
       });
 

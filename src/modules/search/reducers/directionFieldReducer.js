@@ -15,7 +15,9 @@ const directionFieldReducer = (state = initialState, action = {}) => {
 
     case t.SELECTED_ROUTE:
       return Object.assign({}, state, {
+        selected: null,
         visible: true,
+        input: null
       });
 
     case t.CLEAR_ROUTE:
