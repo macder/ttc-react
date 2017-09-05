@@ -4,11 +4,11 @@ import * as t from './actionTypes';
  *
  * @return {object}
  */
-export const loadPredictionsRequest = () => {
+export const loadPredictionsRequest = (routeId, stopId) => {
   return {
     type: t.LOAD_PREDICTIONS_REQUEST,
     fetching: true,
-    url: 'http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&r=7&s=5739'
+    url: 'http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&r=' + routeId +'&s=' + stopId,
   };
 };
 

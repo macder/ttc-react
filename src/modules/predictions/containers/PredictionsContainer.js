@@ -7,7 +7,7 @@ import LoadingSpinner from '../../core/components/LoadingSpinner';
 
 import { getPredictions, getRouteStopId } from '../selectors'
 
-import { loadPredictionsRequest } from '../actions.js'
+import { loadPredictionsRequest, clearPredictions } from '../actions.js'
 
 class PredictionsContainer extends React.Component {
   constructor(props) {
@@ -25,9 +25,15 @@ class PredictionsContainer extends React.Component {
 
   componentWillUpdate(nextProps, nextState){
     console.log('predictions will update');
-    if(!this.props.routeStopId && nextProps.routeStopId) {
+    console.dir(nextProps);
+    if(!this.props.params && nextProps.params) {
       console.log('has route/stop ids');
-      this.props.action.requestPredictions();
+      this.props.action.requestPredictions(nextProps.params.routeId, nextProps.params.stopId);
+    }
+    else if(this.props.params && !nextProps.params) {
+      console.log('clear predictions?');
+      this.props.action.clear();
+
     }
   }
 
@@ -50,7 +56,7 @@ class PredictionsContainer extends React.Component {
 const mapStateToProps = (state) => {
   // console.dir(state);
   return {
-    routeStopId: getRouteStopId(state),
+    params: getRouteStopId(state),
     list: getPredictions(state)
   }
 }
@@ -58,7 +64,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     action: {
-      requestPredictions: bindActionCreators(loadPredictionsRequest, dispatch)
+      requestPredictions: bindActionCreators(loadPredictionsRequest, dispatch),
+      clear: bindActionCreators(clearPredictions, dispatch)
     }
   };
 }
