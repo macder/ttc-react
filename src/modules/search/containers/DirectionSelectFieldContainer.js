@@ -20,6 +20,9 @@ class DirectionSelectFieldContainer extends React.Component {
 
   handleUpdateInput(input) {
     this.props.action.directionInput(input);
+    if(input === '') {
+      this.props.action.directionCleared();
+    }
   }
 
   handleDirectionSelect(value) {
