@@ -22,9 +22,6 @@ function* fetch(args, action){
     };
 
     const data = parseXML(yield call(httpGet, action.url), options).body.predictions.direction.prediction;
-
-    // console.dir(data);
-
     yield put(actions[args.success](data));
 
   } catch (e) {
