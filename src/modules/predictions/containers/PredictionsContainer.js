@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 
 import LoadingSpinner from '../../core/components/LoadingSpinner';
 
-import { getPredictions, getRouteStopId, isVisible } from '../selectors'
+import { getPredictions, getRouteStopId, isVisible, hasPredictions } from '../selectors'
 
 import { loadPredictionsRequest, clearPredictions } from '../actions.js'
 
@@ -27,7 +27,7 @@ class PredictionsContainer extends React.Component {
 
   render() {
     if(this.props.visible){
-      if(this.props.list){
+      if(this.props.hasPredictions){
         return (
           <div className={'c-predictions'}>
             <ul>
@@ -36,6 +36,11 @@ class PredictionsContainer extends React.Component {
               })}
             </ul>
           </div>
+        );
+      }
+      else if(this.props.hasPredictions === false){
+        return (
+          <div>No predictions availble</div>
         );
       }
       return (
@@ -51,6 +56,7 @@ const mapStateToProps = (state) => {
     params: getRouteStopId(state),
     list: getPredictions(state),
     visible: isVisible(state),
+    hasPredictions: hasPredictions(state),
   }
 }
 
