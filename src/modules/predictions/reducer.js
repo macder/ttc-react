@@ -11,7 +11,8 @@ const predictionsReducer = (state = initialState, action = {}) => {
 
     case t.LOAD_PREDICTIONS_REQUEST:
       return Object.assign({}, state, {
-        fetching: true,
+        fetching: action.fetching,
+        visible: action.visible,
       });
 
     case t.LOAD_PREDICTIONS_SUCCESS:
