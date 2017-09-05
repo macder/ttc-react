@@ -8,6 +8,7 @@ export const loadPredictionsRequest = (routeId, stopId) => {
   return {
     type: t.LOAD_PREDICTIONS_REQUEST,
     fetching: true,
+    visible: true,
     url: 'http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&r=' + routeId +'&s=' + stopId,
   };
 };
