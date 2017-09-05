@@ -39,3 +39,15 @@ export const loadPredictionsFailure = (e) => {
   };
 };
 
+/**
+ *
+ * @return {object}
+ */
+export const clearPredictions = () => {
+  return {
+    type: t.CLEAR_PREDICTIONS,
+    fetching: false,
+    visible: false,
+    payload: null,
+  };
+};
