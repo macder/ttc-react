@@ -11,8 +11,11 @@ export const getPredictions = createSelector(
   (payload) => {
     if(payload && payload.hasOwnProperty('direction')){
 
-      // multiple prediction - eg 12a and 12b
-      if(Array.isArray(payload.direction)){
+      // multi direction predictions - eg 12a and 12b
+      if(Array.isArray(payload.direction)) {
+        // WIP - breaks if a direction only has single prediction
+        // eg payload.direction[0].prediction not array
+        // works only if all payload.direction[index].prediction are array
         return payload.direction;
       }
 
