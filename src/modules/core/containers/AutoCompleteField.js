@@ -72,6 +72,7 @@ export default class AutoCompleteField extends React.Component {
             onClick={this.handleClearClick.bind(this)}
             iconStyle={iconStyle}
             style={clearButtonStyle}
+            tooltipPosition={'top-center'}
           >
             <FontIcon className="material-icons" >clear</FontIcon>
           </IconButton>
