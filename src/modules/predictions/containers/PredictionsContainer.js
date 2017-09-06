@@ -16,11 +16,7 @@ class PredictionsContainer extends React.Component {
 
   componentWillUpdate(nextProps, nextState){
     // dispatch action to request predictions data
-    console.log('-----------NEXT PROPS--------------');
-    console.dir(nextProps);
-    console.log('-----------END NEXT PROPS--------------');
     if(!this.props.params && nextProps.params) {
-      // console.dir(nextProps)
       this.props.action.requestPredictions(nextProps.params.routeId, nextProps.params.stopId);
     }
     // dispatch action to clear/reset predictions data/state
@@ -35,19 +31,12 @@ class PredictionsContainer extends React.Component {
         return (
           <div className={'c-predictions'}>
             {this.props.list.map(function(direction, index){
-
               const title = <p key={ index }>{direction.title} title</p>
-
-              // console.dir(direction.prediction);
               const list = direction.prediction.map(function(prediction, index){
-                //console.dir(prediction);
                 return <li key={ index }>{prediction.minutes} mins</li>;
               });
-
-
               return [title, list];
-              })}
-
+            })}
           </div>
         );
       }
@@ -65,7 +54,6 @@ class PredictionsContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.dir(state);
   return {
     params: getRouteStopId(state),
     list: getPredictions(state),

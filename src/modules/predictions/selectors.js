@@ -9,42 +9,20 @@ const visible = state => state.predictionState.visible
 export const getPredictions = createSelector(
   [payload],
   (payload) => {
-    // console.dir(payload);
     if(payload && payload.hasOwnProperty('direction')){
 
       // multiple prediction - eg 12a and 12b
       if(Array.isArray(payload.direction)){
-        // console.log('------------------------------------------');
-        console.log('payload.direction is array');
-        // console.dir(payload);
-        // console.dir(payload.direction);
-        // console.log('------------------------------------------');
         return payload.direction;
       }
 
       // stop has single set of predictions for route
       if(Array.isArray(payload.direction.prediction)) {
-        // console.log('------------------------------------------');
-        console.log('payload.direction.prediction is array');
-        // console.dir(payload);
-        // console.dir([payload.direction]);
-        // console.log('------------------------------------------');
         return [payload.direction];
       }
 
       // only 1 prediction - last vehicle?
       else {
-        // console.log('------------------------------------------');
-        console.log('payload.direction.prediction NOT array');
-        // console.dir(payload);
-        // const direction = [payload.direction];
-        // const prediction = [payload.direction.prediction];
-        // console.log('------[payload.direction]----------');
-        // console.dir(direction);
-        // console.log('------[payload.direction.prediction]----------');
-        // console.dir(prediction);
-
-        // console.log('------[result]----------');
         const result = [
           {
             title: payload.direction.title,
@@ -53,14 +31,8 @@ export const getPredictions = createSelector(
             ]
           }
         ];
-        // console.dir(result);
-        // console.log('------------------------------------------');
         return result;
       }
-
-      /*return (Array.isArray(payload.direction.prediction))
-        ? payload.direction.prediction
-        : [payload.direction.prediction];*/
     }
     return null;
   }
