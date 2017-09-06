@@ -13,10 +13,15 @@ export const getPredictions = createSelector(
 
       // multi direction predictions - eg 12a and 12b
       if(Array.isArray(payload.direction)) {
-        // WIP - breaks if a direction only has single prediction
-        // eg payload.direction[0].prediction not array
-        // works only if all payload.direction[index].prediction are array
-        return payload.direction;
+        return payload.direction.map(function(value, index) {
+          const predictions = (Array.isArray(value.prediction))
+            ? value.prediction
+            : [value.prediction];
+          return {
+            prediction: predictions,
+            title: value.title,
+          }
+        });
       }
 
       // stop has single set of predictions for route
