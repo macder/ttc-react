@@ -22,17 +22,14 @@ export const getPredictions = createSelector(
       }
 
       // only 1 prediction - last vehicle?
-      else {
-        const result = [
-          {
-            title: payload.direction.title,
-            prediction: [
-              payload.direction.prediction
-            ]
-          }
-        ];
-        return result;
-      }
+      return [
+        {
+          title: payload.direction.title,
+          prediction: [
+            payload.direction.prediction
+          ]
+        }
+      ];
     }
     return null;
   }
