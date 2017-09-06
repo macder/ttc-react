@@ -8,11 +8,11 @@ const visible = state => state.predictionState.visible
 export const getPredictions = createSelector(
   [payload],
   (payload) => {
-    if(payload){
-      if(!payload.hasOwnProperty('dirTitleBecauseNoPredictions')){
-        return payload.direction.prediction;
+    if(payload && payload.hasOwnProperty('direction')){
+      return (Array.isArray(payload.direction.prediction))
+        ? payload.direction.prediction
+        : [payload.direction.prediction];
       }
-    }
     return null;
   }
 );
