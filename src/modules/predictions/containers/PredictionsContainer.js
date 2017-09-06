@@ -30,11 +30,13 @@ class PredictionsContainer extends React.Component {
       if(this.props.hasPredictions){
         return (
           <div className={'c-predictions'}>
-            <ul>
-              {this.props.list.map(function(name, index){
-              return <li key={ index }>{name.minutes} mins</li>;
-              })}
-            </ul>
+            {this.props.list.map(function(direction, index){
+              const title = <p key={ index }>{direction.title} title</p>
+              const list = direction.prediction.map(function(prediction, index){
+                return <li key={ index }>{prediction.minutes} mins</li>;
+              });
+              return [title, list];
+            })}
           </div>
         );
       }
