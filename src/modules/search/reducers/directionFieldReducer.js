@@ -6,37 +6,63 @@ const initialState = {
   input: null
 };
 
+const updateObject = (oldObject, newValues) => {
+  // Encapsulate the idea of passing a new object as the first parameter
+  // to Object.assign to ensure we correctly copy data instead of mutating
+  return Object.assign({}, oldObject, newValues);
+}
+
+const selectedDirection = (state, action) => {
+  return updateObject(state, {
+    selected: action.selected
+  });
+}
+
+const selectedRoute = (state, action) => {
+  return updateObject(state, {
+    selected: null,
+    visible: true,
+    input: null
+  });
+}
+
+const clearRoute = (state, action) => {
+  return updateObject(state, {
+    selected: action.selected,
+    input: action.input,
+    visible: false,
+  });
+}
+
+const clearDirection = (state, action) => {
+  return updateObject(state, {
+    selected: action.selected,
+    input: action.input,
+  });
+}
+
+const inputDirection = (state, action) => {
+  return updateObject(state, {
+    input: action.input
+  });
+}
+
 const directionFieldReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case t.SELECTED_DIRECTION:
-      return Object.assign({}, state, {
-        selected: action.selected
-      });
+      return selectedDirection(state, action);
 
     case t.SELECTED_ROUTE:
-      return Object.assign({}, state, {
-        selected: null,
-        visible: true,
-        input: null
-      });
+      return selectedRoute(state, action);
 
     case t.CLEAR_ROUTE:
-      return Object.assign({}, state, {
-        selected: action.selected,
-        input: action.input,
-        visible: false,
-      });
+      return clearRoute(state, action);
 
     case t.CLEAR_DIRECTION:
-      return Object.assign({}, state, {
-        selected: action.selected,
-        input: action.input,
-      });
+      return clearDirection(state, action);
 
     case t.INPUT_DIRECTION:
-      return Object.assign({}, state, {
-        input: action.input
-      });
+      return inputDirection(state, action);
 
     default:
       return state

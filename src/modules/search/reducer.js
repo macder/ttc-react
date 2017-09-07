@@ -7,9 +7,4 @@ export default combineReducers({
   routeField: reducer.default.routeFieldReducer,
   directionField: reducer.default.directionFieldReducer,
   stopField: reducer.default.stopFieldReducer,
-  /*fields: combineReducers({
-    route: reducer.default.routeFieldReducer,
-    stop: reducer.default.stopFieldReducer,
-    direction: reducer.default.directionFieldReducer,
-  })*/
 });
