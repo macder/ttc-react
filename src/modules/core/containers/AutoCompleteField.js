@@ -53,7 +53,7 @@ export default class AutoCompleteField extends React.Component {
       }
 
       return (
-        <div>
+        <div className="c-auto-complete">
           <AutoComplete
             floatingLabelText = {this.props.placeholder}
             dataSource = {this.props.dataSource}
