@@ -6,10 +6,12 @@ export default function LoadingSpinner(props) {
     marginTop: 24
   }
   return (
-    <CircularProgress
-      size={24}
-      thickness={3}
-      style={style}
-    />
+    <div className="c-loading-spinner">
+      <CircularProgress
+        size={24}
+        thickness={3}
+        style={style}
+      />
+    </div>
   );
 }

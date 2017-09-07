@@ -16,14 +16,13 @@ const style = {
 };
 
   return (
-    <MuiThemeProvider>
+    <div className="c-refresh-spinner">
       <RefreshIndicator
         size={32}
         left={10}
         top={0}
         status="loading"
-        style={style.refresh}
       />
-    </MuiThemeProvider>
+    </div>
   );
 }
