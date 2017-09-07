@@ -4,26 +4,44 @@ const initialState = {
   selected: null,
   visible: false,
   input: null
-  // hasData: false,
 };
+
+const updateObject = (oldObject, newValues) => {
+  // Encapsulate the idea of passing a new object as the first parameter
+  // to Object.assign to ensure we correctly copy data instead of mutating
+  return Object.assign({}, oldObject, newValues);
+}
+
+const selectedRoute = (state, action) => {
+  return updateObject(state, {
+    selected: action.selected
+  });
+}
+
+const clearRoute = (state, action) => {
+  return updateObject(state, {
+    selected: action.selected,
+    input: action.input
+  });
+}
+
+const inputRoute = (state, action) => {
+  return updateObject(state, {
+    input: action.input
+  });
+}
+
 
 const routeFieldReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case t.SELECTED_ROUTE:
-      return Object.assign({}, state, {
-        selected: action.selected
-      });
+      return selectedRoute(state, action);
 
     case t.CLEAR_ROUTE:
-      return Object.assign({}, state, {
-        selected: action.selected,
-        input: action.input
-      });
+      return clearRoute(state, action);
 
     case t.INPUT_ROUTE:
-      return Object.assign({}, state, {
-        input: action.input
-      });
+      return inputRoute(state, action);
 
     default:
       return state
