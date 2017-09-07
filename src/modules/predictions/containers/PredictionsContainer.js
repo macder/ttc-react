@@ -31,7 +31,7 @@ class PredictionsContainer extends React.Component {
         return (
           <div className={'c-predictions'}>
             {this.props.list.map(function(direction, index){
-              const title = <p key={ index }>{direction.title} title</p>
+              const title = <p key={ index }>{direction.title}</p>
               const list = direction.prediction.map(function(prediction, index){
                 return <li key={ index }>{prediction.minutes} mins</li>;
               });
