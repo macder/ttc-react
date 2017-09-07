@@ -1,6 +1,8 @@
 import React from 'react';
 import AutoCompleteField from '../../core/containers/AutoCompleteField.js';
 
+import './StopSelectField.scss';
+
 export default function StopSelectField(props) {
 
   const dataStructure = {
@@ -10,16 +12,18 @@ export default function StopSelectField(props) {
 
   if (props.isVisible) {
     return (
-      <AutoCompleteField
-        placeholder = "Stop"
-        dataSource = {props.list}
-        dataStructure = {dataStructure}
-        onSelected = {props.onSelected}
-        inputSelected = {props.inputSelected}
-        onUpdateInput = {props.onUpdateInput}
-        onClear = {props.onClear}
-        input = {props.input}
-      />
+      <div className="c-stop-select">
+        <AutoCompleteField
+          placeholder = "Stop"
+          dataSource = {props.list}
+          dataStructure = {dataStructure}
+          onSelected = {props.onSelected}
+          inputSelected = {props.inputSelected}
+          onUpdateInput = {props.onUpdateInput}
+          onClear = {props.onClear}
+          input = {props.input}
+        />
+      </div>
     );
   }
   return null;

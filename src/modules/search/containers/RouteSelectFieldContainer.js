@@ -37,14 +37,12 @@ class RouteSelectFieldContainer extends React.Component {
 
   render() {
     return (
-      <div>
-        <RouteSelectField
-          list = {this.props.list}
-          onSelected = {this.handleRouteSelect.bind(this)}
-          onClear = {this.handleClear.bind(this)}
-          onUpdateInput = {this.handleUpdateInput.bind(this)}
-        />
-      </div>
+      <RouteSelectField
+        list = {this.props.list}
+        onSelected = {this.handleRouteSelect.bind(this)}
+        onClear = {this.handleClear.bind(this)}
+        onUpdateInput = {this.handleUpdateInput.bind(this)}
+      />
     );
   }
 }

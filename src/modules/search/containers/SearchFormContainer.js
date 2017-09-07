@@ -21,14 +21,14 @@ class SearchFormContainer extends React.Component {
 
   render() {
     return (
-      <div>
-      <form>
-        <RouteSelectFieldContainer
-          onSelect = {this.handleGetRouteConfig.bind(this)}
-        />
-        <DirectionSelectFieldContainer />
-        <StopSelectFieldContainer />
-        </form>
+      <div className="c-search">
+        <form className="c-search__form">
+          <RouteSelectFieldContainer
+            onSelect = {this.handleGetRouteConfig.bind(this)}
+          />
+          <DirectionSelectFieldContainer />
+          <StopSelectFieldContainer />
+          </form>
       </div>
     );
   }
