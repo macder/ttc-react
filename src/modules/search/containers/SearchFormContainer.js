@@ -28,7 +28,7 @@ class SearchFormContainer extends React.Component {
           />
           <DirectionSelectFieldContainer />
           <StopSelectFieldContainer />
-          </form>
+        </form>
       </div>
     );
   }
