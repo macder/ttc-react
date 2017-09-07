@@ -4,14 +4,40 @@ const searchState = state => state.searchState
 const payload = state => state.predictionState.payload
 const visible = state => state.predictionState.visible
 
+
 // Get prediction payload
 export const getPredictions = createSelector(
   [payload],
   (payload) => {
-    if(payload){
-      if(!payload.hasOwnProperty('dirTitleBecauseNoPredictions')){
-        return payload.direction.prediction;
+    if(payload && payload.hasOwnProperty('direction')){
+
+      // multi direction predictions - eg 12a and 12b
+      if(Array.isArray(payload.direction)) {
+        return payload.direction.map(function(value, index) {
+          const predictions = (Array.isArray(value.prediction))
+            ? value.prediction
+            : [value.prediction];
+          return {
+            prediction: predictions,
+            title: value.title,
+          }
+        });
       }
+
+      // stop has single set of predictions for route
+      if(Array.isArray(payload.direction.prediction)) {
+        return [payload.direction];
+      }
+
+      // only 1 prediction - last vehicle?
+      return [
+        {
+          title: payload.direction.title,
+          prediction: [
+            payload.direction.prediction
+          ]
+        }
+      ];
     }
     return null;
   }
