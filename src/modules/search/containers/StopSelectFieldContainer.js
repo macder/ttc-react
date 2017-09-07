@@ -20,6 +20,9 @@ class StopSelectFieldContainer extends React.Component {
 
   handleUpdateInput(input) {
     this.props.action.stopInput(input);
+    if(input === '') {
+      this.props.action.stopCleared();
+    }
   }
 
   handleStopSelect(value) {
