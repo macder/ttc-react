@@ -9,17 +9,22 @@ module.exports = {
     publicPath: '/build',
   },
   module: {
-    rules: [
+    loaders: [
       {
         test: /\.js$/,
-        include: [
-          path.resolve(process.cwd(), 'src')
-        ],
+        include: path.resolve(process.cwd(), 'src'),
         query: {
           presets: ['react', 'es2015']
         },
         loader: 'babel-loader',
+      }, {
+        test: /\.scss$/,
+        include: path.resolve(process.cwd(), 'src'),
+        loaders: [
+          'style-loader',
+          'css-loader',
+          'sass-loader']
       },
-    ],
+    ]
   },
 }
