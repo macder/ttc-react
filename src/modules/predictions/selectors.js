@@ -4,9 +4,8 @@ const searchState = state => state.searchState
 const payload = state => state.predictionState.payload
 const visible = state => state.predictionState.visible
 
-
 // Get prediction payload
-export const getPredictions = createSelector(
+const predictions = createSelector(
   [payload],
   (payload) => {
     if(payload && payload.hasOwnProperty('direction')){
@@ -43,6 +42,26 @@ export const getPredictions = createSelector(
   }
 );
 
+export const getPredictions = createSelector(
+  [predictions],
+  (predictions) => predictions
+);
+
+export const getPredictionsInMinutes = createSelector(
+  [predictions],
+  (predictions) => {
+    if(predictions) {
+      const test = predictions.map((value, index) => {
+        const minutes = value.prediction.map((row, index) => {
+          return row.minutes;
+        });
+        return minutes;
+      });
+      return test;
+    }
+  }
+);
+
 // Check if the route stop has predictions
 export const hasPredictions = createSelector(
   [payload],
@@ -50,6 +69,7 @@ export const hasPredictions = createSelector(
     if(payload) {
       return (payload.hasOwnProperty('dirTitleBecauseNoPredictions')) ? false : true;
     }
+    return false;
   }
 );
 
