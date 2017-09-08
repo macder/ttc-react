@@ -2,11 +2,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-
 import LoadingSpinner from '../../core/components/LoadingSpinner';
-
-import { getPredictions, getRouteStopId, isVisible, hasPredictions } from '../selectors'
-
+import Predictions from '../components/Predictions';
+import { getPredictions, getPredictionsInMinutes, getRouteStopId, isVisible, hasPredictions } from '../selectors'
 import { loadPredictionsRequest, clearPredictions } from '../actions.js'
 
 class PredictionsContainer extends React.Component {
@@ -26,39 +24,25 @@ class PredictionsContainer extends React.Component {
   }
 
   render() {
-    if(this.props.visible){
-      if(this.props.hasPredictions){
-        return (
-          <div className={'c-predictions'}>
-            {this.props.list.map(function(direction, index){
-              const title = <p key={ index }>{direction.title}</p>
-              const list = direction.prediction.map(function(prediction, index){
-                return <li key={ index }>{prediction.minutes} mins</li>;
-              });
-              return [title, list];
-            })}
-          </div>
-        );
-      }
-      else if(this.props.hasPredictions === false){
-        return (
-          <div>No predictions availble</div>
-        );
-      }
-      return (
-        <LoadingSpinner />
-      );
-    }
-    return null;
+    return (
+      <Predictions
+        isVisible = {this.props.visible}
+        isFetching = {this.props.fetching}
+        hasPredictions = {this.props.hasPredictions}
+        predictionMins = {this.props.predictionMinutes}
+      />
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     params: getRouteStopId(state),
-    list: getPredictions(state),
+    predictions: getPredictions(state),
+    predictionMinutes: getPredictionsInMinutes(state),
     visible: isVisible(state),
     hasPredictions: hasPredictions(state),
+    fetching: state.predictionState.fetching,
   }
 }
 
