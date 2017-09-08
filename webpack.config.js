@@ -9,17 +9,31 @@ module.exports = {
     publicPath: '/build',
   },
   module: {
-    rules: [
+    // First, run the linter
+    /*preLoaders: [
       {
         test: /\.js$/,
-        include: [
-          path.resolve(process.cwd(), 'src')
-        ],
+        loader: 'eslint',
+        include: path.resolve(process.cwd(), 'src'),
+      }
+    ],*/
+    loaders: [
+      {
+        test: /\.js$/,
+        include: path.resolve(process.cwd(), 'src'),
         query: {
           presets: ['react', 'es2015']
         },
         loader: 'babel-loader',
+      }, {
+        test: /\.scss$/,
+        include: path.resolve(process.cwd(), 'src'),
+        loaders: [
+          'style-loader',
+          'css-loader',
+          'sass-loader'
+        ]
       },
-    ],
+    ]
   },
 }

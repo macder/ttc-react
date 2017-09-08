@@ -20,6 +20,9 @@ class StopSelectFieldContainer extends React.Component {
 
   handleUpdateInput(input) {
     this.props.action.stopInput(input);
+    if(input === '') {
+      this.props.action.stopCleared();
+    }
   }
 
   handleStopSelect(value) {
@@ -28,17 +31,15 @@ class StopSelectFieldContainer extends React.Component {
 
   render() {
     return (
-      <div>
-        <StopSelectField
-          list = {this.props.list}
-          onSelected = {this.handleStopSelect.bind(this)}
-          inputSelected = {this.props.inputSelected}
-          onUpdateInput = {this.handleUpdateInput.bind(this)}
-          onClear = {this.handleClear.bind(this)}
-          input = {this.props.input}
-          isVisible = {this.props.visible}
-        />
-      </div>
+      <StopSelectField
+        list = {this.props.list}
+        onSelected = {this.handleStopSelect.bind(this)}
+        inputSelected = {this.props.inputSelected}
+        onUpdateInput = {this.handleUpdateInput.bind(this)}
+        onClear = {this.handleClear.bind(this)}
+        input = {this.props.input}
+        isVisible = {this.props.visible}
+      />
     );
   }
 }

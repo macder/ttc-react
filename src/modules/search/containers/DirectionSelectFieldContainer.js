@@ -32,17 +32,15 @@ class DirectionSelectFieldContainer extends React.Component {
 
   render() {
     return (
-      <div>
-        <DirectionSelectField
-          list = {this.props.list}
-          onSelected = {this.handleDirectionSelect.bind(this)}
-          inputSelected = {this.props.inputSelected}
-          onUpdateInput = {this.handleUpdateInput.bind(this)}
-          onClear = {this.handleClear.bind(this)}
-          input = {this.props.input}
-          isVisible = {this.props.visible}
-        />
-      </div>
+      <DirectionSelectField
+        list = {this.props.list}
+        onSelected = {this.handleDirectionSelect.bind(this)}
+        inputSelected = {this.props.inputSelected}
+        onUpdateInput = {this.handleUpdateInput.bind(this)}
+        onClear = {this.handleClear.bind(this)}
+        input = {this.props.input}
+        isVisible = {this.props.visible}
+      />
     );
   }
 }
