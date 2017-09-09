@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import LoadingSpinner from '../../core/components/LoadingSpinner';
 import List from './List';
 
 const NextArrivals = props => (
   <div>
-    {props.data.map((list, index) =>
+    {props.data.map(list =>
       (<List
         title={'title test'}
         items={list}
@@ -35,3 +36,10 @@ export default function Predictions(props) {
   }
   return null;
 }
+
+Predictions.propTypes = {
+  hasPredictions: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  isVisible: PropTypes.bool.isRequired,
+  predictionMins: PropTypes.array,
+};

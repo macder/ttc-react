@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Predictions from '../components/Predictions';
-import { getPredictions, getPredictionsInMinutes, getRouteStopId, isVisible, hasPredictions } from '../selectors';
+import { getPredictionsInMinutes, getRouteStopId, isVisible, hasPredictions } from '../selectors';
 import { loadPredictionsRequest, clearPredictions } from '../actions';
 
 class PredictionsContainer extends React.Component {
@@ -11,11 +11,12 @@ class PredictionsContainer extends React.Component {
     super(props);
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    // dispatch action to request predictions data
+  componentWillUpdate(nextProps) {
     if (!this.props.params && nextProps.params) {
+      // dispatch action to request predictions data
       this.props.action.requestPredictions(nextProps.params.routeId, nextProps.params.stopId);
-    } else if (this.props.params && !nextProps.params) { // dispatch action to clear/reset predictions data/state
+    } else if (this.props.params && !nextProps.params) {
+      // dispatch action to clear/reset predictions data/state
       this.props.action.clear();
     }
   }
@@ -33,15 +34,18 @@ class PredictionsContainer extends React.Component {
 }
 
 PredictionsContainer.propTypes = {
+  action: PropTypes.object.isRequired,
+  fetching: PropTypes.bool.isRequired,
+  hasPredictions: PropTypes.bool.isRequired,
+  params: PropTypes.object,
+  predictionMinutes: PropTypes.array,
+  // predictions: PropTypes.array,
   visible: PropTypes.bool.isRequired,
-  /* action: PropTypes.object.isRequired,
-  list: PropTypes.array.isRequired,
-  onSelect: PropTypes.func.isRequired, */
 };
 
 const mapStateToProps = state => ({
   params: getRouteStopId(state),
-  predictions: getPredictions(state),
+  // predictions: getPredictions(state),
   predictionMinutes: getPredictionsInMinutes(state),
   visible: isVisible(state),
   hasPredictions: hasPredictions(state),

@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function List(props) {
-  const items = props.items.map((value, index) =>
+  const items = props.items.map(value =>
     <li>{value}</li>,
   );
 
@@ -14,3 +15,8 @@ export default function List(props) {
     </div>
   );
 }
+
+List.propTypes = {
+  items: PropTypes.array.isRequired,
+  title: PropTypes.string,
+};
