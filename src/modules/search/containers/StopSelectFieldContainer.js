@@ -33,7 +33,6 @@ class StopSelectFieldContainer extends React.Component {
   }
 
   render() {
-    console.dir(this.props);
     return (
       <StopSelectField
         list={this.props.list}
@@ -53,6 +52,7 @@ StopSelectFieldContainer.propTypes = {
   input: PropTypes.bool.isRequired,
   inputSelected: PropTypes.bool.isRequired,
   list: PropTypes.array.isRequired,
+  visible: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({

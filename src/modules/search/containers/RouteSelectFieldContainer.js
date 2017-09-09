@@ -1,16 +1,19 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import RouteSelectField from '../components/RouteSelectField';
 
 import { getRouteList } from '../selectors';
-import { loadRoutesRequest, selectedRoute, clearRoute, inputRoute } from '../actions.js';
+import { loadRoutesRequest, selectedRoute, clearRoute, inputRoute } from '../actions';
 
 class RouteSelectFieldContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClear = this.handleClear.bind(this);
+    this.handleRouteSelect = this.handleRouteSelect.bind(this);
+    this.handleUpdateInput = this.handleUpdateInput.bind(this);
   }
 
   componentDidMount() {
@@ -39,9 +42,9 @@ class RouteSelectFieldContainer extends React.Component {
     return (
       <RouteSelectField
         list={this.props.list}
-        onSelected={this.handleRouteSelect.bind(this)}
-        onClear={this.handleClear.bind(this)}
-        onUpdateInput={this.handleUpdateInput.bind(this)}
+        onSelected={this.handleRouteSelect}
+        onClear={this.handleClear}
+        onUpdateInput={this.handleUpdateInput}
       />
     );
   }

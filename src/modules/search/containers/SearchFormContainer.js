@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -7,11 +7,12 @@ import RouteSelectFieldContainer from './RouteSelectFieldContainer';
 import DirectionSelectFieldContainer from './DirectionSelectFieldContainer';
 import StopSelectFieldContainer from './StopSelectFieldContainer';
 
-import { loadRouteConfigRequest } from '../actions.js';
+import { loadRouteConfigRequest } from '../actions';
 
 class SearchFormContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.handleGetRouteConfig = this.handleGetRouteConfig.bind(this);
   }
 
   handleGetRouteConfig(routeId) {
@@ -23,7 +24,7 @@ class SearchFormContainer extends React.Component {
       <div className="c-search">
         <form className="c-search__form">
           <RouteSelectFieldContainer
-            onSelect={this.handleGetRouteConfig.bind(this)}
+            onSelect={this.handleGetRouteConfig}
           />
           <DirectionSelectFieldContainer />
           <StopSelectFieldContainer />

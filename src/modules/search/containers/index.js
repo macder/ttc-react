@@ -1,3 +1,3 @@
-import SearchFormContainer from './SearchFormContainer.js';
+import SearchFormContainer from './SearchFormContainer';
 
 export default { SearchFormContainer };

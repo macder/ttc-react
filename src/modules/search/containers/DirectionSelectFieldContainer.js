@@ -1,16 +1,19 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import DirectionSelectField from '../components/DirectionSelectField';
 
 import { getDirectionList } from '../selectors';
-import { selectedDirection, inputDirection, clearDirection } from '../actions.js';
+import { selectedDirection, inputDirection, clearDirection } from '../actions';
 
 class DirectionSelectFieldContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClear = this.handleClear.bind(this);
+    this.handleDirectionSelect = this.handleDirectionSelect.bind(this);
+    this.handleUpdateInput = this.handleUpdateInput.bind(this);
   }
 
   handleClear() {
@@ -34,10 +37,10 @@ class DirectionSelectFieldContainer extends React.Component {
     return (
       <DirectionSelectField
         list={this.props.list}
-        onSelected={this.handleDirectionSelect.bind(this)}
+        onSelected={this.handleDirectionSelect}
         inputSelected={this.props.inputSelected}
-        onUpdateInput={this.handleUpdateInput.bind(this)}
-        onClear={this.handleClear.bind(this)}
+        onUpdateInput={this.handleUpdateInput}
+        onClear={this.handleClear}
         input={this.props.input}
         isVisible={this.props.visible}
       />
@@ -47,7 +50,10 @@ class DirectionSelectFieldContainer extends React.Component {
 
 DirectionSelectFieldContainer.propTypes = {
   action: PropTypes.object.isRequired,
+  input: PropTypes.bool.isRequired,
+  inputSelected: PropTypes.bool.isRequired,
   list: PropTypes.array.isRequired,
+  visible: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
