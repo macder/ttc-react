@@ -9,16 +9,14 @@ module.exports = {
     publicPath: '/build',
   },
   module: {
-    // First, run the linter
-    /*preLoaders: [
-      {
-        test: /\.js$/,
-        loader: 'eslint',
-        include: path.resolve(process.cwd(), 'src'),
-      }
-    ],*/
     loaders: [
       {
+        test: /\.js$/,
+        include: path.resolve(process.cwd(), 'src'),
+        exclude: /node_modules/,
+        enforce: 'pre',
+        loader: 'eslint-loader'
+      }, {
         test: /\.js$/,
         include: path.resolve(process.cwd(), 'src'),
         query: {
