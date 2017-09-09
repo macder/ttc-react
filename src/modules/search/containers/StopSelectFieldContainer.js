@@ -1,16 +1,19 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import StopSelectField from '../components/StopSelectField';
 
 import { getStopList } from '../selectors';
-import { selectedStop, inputStop, clearStop } from '../actions.js';
+import { selectedStop, inputStop, clearStop } from '../actions';
 
 class StopSelectFieldContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClear = this.handleClear.bind(this);
+    this.handleUpdateInput = this.handleUpdateInput.bind(this);
+    this.handleStopSelect = this.handleStopSelect.bind(this);
   }
 
   handleClear() {
@@ -30,13 +33,14 @@ class StopSelectFieldContainer extends React.Component {
   }
 
   render() {
+    console.dir(this.props);
     return (
       <StopSelectField
         list={this.props.list}
-        onSelected={this.handleStopSelect.bind(this)}
+        onSelected={this.handleStopSelect}
         inputSelected={this.props.inputSelected}
-        onUpdateInput={this.handleUpdateInput.bind(this)}
-        onClear={this.handleClear.bind(this)}
+        onUpdateInput={this.handleUpdateInput}
+        onClear={this.handleClear}
         input={this.props.input}
         isVisible={this.props.visible}
       />
@@ -45,7 +49,10 @@ class StopSelectFieldContainer extends React.Component {
 }
 
 StopSelectFieldContainer.propTypes = {
-
+  action: PropTypes.object.isRequired,
+  input: PropTypes.bool.isRequired,
+  inputSelected: PropTypes.bool.isRequired,
+  list: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = state => ({
