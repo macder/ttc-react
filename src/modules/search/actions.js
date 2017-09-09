@@ -135,10 +135,9 @@ export const inputStop = input => ({
 
 /**
  *
- * @param {object} route.
  * @return {object}
  */
-export const clearRoute = route => ({
+export const clearRoute = () => ({
   type: t.CLEAR_ROUTE,
   selected: null,
   input: null,
@@ -146,10 +145,9 @@ export const clearRoute = route => ({
 
 /**
  *
- * @param {object} route.
  * @return {object}
  */
-export const clearDirection = direction => ({
+export const clearDirection = () => ({
   type: t.CLEAR_DIRECTION,
   selected: null,
   input: null,
@@ -157,10 +155,9 @@ export const clearDirection = direction => ({
 
 /**
  *
- * @param {object} route.
  * @return {object}
  */
-export const clearStop = stop => ({
+export const clearStop = () => ({
   type: t.CLEAR_STOP,
   selected: null,
   input: null,

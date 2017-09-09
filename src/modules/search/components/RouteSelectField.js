@@ -1,5 +1,6 @@
 import React from 'react';
-import AutoCompleteField from '../../core/containers/AutoCompleteField.js';
+import PropTypes from 'prop-types';
+import AutoCompleteField from '../../core/containers/AutoCompleteField';
 
 import './RouteSelectField.scss';
 
@@ -22,3 +23,10 @@ export default function RouteSelectField(props) {
     </div>
   );
 }
+
+RouteSelectField.propTypes = {
+  list: PropTypes.array.isRequired,
+  onClear: PropTypes.func.isRequired,
+  onSelected: PropTypes.func.isRequired,
+  onUpdateInput: PropTypes.func.isRequired,
+};

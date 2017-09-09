@@ -1,5 +1,6 @@
 import React from 'react';
-import AutoCompleteField from '../../core/containers/AutoCompleteField.js';
+import PropTypes from 'prop-types';
+import AutoCompleteField from '../../core/containers/AutoCompleteField';
 
 import './DirectionSelectField.scss';
 
@@ -27,3 +28,13 @@ export default function DirectionSelectField(props) {
   }
   return null;
 }
+
+DirectionSelectField.propTypes = {
+  input: PropTypes.bool.isRequired,
+  inputSelected: PropTypes.bool.isRequired,
+  isVisible: PropTypes.bool.isRequired,
+  list: PropTypes.array.isRequired,
+  onClear: PropTypes.func.isRequired,
+  onSelected: PropTypes.func.isRequired,
+  onUpdateInput: PropTypes.func.isRequired,
+};
