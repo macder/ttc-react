@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import Immutable from 'immutable';
-import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
-import createSagaMiddleware from 'redux-saga'
-import { MuiThemeProvider } from 'material-ui/styles'
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { MuiThemeProvider } from 'material-ui/styles';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import reducer from './rootReducer'
+import reducer from './rootReducer';
 import search from './modules/search';
 import predictions from './modules/predictions';
 
@@ -17,9 +17,9 @@ const SearchForm = search.containers.default.SearchFormContainer;
 
 const Predictions = predictions.containers.default.PredictionsContainer;
 
-let store = createStore(
+const store = createStore(
   reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), // eslint-disable-line
   applyMiddleware(sagaMiddleware),
 );
 
@@ -35,5 +35,5 @@ ReactDOM.render(
         <Predictions />
       </div>
     </MuiThemeProvider>
-  </Provider>, document.getElementById('root')
+  </Provider>, document.getElementById('root'),
 );

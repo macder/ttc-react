@@ -1,10 +1,10 @@
 import React from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
 
-export default function LoadingSpinner(props) {
+export default function LoadingSpinner() {
   const style = {
-    marginTop: 24
-  }
+    marginTop: 24,
+  };
   return (
     <div className="c-loading-spinner">
       <CircularProgress

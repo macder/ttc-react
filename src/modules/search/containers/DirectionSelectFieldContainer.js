@@ -1,16 +1,19 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import DirectionSelectField from '../components/DirectionSelectField';
 
-import { getDirectionList } from '../selectors'
-import { selectedDirection, inputDirection, clearDirection } from '../actions.js'
+import { getDirectionList } from '../selectors';
+import { selectedDirection, inputDirection, clearDirection } from '../actions';
 
 class DirectionSelectFieldContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClear = this.handleClear.bind(this);
+    this.handleDirectionSelect = this.handleDirectionSelect.bind(this);
+    this.handleUpdateInput = this.handleUpdateInput.bind(this);
   }
 
   handleClear() {
@@ -20,7 +23,7 @@ class DirectionSelectFieldContainer extends React.Component {
 
   handleUpdateInput(input) {
     this.props.action.directionInput(input);
-    if(input === '') {
+    if (input === '') {
       this.props.action.directionCleared();
     }
   }
@@ -33,13 +36,13 @@ class DirectionSelectFieldContainer extends React.Component {
   render() {
     return (
       <DirectionSelectField
-        list = {this.props.list}
-        onSelected = {this.handleDirectionSelect.bind(this)}
-        inputSelected = {this.props.inputSelected}
-        onUpdateInput = {this.handleUpdateInput.bind(this)}
-        onClear = {this.handleClear.bind(this)}
-        input = {this.props.input}
-        isVisible = {this.props.visible}
+        list={this.props.list}
+        onSelected={this.handleDirectionSelect}
+        inputSelected={this.props.inputSelected}
+        onUpdateInput={this.handleUpdateInput}
+        onClear={this.handleClear}
+        input={this.props.input}
+        isVisible={this.props.visible}
       />
     );
   }
@@ -47,26 +50,25 @@ class DirectionSelectFieldContainer extends React.Component {
 
 DirectionSelectFieldContainer.propTypes = {
   action: PropTypes.object.isRequired,
+  input: PropTypes.bool.isRequired,
+  inputSelected: PropTypes.bool.isRequired,
   list: PropTypes.array.isRequired,
-}
+  visible: PropTypes.bool.isRequired,
+};
 
-const mapStateToProps = (state) => {
-  return {
-    inputSelected: (state.searchState.directionField.selected) ? true : false,
-    input: (state.searchState.directionField.input) ? true : false,
-    list: getDirectionList(state),
-    visible: state.searchState.directionField.visible,
-  };
-}
+const mapStateToProps = state => ({
+  inputSelected: !!(state.searchState.directionField.selected),
+  input: !!(state.searchState.directionField.input),
+  list: getDirectionList(state),
+  visible: state.searchState.directionField.visible,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    action: {
-      directionSelected: bindActionCreators(selectedDirection, dispatch),
-      directionInput: bindActionCreators(inputDirection, dispatch),
-      directionCleared: bindActionCreators(clearDirection, dispatch)
-    }
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  action: {
+    directionSelected: bindActionCreators(selectedDirection, dispatch),
+    directionInput: bindActionCreators(inputDirection, dispatch),
+    directionCleared: bindActionCreators(clearDirection, dispatch),
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(DirectionSelectFieldContainer);

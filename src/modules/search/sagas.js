@@ -1,11 +1,11 @@
-import "regenerator-runtime/runtime";
+import 'regenerator-runtime/runtime';
 
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { all, call, put, takeEvery } from 'redux-saga/effects';
 
 import * as t from './actionTypes';
 import * as actions from './actions';
-import {httpGet} from '../../services/httpRequest';
-import {parseXML} from '../../services/parsers';
+import { httpGet } from '../../services/httpRequest';
+import { parseXML } from '../../services/parsers';
 
 /**
  * Worker Saga: will be fired on
@@ -13,7 +13,7 @@ import {parseXML} from '../../services/parsers';
  * @param {object} args
  * @param {object} action - redux action
  */
-function* fetch(args, action){
+function* fetch(args, action) {
   try {
     const options = {
       trim: true,
@@ -24,7 +24,6 @@ function* fetch(args, action){
     const data = parseXML(yield call(httpGet, action.url), options).body.route;
 
     yield put(actions[args.success](data));
-
   } catch (e) {
     yield put(actions[args.fail](e));
   }
@@ -57,8 +56,8 @@ function* loadRouteConfig() {
 }
 
 export default function* rootSaga() {
-  yield all ([
+  yield all([
     loadRouteList(),
-    loadRouteConfig()
-  ])
+    loadRouteConfig(),
+  ]);
 }

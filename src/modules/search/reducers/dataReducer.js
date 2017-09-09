@@ -1,21 +1,20 @@
-import * as t from '../actionTypes.js';
+import * as t from '../actionTypes';
 
 const initialState = {
 
   routeList: {
     fetching: false,
-    payload: []
+    payload: [],
   },
 
   routeConfig: {
     fetching: false,
-    payload: {}
+    payload: {},
   },
 };
 
 const dataReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-
     case t.CLEAR_ROUTE:
       return Object.assign({}, state, {
         routeConfig: Object.assign({}, state.routeConfig, {
@@ -29,7 +28,7 @@ const dataReducer = (state = initialState, action = {}) => {
         routeList: Object.assign({}, state.routeList, {
           fetching: action.fetching,
           populated: action.populated,
-          error: action.error
+          error: action.error,
         }),
       });
 
@@ -37,7 +36,7 @@ const dataReducer = (state = initialState, action = {}) => {
       return Object.assign({}, state, {
         routeList: Object.assign({}, state.routeList, {
           fetching: action.fetching,
-          populated: action.populated
+          populated: action.populated,
         }),
       });
 
@@ -47,14 +46,14 @@ const dataReducer = (state = initialState, action = {}) => {
         routeList: Object.assign({}, state.routeList, {
           fetching: action.fetching,
           payload: action.payload,
-          populated: action.populated
+          populated: action.populated,
         }),
       });
 
     case t.LOAD_ROUTE_CONFIG_REQUEST:
       return Object.assign({}, state, {
         routeConfig: Object.assign({}, state.routeConfig, {
-          fetching: action.fetching
+          fetching: action.fetching,
         }),
       });
 
@@ -75,7 +74,7 @@ const dataReducer = (state = initialState, action = {}) => {
       });
 
     default:
-      return state
+      return state;
   }
 };
 

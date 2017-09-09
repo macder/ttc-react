@@ -1,62 +1,50 @@
-import * as t from '../actionTypes.js';
+import * as t from '../actionTypes';
 
 const initialState = {
   selected: null,
   visible: false,
-  input: null
+  input: null,
 };
 
-const updateObject = (oldObject, newValues) => {
+const updateObject = (oldObject, newValues) =>
   // Encapsulate the idea of passing a new object as the first parameter
   // to Object.assign to ensure we correctly copy data instead of mutating
-  return Object.assign({}, oldObject, newValues);
-}
+  Object.assign({}, oldObject, newValues);
 
-const selectedDirection = (state, action) => {
-  return updateObject(state, {
-    visible: true,
-  });
-}
 
-const selectedStop = (state, action) => {
-  return updateObject(state, {
-    selected: action.selected
-  });
-}
+const selectedDirection = state => updateObject(state, {
+  visible: true,
+});
 
-const clearRoute = (state, action) => {
-  return updateObject(state, {
-    selected: action.selected,
-    input: action.input,
-    visible: false,
-  });
-}
+const selectedStop = (state, action) => updateObject(state, {
+  selected: action.selected,
+});
 
-const clearDirection = (state, action) => {
-  return updateObject(state, {
-    selected: null,
-    input: null,
-    visible: false,
-  });
-}
+const clearRoute = (state, action) => updateObject(state, {
+  selected: action.selected,
+  input: action.input,
+  visible: false,
+});
 
-const clearStop = (state, action) => {
-  return updateObject(state, {
-    selected: action.selected,
-    input: action.input,
-  });
-}
+const clearDirection = state => updateObject(state, {
+  selected: null,
+  input: null,
+  visible: false,
+});
 
-const inputStop = (state, action) => {
-  return updateObject(state, {
-    input: action.input
-  });
-}
+const clearStop = (state, action) => updateObject(state, {
+  selected: action.selected,
+  input: action.input,
+});
+
+const inputStop = (state, action) => updateObject(state, {
+  input: action.input,
+});
 
 const stopFieldReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case t.SELECTED_DIRECTION:
-      return selectedDirection(state, action);
+      return selectedDirection(state);
 
     case t.SELECTED_STOP:
       return selectedStop(state, action);
@@ -65,7 +53,7 @@ const stopFieldReducer = (state = initialState, action = {}) => {
       return clearRoute(state, action);
 
     case t.CLEAR_DIRECTION:
-      return clearDirection(state, action);
+      return clearDirection(state);
 
     case t.CLEAR_STOP:
       return clearStop(state, action);
@@ -74,7 +62,7 @@ const stopFieldReducer = (state = initialState, action = {}) => {
       return inputStop(state, action);
 
     default:
-      return state
+      return state;
   }
 };
 

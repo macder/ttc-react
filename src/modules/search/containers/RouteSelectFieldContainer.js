@@ -1,16 +1,19 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import RouteSelectField from '../components/RouteSelectField';
 
-import { getRouteList } from '../selectors'
-import { loadRoutesRequest, selectedRoute, clearRoute, inputRoute } from '../actions.js'
+import { getRouteList } from '../selectors';
+import { loadRoutesRequest, selectedRoute, clearRoute, inputRoute } from '../actions';
 
 class RouteSelectFieldContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClear = this.handleClear.bind(this);
+    this.handleRouteSelect = this.handleRouteSelect.bind(this);
+    this.handleUpdateInput = this.handleUpdateInput.bind(this);
   }
 
   componentDidMount() {
@@ -30,7 +33,7 @@ class RouteSelectFieldContainer extends React.Component {
 
   handleUpdateInput(input) {
     this.props.action.routeInput(input);
-    if(input === '') {
+    if (input === '') {
       this.props.action.routeCleared();
     }
   }
@@ -38,10 +41,10 @@ class RouteSelectFieldContainer extends React.Component {
   render() {
     return (
       <RouteSelectField
-        list = {this.props.list}
-        onSelected = {this.handleRouteSelect.bind(this)}
-        onClear = {this.handleClear.bind(this)}
-        onUpdateInput = {this.handleUpdateInput.bind(this)}
+        list={this.props.list}
+        onSelected={this.handleRouteSelect}
+        onClear={this.handleClear}
+        onUpdateInput={this.handleUpdateInput}
       />
     );
   }
@@ -51,23 +54,19 @@ RouteSelectFieldContainer.propTypes = {
   action: PropTypes.object.isRequired,
   list: PropTypes.array.isRequired,
   onSelect: PropTypes.func.isRequired,
-}
+};
 
-const mapStateToProps = (state) => {
-  return {
-    list: getRouteList(state)
-  }
-}
+const mapStateToProps = state => ({
+  list: getRouteList(state),
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    action: {
-      loadRouteList: bindActionCreators(loadRoutesRequest, dispatch),
-      routeSelected: bindActionCreators(selectedRoute, dispatch),
-      routeCleared: bindActionCreators(clearRoute, dispatch),
-      routeInput: bindActionCreators(inputRoute, dispatch),
-    }
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  action: {
+    loadRouteList: bindActionCreators(loadRoutesRequest, dispatch),
+    routeSelected: bindActionCreators(selectedRoute, dispatch),
+    routeCleared: bindActionCreators(clearRoute, dispatch),
+    routeInput: bindActionCreators(inputRoute, dispatch),
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(RouteSelectFieldContainer);

@@ -1,3 +1,3 @@
-import PredictionsContainer from './PredictionsContainer.js';
+import PredictionsContainer from './PredictionsContainer';
 
 export default { PredictionsContainer };

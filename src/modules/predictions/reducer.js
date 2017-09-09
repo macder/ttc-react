@@ -6,43 +6,35 @@ const initialState = {
   payload: null,
 };
 
-const updateObject = (oldObject, newValues) => {
+const updateObject = (oldObject, newValues) =>
   // Encapsulate the idea of passing a new object as the first parameter
   // to Object.assign to ensure we correctly copy data instead of mutating
-  return Object.assign({}, oldObject, newValues);
-}
+  Object.assign({}, oldObject, newValues);
 
-const loadPredictionsRequest = (state, action) => {
-  return updateObject(state, {
-    fetching: action.fetching,
-    visible: action.visible,
-  });
-}
 
-const loadPredictionsSuccess = (state, action) => {
-  return updateObject(state, {
-    fetching: false,
-    payload: action.payload,
-    visible: action.visible,
-  });
-}
+const loadPredictionsRequest = (state, action) => updateObject(state, {
+  fetching: action.fetching,
+  visible: action.visible,
+});
 
-const loadPredictionsFailure = (state, action) => {
-  return updateObject(state, {
-    fetching: false,
-    payload: action.payload,
-    visible: action.visible,
-    error: action.error
-  });
-}
+const loadPredictionsSuccess = (state, action) => updateObject(state, {
+  fetching: false,
+  payload: action.payload,
+  visible: action.visible,
+});
 
-const clearPredictions = (state, action) => {
-  return updateObject(state, {
-    fetching: false,
-    payload: action.payload,
-    visible: action.visible,
-  });
-}
+const loadPredictionsFailure = (state, action) => updateObject(state, {
+  fetching: false,
+  payload: action.payload,
+  visible: action.visible,
+  error: action.error,
+});
+
+const clearPredictions = (state, action) => updateObject(state, {
+  fetching: false,
+  payload: action.payload,
+  visible: action.visible,
+});
 
 const predictionsReducer = (state = initialState, action = {}) => {
   switch (action.type) {
@@ -59,7 +51,7 @@ const predictionsReducer = (state = initialState, action = {}) => {
       return clearPredictions(state, action);
 
     default:
-      return state
+      return state;
   }
 };
 

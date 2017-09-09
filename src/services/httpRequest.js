@@ -6,17 +6,17 @@ import axios from 'axios';
  * @param {string} url
  * @return {object} The response.
  */
-export function* httpGet (url) {
+export function* httpGet(url) {
   let data = {};
 
   yield axios({
     method: 'get',
-    url: url,
-    responseType: 'text'
+    url,
+    responseType: 'text',
   })
-    .then(function(response) {
+    .then((response) => {
       data = response.data;
-  });
+    });
   // yield delay(3000);
   return data;
 }
