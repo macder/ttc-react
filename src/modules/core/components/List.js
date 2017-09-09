@@ -7,7 +7,7 @@ export default function List(props) {
   );
 
   return (
-    <div>
+    <div className="c-list">
       <h1>{props.title}</h1>
       <ul>
         {items}
