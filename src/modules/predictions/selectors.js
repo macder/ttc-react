@@ -7,32 +7,32 @@ const visible = state => state.predictionState.visible;
 // Get prediction payload
 const predictions = createSelector(
   [payload],
-  (payload) => {
-    if (payload && payload.hasOwnProperty('direction')) {
+  (data) => {
+    if (data && Object.prototype.hasOwnProperty.call(data, 'direction')) {
       // multi direction predictions - eg 12a and 12b
-      if (Array.isArray(payload.direction)) {
-        return payload.direction.map((value, index) => {
-          const predictions = (Array.isArray(value.prediction))
+      if (Array.isArray(data.direction)) {
+        return data.direction.map((value) => {
+          const result = (Array.isArray(value.prediction))
             ? value.prediction
             : [value.prediction];
           return {
-            prediction: predictions,
+            prediction: result,
             title: value.title,
           };
         });
       }
 
       // stop has single set of predictions for route
-      if (Array.isArray(payload.direction.prediction)) {
-        return [payload.direction];
+      if (Array.isArray(data.direction.prediction)) {
+        return [data.direction];
       }
 
       // only 1 prediction - last vehicle?
       return [
         {
-          title: payload.direction.title,
+          title: data.direction.title,
           prediction: [
-            payload.direction.prediction,
+            data.direction.prediction,
           ],
         },
       ];
@@ -43,33 +43,25 @@ const predictions = createSelector(
 
 export const getPredictions = createSelector(
   [predictions],
-  predictions => predictions,
+  data => data,
 );
 
 export const getPredictionsInMinutes = createSelector(
   [predictions],
-  (predictions) => {
-    if (predictions) {
-      const test = predictions.map((value, index) => {
-        const minutes = value.prediction.map((row, index) => row.minutes);
-        return minutes;
-      });
-      return test;
-    }
-  },
+  data => (
+    data ? data.map(value => value.prediction.map(row => row.minutes)) : null
+  ),
 );
 
 // Check if the route stop has predictions
 export const hasPredictions = createSelector(
   [payload],
-  (payload) => {
-    if (payload) {
-      return !(payload.hasOwnProperty('dirTitleBecauseNoPredictions'));
-    }
-    return false;
-  },
+  data => (
+    data
+      ? !(Object.prototype.hasOwnProperty.call(data, 'dirTitleBecauseNoPredictions'))
+      : false
+  ),
 );
-
 
 // Get selected route and stop ID's, or return null
 export const getRouteStopId = createSelector(
@@ -88,5 +80,5 @@ export const getRouteStopId = createSelector(
 // Check if visible
 export const isVisible = createSelector(
   [visible],
-  visible => visible,
+  result => result,
 );
