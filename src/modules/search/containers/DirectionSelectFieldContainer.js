@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import DirectionSelectField from '../components/DirectionSelectField';
 
-import { getDirectionList } from '../selectors'
-import { selectedDirection, inputDirection, clearDirection } from '../actions.js'
+import { getDirectionList } from '../selectors';
+import { selectedDirection, inputDirection, clearDirection } from '../actions.js';
 
 class DirectionSelectFieldContainer extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class DirectionSelectFieldContainer extends React.Component {
 
   handleUpdateInput(input) {
     this.props.action.directionInput(input);
-    if(input === '') {
+    if (input === '') {
       this.props.action.directionCleared();
     }
   }
@@ -33,13 +33,13 @@ class DirectionSelectFieldContainer extends React.Component {
   render() {
     return (
       <DirectionSelectField
-        list = {this.props.list}
-        onSelected = {this.handleDirectionSelect.bind(this)}
-        inputSelected = {this.props.inputSelected}
-        onUpdateInput = {this.handleUpdateInput.bind(this)}
-        onClear = {this.handleClear.bind(this)}
-        input = {this.props.input}
-        isVisible = {this.props.visible}
+        list={this.props.list}
+        onSelected={this.handleDirectionSelect.bind(this)}
+        inputSelected={this.props.inputSelected}
+        onUpdateInput={this.handleUpdateInput.bind(this)}
+        onClear={this.handleClear.bind(this)}
+        input={this.props.input}
+        isVisible={this.props.visible}
       />
     );
   }
@@ -48,25 +48,21 @@ class DirectionSelectFieldContainer extends React.Component {
 DirectionSelectFieldContainer.propTypes = {
   action: PropTypes.object.isRequired,
   list: PropTypes.array.isRequired,
-}
+};
 
-const mapStateToProps = (state) => {
-  return {
-    inputSelected: (state.searchState.directionField.selected) ? true : false,
-    input: (state.searchState.directionField.input) ? true : false,
-    list: getDirectionList(state),
-    visible: state.searchState.directionField.visible,
-  };
-}
+const mapStateToProps = state => ({
+  inputSelected: !!(state.searchState.directionField.selected),
+  input: !!(state.searchState.directionField.input),
+  list: getDirectionList(state),
+  visible: state.searchState.directionField.visible,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    action: {
-      directionSelected: bindActionCreators(selectedDirection, dispatch),
-      directionInput: bindActionCreators(inputDirection, dispatch),
-      directionCleared: bindActionCreators(clearDirection, dispatch)
-    }
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  action: {
+    directionSelected: bindActionCreators(selectedDirection, dispatch),
+    directionInput: bindActionCreators(inputDirection, dispatch),
+    directionCleared: bindActionCreators(clearDirection, dispatch),
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(DirectionSelectFieldContainer);

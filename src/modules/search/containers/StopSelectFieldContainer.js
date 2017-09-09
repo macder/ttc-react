@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import StopSelectField from '../components/StopSelectField';
 
-import { getStopList } from '../selectors'
-import { selectedStop, inputStop, clearStop } from '../actions.js'
+import { getStopList } from '../selectors';
+import { selectedStop, inputStop, clearStop } from '../actions.js';
 
 class StopSelectFieldContainer extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class StopSelectFieldContainer extends React.Component {
 
   handleUpdateInput(input) {
     this.props.action.stopInput(input);
-    if(input === '') {
+    if (input === '') {
       this.props.action.stopCleared();
     }
   }
@@ -32,13 +32,13 @@ class StopSelectFieldContainer extends React.Component {
   render() {
     return (
       <StopSelectField
-        list = {this.props.list}
-        onSelected = {this.handleStopSelect.bind(this)}
-        inputSelected = {this.props.inputSelected}
-        onUpdateInput = {this.handleUpdateInput.bind(this)}
-        onClear = {this.handleClear.bind(this)}
-        input = {this.props.input}
-        isVisible = {this.props.visible}
+        list={this.props.list}
+        onSelected={this.handleStopSelect.bind(this)}
+        inputSelected={this.props.inputSelected}
+        onUpdateInput={this.handleUpdateInput.bind(this)}
+        onClear={this.handleClear.bind(this)}
+        input={this.props.input}
+        isVisible={this.props.visible}
       />
     );
   }
@@ -46,25 +46,21 @@ class StopSelectFieldContainer extends React.Component {
 
 StopSelectFieldContainer.propTypes = {
 
-}
+};
 
-const mapStateToProps = (state) => {
-  return {
-    inputSelected: (state.searchState.stopField.selected) ? true : false,
-    input: (state.searchState.stopField.input) ? true : false,
-    list: getStopList(state),
-    visible: state.searchState.stopField.visible,
-  };
-}
+const mapStateToProps = state => ({
+  inputSelected: !!(state.searchState.stopField.selected),
+  input: !!(state.searchState.stopField.input),
+  list: getStopList(state),
+  visible: state.searchState.stopField.visible,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    action: {
-      stopSelected: bindActionCreators(selectedStop, dispatch),
-      stopInput: bindActionCreators(inputStop, dispatch),
-      stopCleared: bindActionCreators(clearStop, dispatch)
-    }
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  action: {
+    stopSelected: bindActionCreators(selectedStop, dispatch),
+    stopInput: bindActionCreators(inputStop, dispatch),
+    stopCleared: bindActionCreators(clearStop, dispatch),
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(StopSelectFieldContainer);

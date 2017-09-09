@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 import RouteSelectFieldContainer from './RouteSelectFieldContainer';
 import DirectionSelectFieldContainer from './DirectionSelectFieldContainer';
 import StopSelectFieldContainer from './StopSelectFieldContainer';
 
-import { loadRouteConfigRequest } from '../actions.js'
+import { loadRouteConfigRequest } from '../actions.js';
 
 class SearchFormContainer extends React.Component {
-
   constructor(props) {
     super(props);
   }
@@ -24,7 +23,7 @@ class SearchFormContainer extends React.Component {
       <div className="c-search">
         <form className="c-search__form">
           <RouteSelectFieldContainer
-            onSelect = {this.handleGetRouteConfig.bind(this)}
+            onSelect={this.handleGetRouteConfig.bind(this)}
           />
           <DirectionSelectFieldContainer />
           <StopSelectFieldContainer />
@@ -36,18 +35,14 @@ class SearchFormContainer extends React.Component {
 
 SearchFormContainer.propTypes = {
   action: PropTypes.object.isRequired,
-}
+};
 
-const mapStateToProps = (state) => {
-  return {}
-}
+const mapStateToProps = state => ({});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    action: {
-      loadRouteConfig: bindActionCreators(loadRouteConfigRequest, dispatch)
-    }
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  action: {
+    loadRouteConfig: bindActionCreators(loadRouteConfigRequest, dispatch),
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchFormContainer);

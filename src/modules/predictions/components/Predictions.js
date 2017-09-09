@@ -2,35 +2,33 @@ import React from 'react';
 import LoadingSpinner from '../../core/components/LoadingSpinner';
 import List from './List';
 
-const NextArrivals = (props) => {
-  return (
-    <div>
+const NextArrivals = props => (
+  <div>
     {props.data.map((list, index) =>
-      <List
-        title = {'title test'}
-        items = {list}
-      />
+      (<List
+        title={'title test'}
+        items={list}
+      />),
     )}
-    </div>
-  );
-}
+  </div>
+);
 
 export default function Predictions(props) {
-  if(props.isVisible && props.isFetching) {
+  if (props.isVisible && props.isFetching) {
     return (
       <LoadingSpinner />
     );
   }
 
-  if(props.isVisible && props.hasPredictions) {
+  if (props.isVisible && props.hasPredictions) {
     return (
       <NextArrivals
-        data = {props.predictionMins}
+        data={props.predictionMins}
       />
     );
   }
 
-  if(props.isVisible && !props.hasPredictions){
+  if (props.isVisible && !props.hasPredictions) {
     return (
       <div>No predictions availble</div>
     );

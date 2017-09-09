@@ -1,35 +1,29 @@
-import * as t from '../actionTypes.js';
+import * as t from '../actionTypes';
 
 const initialState = {
   selected: null,
   visible: false,
-  input: null
+  input: null,
 };
 
-const updateObject = (oldObject, newValues) => {
+const updateObject = (oldObject, newValues) =>
   // Encapsulate the idea of passing a new object as the first parameter
   // to Object.assign to ensure we correctly copy data instead of mutating
-  return Object.assign({}, oldObject, newValues);
-}
+  Object.assign({}, oldObject, newValues);
 
-const selectedRoute = (state, action) => {
-  return updateObject(state, {
-    selected: action.selected
-  });
-}
 
-const clearRoute = (state, action) => {
-  return updateObject(state, {
-    selected: action.selected,
-    input: action.input
-  });
-}
+const selectedRoute = (state, action) => updateObject(state, {
+  selected: action.selected,
+});
 
-const inputRoute = (state, action) => {
-  return updateObject(state, {
-    input: action.input
-  });
-}
+const clearRoute = (state, action) => updateObject(state, {
+  selected: action.selected,
+  input: action.input,
+});
+
+const inputRoute = (state, action) => updateObject(state, {
+  input: action.input,
+});
 
 
 const routeFieldReducer = (state = initialState, action = {}) => {
@@ -44,7 +38,7 @@ const routeFieldReducer = (state = initialState, action = {}) => {
       return inputRoute(state, action);
 
     default:
-      return state
+      return state;
   }
 };
 

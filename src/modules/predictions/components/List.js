@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function List(props) {
   const items = props.items.map((value, index) =>
-    <li>{value}</li>
+    <li>{value}</li>,
   );
 
   return (
@@ -12,5 +12,5 @@ export default function List(props) {
         {items}
       </ul>
     </div>
-  )
+  );
 }
