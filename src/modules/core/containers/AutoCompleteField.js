@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
-
-import LoadingSpinner from '../components/LoadingSpinner';
-
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 injectTapEventPlugin();
 
 export default class AutoCompleteField extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClearClick = this.handleClearClick.bind(this);
+    this.handleUpdateInput = this.handleUpdateInput.bind(this);
     this.state = {
       input: '',
     };
@@ -57,7 +57,7 @@ export default class AutoCompleteField extends React.Component {
             floatingLabelText={this.props.placeholder}
             dataSource={this.props.dataSource}
             dataSourceConfig={this.props.dataStructure}
-            onUpdateInput={this.handleUpdateInput.bind(this)}
+            onUpdateInput={this.handleUpdateInput}
             onNewRequest={this.props.onSelected}
             searchText={this.state.input}
             openOnFocus
@@ -68,7 +68,7 @@ export default class AutoCompleteField extends React.Component {
 
           <IconButton
             tooltip="Clear"
-            onClick={this.handleClearClick.bind(this)}
+            onClick={this.handleClearClick}
             iconStyle={iconStyle}
             style={clearButtonStyle}
             tooltipPosition={'top-center'}
@@ -86,8 +86,11 @@ export default class AutoCompleteField extends React.Component {
 }
 
 AutoCompleteField.propTypes = {
-  placeholder: PropTypes.string.isRequired,
   dataSource: PropTypes.array.isRequired,
   dataStructure: PropTypes.object.isRequired,
+  input: PropTypes.string,
+  onClear: PropTypes.func.isRequired,
   onSelected: PropTypes.func.isRequired,
+  onUpdateInput: PropTypes.func.isRequired,
+  placeholder: PropTypes.string.isRequired,
 };
