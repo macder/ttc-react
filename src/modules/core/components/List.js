@@ -8,7 +8,6 @@ export default function List(props) {
 
   return (
     <div className="c-list">
-      <h1>{props.title}</h1>
       <ul>
         {items}
       </ul>
@@ -18,5 +17,5 @@ export default function List(props) {
 
 List.propTypes = {
   items: PropTypes.array.isRequired,
-  title: PropTypes.string,
+  // title: PropTypes.string,
 };

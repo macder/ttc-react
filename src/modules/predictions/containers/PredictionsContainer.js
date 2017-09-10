@@ -9,19 +9,23 @@ import { loadPredictionsRequest, clearPredictions } from '../actions';
 class PredictionsContainer extends React.Component {
   constructor(props) {
     super(props);
+    props.action.requestPredictions(2, 2);
   }
 
   componentWillUpdate(nextProps) {
     if (!this.props.params && nextProps.params) {
       // dispatch action to request predictions data
-      this.props.action.requestPredictions(nextProps.params.routeId, nextProps.params.stopId);
+      // this.props.action.requestPredictions(nextProps.params.routeId, nextProps.params.stopId);
     } else if (this.props.params && !nextProps.params) {
       // dispatch action to clear/reset predictions data/state
-      this.props.action.clear();
+      // this.props.action.clear();
     }
   }
 
   render() {
+    /*console.log('*-------------------')
+    console.dir(this.props)
+    console.log('-------------------*')*/
     return (
       <Predictions
         isVisible={this.props.visible}

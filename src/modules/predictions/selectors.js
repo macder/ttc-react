@@ -8,6 +8,9 @@ const visible = state => state.predictionState.visible;
 const predictions = createSelector(
   [payload],
   (data) => {
+    console.log('*------createSelector--------');
+    console.dir(data);
+    console.log('------createSelector------*');
     if (data && Object.prototype.hasOwnProperty.call(data, 'direction')) {
       // multi direction predictions - eg 12a and 12b
       if (Array.isArray(data.direction)) {
@@ -36,6 +39,10 @@ const predictions = createSelector(
           ],
         },
       ];
+      // return [];
+    }
+    else if (data && Object.prototype.hasOwnProperty.call(data, 'dirTitleBecauseNoPredictions')) {
+      return [];
     }
     return null;
   },

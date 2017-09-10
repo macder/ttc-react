@@ -3,29 +3,54 @@ import PropTypes from 'prop-types';
 import LoadingSpinner from '../../core/components/LoadingSpinner';
 import List from '../../core/components/List';
 
-const NextArrivals = props => (
-  <div>
-    {props.data.map(list =>
-      (<List
+function withPredictionsNull(Component) {
+  // console.dir('propss');
+  return function (props) {
+    // console.dir(props);
+    return !props.predictions
+      ? null
+      : <Component { ...props } />
+  }
+}
+
+
+const Arrivals = props => (
+  // console.dir(props);
+  <div className="c-next-arrivals">
+    {props.predictions.map(list => (
+      <div className="ininininin">
+      <p>title</p>
+      <List
         title={'title test'}
         items={list}
-      />),
-    )}
+      />
+      </div>
+    ),)}
   </div>
 );
 
+const PredictionsWithNull = withPredictionsNull(Arrivals);
+
+
+const Test = props => (
+  <p>w0w0w0w</p>
+);
+
 export default function Predictions(props) {
+  // console.dir(props);
+  return (
+    <div className="c-predictions">
+      <PredictionsWithNull predictions={props.predictionMins} />
+    </div>
+  );
+
+  /*if (!props.isVisible) {
+    return null;
+  }
+
   if (props.isVisible && props.isFetching) {
     return (
       <LoadingSpinner />
-    );
-  }
-
-  if (props.isVisible && props.hasPredictions) {
-    return (
-      <NextArrivals
-        data={props.predictionMins}
-      />
     );
   }
 
@@ -34,7 +59,14 @@ export default function Predictions(props) {
       <div>No predictions availble</div>
     );
   }
-  return null;
+
+  // if (props.isVisible && props.hasPredictions) {
+    return (
+      <NextArrivals
+        data={props.predictionMins}
+      />
+    );*/
+  // }
 }
 
 Predictions.propTypes = {

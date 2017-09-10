@@ -17,6 +17,6 @@ export function* httpGet(url) {
     .then((response) => {
       data = response.data;
     });
-  // yield delay(3000);
+  // yield delay(1200);
   return data;
 }

@@ -8,7 +8,12 @@ export const loadPredictionsRequest = (routeId, stopId) => ({
   type: t.LOAD_PREDICTIONS_REQUEST,
   fetching: true,
   visible: true,
-  url: `http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&r=${routeId}&s=${stopId}`,
+  // url: `http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&r=${routeId}&s=${stopId}`,
+  // url: '/data/prediction_2dirs_multi.xml',
+  // url: '/data/prediction_1dir_single.xml',
+  // url: '/data/prediction_2dirs_1multi_1single.xml',
+  // url: '/data/prediction_1dir_multi.xml',
+  url: '/data/prediction_nonr.xml',
 });
 
 /**
