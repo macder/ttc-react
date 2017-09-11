@@ -15,6 +15,10 @@ class SearchFormContainer extends React.Component {
     this.handleGetRouteConfig = this.handleGetRouteConfig.bind(this);
   }
 
+  componentWillUpdate(){
+    console.log('SearchFormContainer update');
+  }
+
   handleGetRouteConfig(routeId) {
     this.props.action.loadRouteConfig(routeId);
   }
@@ -26,8 +30,8 @@ class SearchFormContainer extends React.Component {
           <RouteSelectFieldContainer
             onSelect={this.handleGetRouteConfig}
           />
-          <DirectionSelectFieldContainer />
-          <StopSelectFieldContainer />
+          {/*<DirectionSelectFieldContainer />
+                    <StopSelectFieldContainer />*/}
         </form>
       </div>
     );
@@ -38,7 +42,9 @@ SearchFormContainer.propTypes = {
   action: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => {
+  return {};
+};
 
 const mapDispatchToProps = dispatch => ({
   action: {

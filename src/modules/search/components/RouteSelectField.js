@@ -7,14 +7,14 @@ import './RouteSelectField.scss';
 export default function RouteSelectField(props) {
   const dataStructure = {
     text: 'title',
-    value: 'id',
+    value: 'tag',
   };
 
   return (
     <div className="c-route-select">
       <AutoCompleteField
         placeholder="Route number or name"
-        dataSource={props.list}
+        dataSource={props.data}
         dataStructure={dataStructure}
         onSelected={props.onSelected}
         onClear={props.onClear}
@@ -25,7 +25,7 @@ export default function RouteSelectField(props) {
 }
 
 RouteSelectField.propTypes = {
-  list: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
   onClear: PropTypes.func.isRequired,
   onSelected: PropTypes.func.isRequired,
   onUpdateInput: PropTypes.func.isRequired,

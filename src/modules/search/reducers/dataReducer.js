@@ -1,52 +1,36 @@
+import Immutable from 'immutable';
 import * as t from '../actionTypes';
 
-const initialState = {
+const initialState = Immutable.fromJS({
 
   routeList: {
     fetching: false,
-    payload: [],
+    payload: {},
   },
 
   routeConfig: {
     fetching: false,
     payload: {},
   },
-};
+});
 
 const dataReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case t.CLEAR_ROUTE:
-      return Object.assign({}, state, {
-        routeConfig: Object.assign({}, state.routeConfig, {
-          fetching: false,
-          payload: {},
-        }),
-      });
 
-    case t.LOAD_ROUTES_FAILURE:
+    case t.LOAD_ROUTES_REQUEST:
+      return state.setIn(['routeList','fetching'], action.fetching);
+
+    case t.LOAD_ROUTES_SUCCESS:
+      return state
+        .setIn(['routeList','fetching'], action.fetching)
+        .setIn(['routeList','payload'], action.payload);
+
+    /*case t.LOAD_ROUTES_FAILURE:
       return Object.assign({}, state, {
         routeList: Object.assign({}, state.routeList, {
           fetching: action.fetching,
           populated: action.populated,
           error: action.error,
-        }),
-      });
-
-    case t.LOAD_ROUTES_REQUEST:
-      return Object.assign({}, state, {
-        routeList: Object.assign({}, state.routeList, {
-          fetching: action.fetching,
-          populated: action.populated,
-        }),
-      });
-
-
-    case t.LOAD_ROUTES_SUCCESS:
-      return Object.assign({}, state, {
-        routeList: Object.assign({}, state.routeList, {
-          fetching: action.fetching,
-          payload: action.payload,
-          populated: action.populated,
         }),
       });
 
@@ -72,6 +56,14 @@ const dataReducer = (state = initialState, action = {}) => {
           error: action.error,
         }),
       });
+
+    case t.CLEAR_ROUTE:
+      return Object.assign({}, state, {
+        routeConfig: Object.assign({}, state.routeConfig, {
+          fetching: false,
+          payload: {},
+        }),
+      });*/
 
     default:
       return state;

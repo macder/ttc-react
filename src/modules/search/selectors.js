@@ -1,16 +1,22 @@
+import Immutable from 'immutable'
 import { createSelector } from 'reselect';
 
-const routeList = state => state.searchState.data.routeList.payload;
+const routeList = state => state.getIn(['searchState', 'data', 'routeList', 'payload']);
+
 const routeConfig = state => state.searchState.data.routeConfig.payload;
 const selectedDirection = state => state.searchState.directionField.selected;
 
 // Get route list array for 'Route' autocomplete field
 export const getRouteList = createSelector(
   [routeList],
-  list => list.map(obj => ({
-    id: obj.tag,
-    title: obj.title,
-  })),
+  list => {
+    const Record = new Immutable.Record({
+      tag: '',
+      title: '',
+    });
+
+    return new Immutable.OrderedSet(list.map(Record));
+  }
 );
 
 // Get complete route config object

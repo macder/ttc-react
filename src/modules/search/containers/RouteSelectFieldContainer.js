@@ -2,11 +2,31 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Immutable from 'immutable'
 
 import RouteSelectField from '../components/RouteSelectField';
 
 import { getRouteList } from '../selectors';
 import { loadRoutesRequest, selectedRoute, clearRoute, inputRoute } from '../actions';
+
+const hocPropProxy = (Component) => {
+  return class PropProxy extends React.Component {
+    constructor(props) {
+      super(props);
+    }
+
+    render() {
+      return (
+        <Component
+          {...this.props}
+          data = {this.props.data.toJS()}
+        />
+      );
+    }
+  }
+}
+
+const RouteSelect = hocPropProxy(RouteSelectField);
 
 class RouteSelectFieldContainer extends React.Component {
   constructor(props) {
@@ -40,8 +60,8 @@ class RouteSelectFieldContainer extends React.Component {
 
   render() {
     return (
-      <RouteSelectField
-        list={this.props.list}
+      <RouteSelect
+        data={this.props.list}
         onSelected={this.handleRouteSelect}
         onClear={this.handleClear}
         onUpdateInput={this.handleUpdateInput}
@@ -52,7 +72,7 @@ class RouteSelectFieldContainer extends React.Component {
 
 RouteSelectFieldContainer.propTypes = {
   action: PropTypes.object.isRequired,
-  list: PropTypes.array.isRequired,
+  // list: PropTypes.array.isRequired,
   onSelect: PropTypes.func.isRequired,
 };
 
