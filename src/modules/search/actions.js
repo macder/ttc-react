@@ -79,7 +79,7 @@ export const loadDirectionsRequest = () => ({
  */
 export const selectedRoute = route => ({
   type: t.SELECTED_ROUTE,
-  selected: route,
+  selected: route.tag,
 });
 
 /**
