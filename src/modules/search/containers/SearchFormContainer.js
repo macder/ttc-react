@@ -16,32 +16,7 @@ import { getRouteList, getDirectionList } from '../selectors';
 
 import * as action from '../actions';
 
-// console.dir(action);
 
-// converts immutable to js for presentational components
-/*const hocDataPropProxy = (Component, dataSelector) => {
-  class DataPropProxy extends React.Component {
-    constructor(props) {
-      super(props);
-    }
-
-    render() {
-      return (
-        <Component
-          {...this.props}
-          data = {this.props.data.toJS()}
-        />
-      );
-    }
-
-  }
-
-  const mapStateToProps = state => ({
-    data: dataSelector(state),
-  });
-  return connect(mapStateToProps)(DataPropProxy);
-}*/
-// data = {this.props.data.toJS()}
 const RouteSelectField = hocDataPropProxy(SelectFieldContainer, getRouteList);
 const DirectionSelectField = hocDataPropProxy(SelectFieldContainer, getDirectionList);
 
