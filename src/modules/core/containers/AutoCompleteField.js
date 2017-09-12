@@ -37,7 +37,7 @@ export default class AutoCompleteField extends React.Component {
     this.setState({
       input: value,
     });
-    this.props.onUpdateInput(value);
+    this.props.onChange(value);
   }
 
   render() {
@@ -91,6 +91,6 @@ AutoCompleteField.propTypes = {
   input: PropTypes.string,
   onClear: PropTypes.func.isRequired,
   onSelected: PropTypes.func.isRequired,
-  onUpdateInput: PropTypes.func.isRequired,
+  // onUpdateInput: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,
 };
