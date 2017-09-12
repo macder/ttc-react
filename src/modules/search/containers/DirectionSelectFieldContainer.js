@@ -57,10 +57,10 @@ DirectionSelectFieldContainer.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  inputSelected: !!(state.searchState.directionField.selected),
-  input: !!(state.searchState.directionField.input),
-  list: getDirectionList(state),
-  visible: state.searchState.directionField.visible,
+  //inputSelected: !!(state.searchState.directionField.selected),
+  //input: !!(state.searchState.directionField.input),
+  data: getDirectionList(state),
+  //visible: state.searchState.directionField.visible,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -25,6 +25,26 @@ const dataReducer = (state = initialState, action = {}) => {
         .setIn(['routeList','fetching'], action.fetching)
         .setIn(['routeList','payload'], action.payload);
 
+    case t.LOAD_ROUTE_CONFIG_REQUEST:
+      return state
+        .setIn(['routeConfig','fetching'], action.fetching);
+
+    case t.LOAD_ROUTE_CONFIG_SUCCESS:
+      return state
+        .setIn(['routeConfig','fetching'], action.fetching)
+        .setIn(['routeConfig','payload'], action.payload);
+
+    case t.CLEAR_ROUTE:
+      return state;
+      // return state.setIn(['routeConfig','payload'], action.fetching);
+
+      /*return Object.assign({}, state, {
+        routeConfig: Object.assign({}, state.routeConfig, {
+          fetching: false,
+          payload: {},
+        }),
+      });*/
+
     /*case t.LOAD_ROUTES_FAILURE:
       return Object.assign({}, state, {
         routeList: Object.assign({}, state.routeList, {

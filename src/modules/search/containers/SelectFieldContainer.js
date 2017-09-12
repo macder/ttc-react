@@ -15,6 +15,10 @@ export default class SelectFieldContainer extends React.Component {
     this.handleClear = this.handleClear.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.handleUpdateInput = this.handleUpdateInput.bind(this);
+
+    this.state = {
+      input: '',
+    };
   }
 
   componentDidMount() {
@@ -22,26 +26,36 @@ export default class SelectFieldContainer extends React.Component {
   }
 
   handleSelect(value) {
-    console.log('handleSelect', value);
-    this.props.action.select(value);
+    // console.log('handleSelect', value);
+    /*this.props.action.select(value);
+    this.props.onSelect(value);*/
+
+    //if(this.props.onSelect){
+
+    //}
     /*const routeId = value.id;
     this.props.action.routeSelected(routeId);
     this.props.onSelect(routeId);*/
   }
 
-  handleClear(field) {
-    console.log('handleClear', field);
-    this.props.action.clear();
-    // dispatch action to clear selected
-    // this.props.action.routeCleared();
+  handleClear() {
+    console.log('handleClear');
+    this.props.onClear();
+    this.setState({
+      input: ''
+    });
   }
 
   handleUpdateInput(input) {
-    console.log('handleUpdateInput', input);
+    this.setState({
+      input
+    });
+    //console.dir(this.state);
+    //console.log('handleUpdateInput', input);
     // console.log(RouteSelectField);
-    this.props.action.update(input);
-    /*if (input === '') {
-      this.props.action.routeCleared();
+    /*this.props.action.update(input);
+    if (input === '') {
+      this.props.action.clear();
     }*/
   }
 
@@ -53,9 +67,11 @@ export default class SelectFieldContainer extends React.Component {
     return (
       <SelectField
         data={this.props.data}
-        onSelected={this.handleSelect}
+        placeholder={this.props.placeholder}
+        onSelect={this.props.onSelect}
         onClear={this.handleClear}
         onUpdateInput={this.handleUpdateInput}
+        input={this.state.input}
       />
     );
   }

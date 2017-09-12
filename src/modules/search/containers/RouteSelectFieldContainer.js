@@ -4,18 +4,24 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable'
 
+import SelectField from '../components/SelectField';
 import RouteSelectField from '../components/RouteSelectField';
 
 import { getRouteList } from '../selectors';
 import { loadRoutesRequest, selectedRoute, clearRoute, inputRoute } from '../actions';
 
+// converts immutable to js for presentational components
 const hocPropProxy = (Component) => {
+
+  // try mapping props
+
   return class PropProxy extends React.Component {
     constructor(props) {
       super(props);
     }
 
     render() {
+      // console.dir(this.props);
       return (
         <Component
           {...this.props}
@@ -26,7 +32,7 @@ const hocPropProxy = (Component) => {
   }
 }
 
-const RouteSelect = hocPropProxy(RouteSelectField);
+const RouteSelect = hocPropProxy(SelectField);
 
 class RouteSelectFieldContainer extends React.Component {
   constructor(props) {
@@ -41,9 +47,10 @@ class RouteSelectFieldContainer extends React.Component {
   }
 
   handleRouteSelect(value) {
-    const routeId = value.id;
-    this.props.action.routeSelected(routeId);
-    this.props.onSelect(routeId);
+    console.dir(value);
+    // const routeId = value.id;
+    this.props.action.routeSelected(value);
+    // this.props.onSelect(value.tag);
   }
 
   handleClear() {
@@ -61,23 +68,32 @@ class RouteSelectFieldContainer extends React.Component {
   render() {
     return (
       <RouteSelect
-        data={this.props.list}
-        onSelected={this.handleRouteSelect}
+        data={this.props.data}
+        onSelect={this.handleRouteSelect}
         onClear={this.handleClear}
         onUpdateInput={this.handleUpdateInput}
+        placeholder={'Route number or name'}
       />
     );
+    // return (
+    //   <RouteSelect
+    //     data={this.props.list}
+    //     onSelected={this.handleRouteSelect}
+    //     onClear={this.handleClear}
+    //     onUpdateInput={this.handleUpdateInput}
+    //   />
+    // );
   }
 }
 
 RouteSelectFieldContainer.propTypes = {
-  action: PropTypes.object.isRequired,
+  //action: PropTypes.object.isRequired,
   // list: PropTypes.array.isRequired,
-  onSelect: PropTypes.func.isRequired,
+  //onSelect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  list: getRouteList(state),
+  data: getRouteList(state),
 });
 
 const mapDispatchToProps = dispatch => ({

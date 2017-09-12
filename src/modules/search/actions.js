@@ -77,9 +77,9 @@ export const loadDirectionsRequest = () => ({
  * @param {object} route.
  * @return {object}
  */
-export const selectedRoute = route => ({
+export const selectedRoute = routeTag => ({
   type: t.SELECTED_ROUTE,
-  selected: route.tag,
+  selected: routeTag,
 });
 
 /**

@@ -10,15 +10,17 @@ import DirectionSelectFieldContainer from './DirectionSelectFieldContainer';
 import StopSelectFieldContainer from './StopSelectFieldContainer';
 
 import SelectField from '../components/SelectField';
-import { getRouteList } from '../selectors';
+import {hocDataPropProxy} from '../components/hocDataPropProxy';
+
+import { getRouteList, getDirectionList } from '../selectors';
 
 import * as action from '../actions';
 
 // console.dir(action);
 
 // converts immutable to js for presentational components
-const hocPropProxy = (Component) => {
-  return class PropProxy extends React.Component {
+/*const hocDataPropProxy = (Component, dataSelector) => {
+  class DataPropProxy extends React.Component {
     constructor(props) {
       super(props);
     }
@@ -31,19 +33,30 @@ const hocPropProxy = (Component) => {
         />
       );
     }
+
   }
-}
+
+  const mapStateToProps = state => ({
+    data: dataSelector(state),
+  });
+  return connect(mapStateToProps)(DataPropProxy);
+}*/
 // data = {this.props.data.toJS()}
-const RouteSelectField = hocPropProxy(SelectFieldContainer);
+const RouteSelectField = hocDataPropProxy(SelectFieldContainer, getRouteList);
+const DirectionSelectField = hocDataPropProxy(SelectFieldContainer, getDirectionList);
 
 class SearchFormContainer extends React.Component {
   constructor(props) {
     super(props);
     this.handleGetRouteConfig = this.handleGetRouteConfig.bind(this);
 
-    this.handleClear = this.handleClear.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
-    this.handleUpdateInput = this.handleUpdateInput.bind(this);
+    this.handleRouteClear = this.handleRouteClear.bind(this);
+    this.handleRouteSelect = this.handleRouteSelect.bind(this);
+    this.handleDirectionSelect = this.handleDirectionSelect.bind(this);
+    this.handleDirectionClear = this.handleDirectionClear.bind(this);
+
+
+    // this.handleUpdateInput = this.handleUpdateInput.bind(this);
   }
 
   componentDidMount() {
@@ -54,55 +67,89 @@ class SearchFormContainer extends React.Component {
     console.log('SearchFormContainer update');
   }
 
-  handleSelect(value) {
-    //console.log('handleSelect', value);
-    /*const routeId = value.id;
-    this.props.action.routeSelected(routeId);
-    this.props.onSelect(routeId);*/
+  handleRouteSelect(value) {
+    console.log('handleRouteSelect', value);
+    const routeTag = value.tag;
+    this.props.action.selectedRoute(routeTag);
+    this.props.action.loadRouteConfig(routeTag);
   }
 
-  handleClear(field) {
-    // console.log('handleClear', field);
+  handleDirectionSelect(value) {
+    console.log('handleDirectionSelect', value);
+    // const routeTag = value.tag;
+    // this.props.action.selectedRoute(routeTag);
+    // this.props.action.loadRouteConfig(routeTag);
+  }
+
+  handleRouteClear() {
+    console.log('handleRouteClear');
     // dispatch action to clear selected
-    // this.props.action.routeCleared();
+    this.props.action.clearRoute();
   }
 
-  handleUpdateInput(value, field) {
-    // console.log('handleUpdateInput', field);
-    // console.log(RouteSelectField);
-    /*this.props.action.routeInput(input);
-    if (input === '') {
-      this.props.action.routeCleared();
-    }*/
+  handleDirectionClear() {
+    console.log('handleDirectionClear');
+    // dispatch action to clear selected
+    this.props.action.clearDirection();
   }
 
-  handleGetRouteConfig(routeId) {
-    this.props.action.loadRouteConfig(routeId);
+  // handleUpdateInput(value, field) {
+  //   // console.log('handleUpdateInput', field);
+  //   // console.log(RouteSelectField);
+  //   /*this.props.action.routeInput(input);
+  //   if (input === '') {
+  //     this.props.action.routeCleared();
+  //   }*/
+  // }
+
+  handleGetRouteConfig(route) {
+    this.props.action.loadRouteConfig(route.tag);
+
+
   }
 
   render() {
-    // console.dir(this.props);
     return (
+      <div className="c-search">
+        <RouteSelectField
+          placeholder={'Route number or name'}
+          onSelect={this.handleRouteSelect}
+          onClear={this.handleRouteClear}
+        />
+        <DirectionSelectField
+          placeholder={"Direction"}
+          onSelect={this.handleDirectionSelect}
+          onClear={this.handleDirectionClear}
+        />
+      </div>
+    )
+    // console.dir(this.props);
+    /*return (
       <div className="c-search">
         <form className="c-search__form">
           <RouteSelectField
             data={this.props.routeList}
-            name={'routes'}
+            placeholder={'Route number or name'}
             action={{
               clear: this.props.action.clearRoute,
               select: this.props.action.selectedRoute,
               update: this.props.action.inputRoute,
             }}
-
+            onSelect={this.handleGetRouteConfig}
           />
-          {/*<RouteSelectFieldContainer
-                      onSelect={this.handleGetRouteConfig}
-                    />*/}
-          {/*<DirectionSelectFieldContainer />
-                    <StopSelectFieldContainer />*/}
+
+          <DirectionSelectField
+            data={this.props.directionList}
+            placeholder={'Direction'}
+            action={{
+              clear: this.props.action.clearDirection,
+              select: this.props.action.selectedDirection,
+              update: this.props.action.inputDirection,
+            }}
+          />
         </form>
       </div>
-    );
+    );*/
   }
 }
 
@@ -115,9 +162,11 @@ SearchFormContainer.propTypes = {
 };
 
 const mapStateToProps = state => {
-  console.dir(state);
+  // console.dir(state);
   return {
-    routeList: getRouteList(state),
+    // routeInput:
+    // routeList: getRouteList(state),
+    // directionList: getDirectionList(state),
   }
 
 };
@@ -128,6 +177,7 @@ const mapDispatchToProps = dispatch => ({
     loadRouteList: bindActionCreators(action.loadRoutesRequest, dispatch),
     loadRouteConfig: bindActionCreators(action.loadRouteConfigRequest, dispatch),
     clearRoute: bindActionCreators(action.clearRoute, dispatch),
+    clearDirection: bindActionCreators(action.clearDirection, dispatch),
     inputRoute: bindActionCreators(action.inputRoute, dispatch),
     selectedRoute: bindActionCreators(action.selectedRoute, dispatch),
   },

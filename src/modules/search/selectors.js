@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 
 const routeList = state => state.getIn(['searchState', 'data', 'routeList', 'payload']);
 
-const routeConfig = state => state.searchState.data.routeConfig.payload;
+const routeConfig = state => state.getIn(['searchState', 'data', 'routeConfig', 'payload']);
 const selectedDirection = state => state.searchState.directionField.selected;
 
 // Get route list array for 'Route' autocomplete field
@@ -29,13 +29,33 @@ export const getRouteConfig = createSelector(
 export const getDirectionList = createSelector(
   [routeConfig],
   (config) => {
-    if (config.direction) {
-      return config.direction.map(obj => ({
-        id: obj.tag,
-        title: obj.title,
-      }));
+    const Record = new Immutable.Record({
+      tag: '',
+      title: '',
+    });
+
+    const directions = config.get('direction');
+
+    /*return (directions)
+      ? new Immutable.OrderedSet(directions.map(Record))
+      : */
+
+    if (directions) {
+      // console.dir(new Immutable.OrderedSet(directions.map(Record)));
+      return new Immutable.OrderedSet(directions.map(Record));
     }
-    return [];
+
+    return new Immutable.OrderedSet();
+
+
+      // config.get('direction');
+    // if (config.direction) {
+    //   return config.direction.map(obj => ({
+    //     id: obj.tag,
+    //     title: obj.title,
+    //   }));
+    // }
+    // return [];
   },
 );
 

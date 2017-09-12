@@ -10,20 +10,21 @@ export default function SelectField(props) {
     value: 'tag',
   };
 
-  /*console.log('#--------------------');
+  console.log('#--------------------');
   console.dir(props);
-  console.log('--------------------#');*/
+  console.log('--------------------#');
 
   return (
     <div className="c-search__select-field">
       <AutoCompleteField
-        placeholder="Route number or name"
+        placeholder={props.placeholder}
         name={props.name}
         dataSource={props.data}
         dataStructure={dataStructure}
-        onSelected={props.onSelected}
+        onSelect={props.onSelect}
         onClear={props.onClear}
         onChange={props.onUpdateInput}
+        input={props.input}
       />
     </div>
   );
