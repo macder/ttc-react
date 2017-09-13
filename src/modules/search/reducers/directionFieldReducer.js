@@ -1,10 +1,11 @@
+import Immutable from 'immutable';
 import * as t from '../actionTypes';
 
-const initialState = {
+const initialState = Immutable.fromJS({
   selected: null,
   visible: false,
-  input: null,
-};
+  // input: null,
+});
 
 const updateObject = (oldObject, newValues) =>
   // Encapsulate the idea of passing a new object as the first parameter
@@ -39,20 +40,32 @@ const inputDirection = (state, action) => updateObject(state, {
 
 const directionFieldReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case t.SELECTED_DIRECTION:
-      return selectedDirection(state, action);
-
-    case t.SELECTED_ROUTE:
-      return selectedRoute(state);
 
     case t.CLEAR_ROUTE:
-      return clearRoute(state, action);
+      // console.log('clear route in direction reducer');
+      return state
+        .set('visible', false)
+        .set('selected', null);
+
+    case t.SELECTED_ROUTE:
+      return state
+        .set('visible', true);
+      // return selectedRoute(state);
+
+    case t.SELECTED_DIRECTION:
+      // console.log('SELECTED_DIRECTION');
+      return state
+        .set('selected', action.selected);
+      // return selectedDirection(state, action);
+
+    /*case t.SELECTED_ROUTE:
+      return selectedRoute(state);
 
     case t.CLEAR_DIRECTION:
       return clearDirection(state, action);
 
     case t.INPUT_DIRECTION:
-      return inputDirection(state, action);
+      return inputDirection(state, action);*/
 
     default:
       return state;

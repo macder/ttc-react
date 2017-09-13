@@ -4,21 +4,25 @@ import * as t from '../actionTypes';
 const initialState = Immutable.fromJS({
   selected: null,
   visible: false,
-  input: null,
+  // input: null,
 });
 
 const routeFieldReducer = (state = initialState, action = {}) => {
   switch (action.type) {
+
+    case t.LOAD_ROUTES_REQUEST:
+      return state.set('visible', true);
+
     case t.SELECTED_ROUTE:
       return state.set('selected', action.selected)
 
     case t.CLEAR_ROUTE:
       return state
-        .set('input', action.input)
         .set('selected', action.selected);
+        // .set('input', action.input)
 
-    case t.INPUT_ROUTE:
-      return state.set('input', action.input)
+    /*case t.INPUT_ROUTE:
+      return state.set('input', action.input)*/
 
     default:
       return state;

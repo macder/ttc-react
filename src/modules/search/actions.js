@@ -87,9 +87,9 @@ export const selectedRoute = routeTag => ({
  * @param {object} route.
  * @return {object}
  */
-export const selectedDirection = direction => ({
+export const selectedDirection = directionTag => ({
   type: t.SELECTED_DIRECTION,
-  selected: direction,
+  selected: directionTag,
 });
 
 /**

@@ -10,9 +10,9 @@ export default function SelectField(props) {
     value: 'tag',
   };
 
-  console.log('#--------------------');
+  /*console.log('#--------------------');
   console.dir(props);
-  console.log('--------------------#');
+  console.log('--------------------#');*/
 
   return (
     <div className="c-search__select-field">

@@ -17,7 +17,7 @@ export default class SelectFieldContainer extends React.Component {
     this.handleUpdateInput = this.handleUpdateInput.bind(this);
 
     this.state = {
-      input: '',
+      input: null,
     };
   }
 
@@ -47,9 +47,11 @@ export default class SelectFieldContainer extends React.Component {
   }
 
   handleUpdateInput(input) {
-    this.setState({
-      input
-    });
+    this.setState({ input });
+
+    if(input === ''){
+      this.props.onClear();
+    }
     //console.dir(this.state);
     //console.log('handleUpdateInput', input);
     // console.log(RouteSelectField);
@@ -63,7 +65,7 @@ export default class SelectFieldContainer extends React.Component {
     /*console.log('#--------------------');
     console.dir(this.props);
     console.log('--------------------#');*/
-
+    // console.dir(this.state);
     return (
       <SelectField
         data={this.props.data}

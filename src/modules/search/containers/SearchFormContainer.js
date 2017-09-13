@@ -12,13 +12,14 @@ import StopSelectFieldContainer from './StopSelectFieldContainer';
 import SelectField from '../components/SelectField';
 import {hocDataPropProxy} from '../components/hocDataPropProxy';
 
-import { getRouteList, getDirectionList } from '../selectors';
+import { getRouteList, getDirectionList, getDirectionStopList } from '../selectors';
 
 import * as action from '../actions';
 
 
 const RouteSelectField = hocDataPropProxy(SelectFieldContainer, getRouteList);
 const DirectionSelectField = hocDataPropProxy(SelectFieldContainer, getDirectionList);
+const StopSelectField = hocDataPropProxy(SelectFieldContainer, getDirectionStopList);
 
 class SearchFormContainer extends React.Component {
   constructor(props) {
@@ -29,6 +30,9 @@ class SearchFormContainer extends React.Component {
     this.handleRouteSelect = this.handleRouteSelect.bind(this);
     this.handleDirectionSelect = this.handleDirectionSelect.bind(this);
     this.handleDirectionClear = this.handleDirectionClear.bind(this);
+
+    this.handleStopClear = this.handleStopClear.bind(this);
+    this.handleStopSelect = this.handleStopSelect.bind(this);
 
 
     // this.handleUpdateInput = this.handleUpdateInput.bind(this);
@@ -43,7 +47,7 @@ class SearchFormContainer extends React.Component {
   }
 
   handleRouteSelect(value) {
-    console.log('handleRouteSelect', value);
+    // console.log('handleRouteSelect', value);
     const routeTag = value.tag;
     this.props.action.selectedRoute(routeTag);
     this.props.action.loadRouteConfig(routeTag);
@@ -53,19 +57,27 @@ class SearchFormContainer extends React.Component {
     console.log('handleDirectionSelect', value);
     // const routeTag = value.tag;
     // this.props.action.selectedRoute(routeTag);
-    // this.props.action.loadRouteConfig(routeTag);
+    this.props.action.selectedDirection(value.tag);
+  }
+
+  handleStopSelect(value) {
+    console.log('handleStopSelect');
   }
 
   handleRouteClear() {
-    console.log('handleRouteClear');
+    // console.log('handleRouteClear');
     // dispatch action to clear selected
     this.props.action.clearRoute();
   }
 
   handleDirectionClear() {
-    console.log('handleDirectionClear');
+    // console.log('handleDirectionClear');
     // dispatch action to clear selected
     this.props.action.clearDirection();
+  }
+
+  handleStopClear() {
+    console.log('handleStopClear');
   }
 
   // handleUpdateInput(value, field) {
@@ -79,8 +91,6 @@ class SearchFormContainer extends React.Component {
 
   handleGetRouteConfig(route) {
     this.props.action.loadRouteConfig(route.tag);
-
-
   }
 
   render() {
@@ -95,6 +105,12 @@ class SearchFormContainer extends React.Component {
           placeholder={"Direction"}
           onSelect={this.handleDirectionSelect}
           onClear={this.handleDirectionClear}
+        />
+
+        <StopSelectField
+          placeholder={"Stop"}
+          onSelect={this.handleStopSelect}
+          onClear={this.handleStopClear}
         />
       </div>
     )
@@ -155,6 +171,7 @@ const mapDispatchToProps = dispatch => ({
     clearDirection: bindActionCreators(action.clearDirection, dispatch),
     inputRoute: bindActionCreators(action.inputRoute, dispatch),
     selectedRoute: bindActionCreators(action.selectedRoute, dispatch),
+    selectedDirection: bindActionCreators(action.selectedDirection, dispatch),
   },
 });
 

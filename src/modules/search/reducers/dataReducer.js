@@ -35,8 +35,10 @@ const dataReducer = (state = initialState, action = {}) => {
         .setIn(['routeConfig','payload'], action.payload);
 
     case t.CLEAR_ROUTE:
-      return state;
-      // return state.setIn(['routeConfig','payload'], action.fetching);
+      // return state;
+      return state.setIn(['routeConfig','payload'], new Immutable.Map({}));
+
+      // Map({ key: 'value' }).clear()
 
       /*return Object.assign({}, state, {
         routeConfig: Object.assign({}, state.routeConfig, {
