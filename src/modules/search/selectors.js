@@ -75,6 +75,6 @@ export const getDirectionStopList = createSelector(
       });
       return new Immutable.OrderedSet(list.map(Record));
     }
-    return new Immutable.Map({});
+    return new Immutable.OrderedSet();
   },
 );
