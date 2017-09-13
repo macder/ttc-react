@@ -12,32 +12,10 @@ export default class AutoCompleteField extends React.Component {
   constructor(props) {
     super(props);
     this.handleClearClick = this.handleClearClick.bind(this);
-    this.handleUpdateInput = this.handleUpdateInput.bind(this);
-    this.state = {
-      input: '',
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.input) {
-      this.setState({
-        input: '',
-      });
-    }
   }
 
   handleClearClick() {
-    this.setState({
-      input: '',
-    });
     this.props.onClear();
-  }
-
-  handleUpdateInput(value) {
-    this.setState({
-      input: value,
-    });
-    this.props.onUpdateInput(value);
   }
 
   render() {
@@ -57,9 +35,9 @@ export default class AutoCompleteField extends React.Component {
             floatingLabelText={this.props.placeholder}
             dataSource={this.props.dataSource}
             dataSourceConfig={this.props.dataStructure}
-            onUpdateInput={this.handleUpdateInput}
-            onNewRequest={this.props.onSelected}
-            searchText={this.state.input}
+            onUpdateInput={this.props.onChange}
+            onNewRequest={this.props.onSelect}
+            searchText={this.props.input}
             openOnFocus
             fullWidth
             filter={AutoComplete.caseInsensitiveFilter}
@@ -90,7 +68,6 @@ AutoCompleteField.propTypes = {
   dataStructure: PropTypes.object.isRequired,
   input: PropTypes.string,
   onClear: PropTypes.func.isRequired,
-  onSelected: PropTypes.func.isRequired,
-  onUpdateInput: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,
 };

@@ -1,77 +1,51 @@
+import Immutable from 'immutable';
 import * as t from '../actionTypes';
 
-const initialState = {
+const initialState = Immutable.fromJS({
 
   routeList: {
     fetching: false,
-    payload: [],
+    payload: {},
   },
 
   routeConfig: {
     fetching: false,
     payload: {},
   },
-};
+});
 
 const dataReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case t.CLEAR_ROUTE:
-      return Object.assign({}, state, {
-        routeConfig: Object.assign({}, state.routeConfig, {
-          fetching: false,
-          payload: {},
-        }),
-      });
-
-    case t.LOAD_ROUTES_FAILURE:
-      return Object.assign({}, state, {
-        routeList: Object.assign({}, state.routeList, {
-          fetching: action.fetching,
-          populated: action.populated,
-          error: action.error,
-        }),
-      });
 
     case t.LOAD_ROUTES_REQUEST:
-      return Object.assign({}, state, {
-        routeList: Object.assign({}, state.routeList, {
-          fetching: action.fetching,
-          populated: action.populated,
-        }),
-      });
-
+      return state.setIn(['routeList','fetching'], action.fetching);
 
     case t.LOAD_ROUTES_SUCCESS:
-      return Object.assign({}, state, {
-        routeList: Object.assign({}, state.routeList, {
-          fetching: action.fetching,
-          payload: action.payload,
-          populated: action.populated,
-        }),
-      });
+      return state
+        .setIn(['routeList','fetching'], action.fetching)
+        .setIn(['routeList','payload'], action.payload);
+
+    case t.LOAD_ROUTES_FAILURE:
+      return state
+        .setIn(['routeList','fetching'], action.fetching)
+        .setIn(['routeList','error'], action.error);
 
     case t.LOAD_ROUTE_CONFIG_REQUEST:
-      return Object.assign({}, state, {
-        routeConfig: Object.assign({}, state.routeConfig, {
-          fetching: action.fetching,
-        }),
-      });
+      return state
+        .setIn(['routeConfig','fetching'], action.fetching);
 
     case t.LOAD_ROUTE_CONFIG_SUCCESS:
-      return Object.assign({}, state, {
-        routeConfig: Object.assign({}, state.routeConfig, {
-          fetching: action.fetching,
-          payload: action.payload,
-        }),
-      });
+      return state
+        .setIn(['routeConfig','fetching'], action.fetching)
+        .setIn(['routeConfig','payload'], action.payload);
 
     case t.LOAD_ROUTE_CONFIG_FAILURE:
-      return Object.assign({}, state, {
-        routeConfig: Object.assign({}, state.routeConfig, {
-          fetching: action.fetching,
-          error: action.error,
-        }),
-      });
+      return state
+        .setIn(['routeConfig','fetching'], action.fetching)
+        .setIn(['routeConfig','error'], action.error);
+
+    case t.CLEAR_ROUTE:
+      return state.setIn(['routeConfig','payload'], new Immutable.Map({}));
 
     default:
       return state;
