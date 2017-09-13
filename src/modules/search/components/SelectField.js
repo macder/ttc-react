@@ -27,8 +27,9 @@ export default function SelectField(props) {
 }
 
 SelectField.propTypes = {
-  /*data: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
+  input: PropTypes.string,
   onClear: PropTypes.func.isRequired,
-  onSelected: PropTypes.func.isRequired,
-  onUpdateInput: PropTypes.func.isRequired,*/
+  onSelect: PropTypes.func.isRequired,
+  onUpdateInput: PropTypes.func.isRequired,
 };
