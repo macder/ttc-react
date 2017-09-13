@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import Immutable from 'immutable';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
@@ -13,8 +12,6 @@ import predictions from './modules/predictions';
 
 const sagaMiddleware = createSagaMiddleware();
 const SearchForm = search.containers.default.SearchFormContainer;
-// const initialState = Immutable.Map();
-
 const Predictions = predictions.containers.default.PredictionsContainer;
 
 const store = createStore(
