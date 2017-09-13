@@ -5,9 +5,6 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 import SelectFieldContainer from './SelectFieldContainer';
-import RouteSelectFieldContainer from './RouteSelectFieldContainer';
-import DirectionSelectFieldContainer from './DirectionSelectFieldContainer';
-import StopSelectFieldContainer from './StopSelectFieldContainer';
 
 import SelectField from '../components/SelectField';
 import {hocDataPropProxy} from '../components/hocDataPropProxy';
