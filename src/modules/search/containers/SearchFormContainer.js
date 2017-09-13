@@ -27,10 +27,6 @@ class SearchFormContainer extends React.Component {
     this.props.action.loadRouteList();
   }
 
-  componentWillUpdate(){
-    console.log('SearchFormContainer update');
-  }
-
   handleRouteSelect(value) {
     const routeTag = value.tag;
     this.props.action.selectedRoute(routeTag);
