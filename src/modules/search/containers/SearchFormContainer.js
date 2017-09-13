@@ -68,17 +68,20 @@ class SearchFormContainer extends React.Component {
           placeholder={'Route number or name'}
           onSelect={this.handleRouteSelect}
           onClear={this.handleRouteClear}
+          isVisible={this.props.routeVisible}
         />
         <DirectionSelectField
           placeholder={"Direction"}
           onSelect={this.handleDirectionSelect}
           onClear={this.handleDirectionClear}
+          isVisible={this.props.directionVisible}
         />
 
         <StopSelectField
           placeholder={"Stop"}
           onSelect={this.handleStopSelect}
           onClear={this.handleStopClear}
+          isVisible={this.props.stopVisible}
         />
       </div>
     )
@@ -90,11 +93,10 @@ SearchFormContainer.propTypes = {
 };
 
 const mapStateToProps = state => {
-  // console.dir(state);
   return {
-    // routeInput:
-    // routeList: getRouteList(state),
-    // directionList: getDirectionList(state),
+    routeVisible: state.getIn(['searchState', 'routeField', 'visible']),
+    directionVisible: state.getIn(['searchState', 'directionField', 'visible']),
+    stopVisible: state.getIn(['searchState', 'stopField', 'visible']),
   }
 
 };

@@ -13,6 +13,14 @@ export default class SelectFieldContainer extends React.Component {
     };
   }
 
+  componentWillUpdate(){
+    if (!this.props.isVisible) {
+      this.setState({
+        input: ''
+      });
+    }
+  }
+
   handleClear() {
     this.props.onClear();
     this.setState({
@@ -28,6 +36,9 @@ export default class SelectFieldContainer extends React.Component {
   }
 
   render() {
+    if (!this.props.isVisible) {
+      return null;
+    }
     return (
       <SelectField
         data={this.props.data}
