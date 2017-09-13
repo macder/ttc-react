@@ -25,6 +25,11 @@ const dataReducer = (state = initialState, action = {}) => {
         .setIn(['routeList','fetching'], action.fetching)
         .setIn(['routeList','payload'], action.payload);
 
+    case t.LOAD_ROUTES_FAILURE:
+      return state
+        .setIn(['routeList','fetching'], action.fetching)
+        .setIn(['routeList','error'], action.error);
+
     case t.LOAD_ROUTE_CONFIG_REQUEST:
       return state
         .setIn(['routeConfig','fetching'], action.fetching);
@@ -34,58 +39,13 @@ const dataReducer = (state = initialState, action = {}) => {
         .setIn(['routeConfig','fetching'], action.fetching)
         .setIn(['routeConfig','payload'], action.payload);
 
-    case t.CLEAR_ROUTE:
-      // return state;
-      return state.setIn(['routeConfig','payload'], new Immutable.Map({}));
-
-      // Map({ key: 'value' }).clear()
-
-      /*return Object.assign({}, state, {
-        routeConfig: Object.assign({}, state.routeConfig, {
-          fetching: false,
-          payload: {},
-        }),
-      });*/
-
-    /*case t.LOAD_ROUTES_FAILURE:
-      return Object.assign({}, state, {
-        routeList: Object.assign({}, state.routeList, {
-          fetching: action.fetching,
-          populated: action.populated,
-          error: action.error,
-        }),
-      });
-
-    case t.LOAD_ROUTE_CONFIG_REQUEST:
-      return Object.assign({}, state, {
-        routeConfig: Object.assign({}, state.routeConfig, {
-          fetching: action.fetching,
-        }),
-      });
-
-    case t.LOAD_ROUTE_CONFIG_SUCCESS:
-      return Object.assign({}, state, {
-        routeConfig: Object.assign({}, state.routeConfig, {
-          fetching: action.fetching,
-          payload: action.payload,
-        }),
-      });
-
     case t.LOAD_ROUTE_CONFIG_FAILURE:
-      return Object.assign({}, state, {
-        routeConfig: Object.assign({}, state.routeConfig, {
-          fetching: action.fetching,
-          error: action.error,
-        }),
-      });
+      return state
+        .setIn(['routeConfig','fetching'], action.fetching)
+        .setIn(['routeConfig','error'], action.error);
 
     case t.CLEAR_ROUTE:
-      return Object.assign({}, state, {
-        routeConfig: Object.assign({}, state.routeConfig, {
-          fetching: false,
-          payload: {},
-        }),
-      });*/
+      return state.setIn(['routeConfig','payload'], new Immutable.Map({}));
 
     default:
       return state;
