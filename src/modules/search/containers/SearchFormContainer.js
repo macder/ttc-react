@@ -1,10 +1,8 @@
-import Immutable from 'immutable';
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import SelectFieldContainer from './SelectFieldContainer';
-import SelectField from '../components/SelectField';
 import {hocDataPropProxy} from '../components/hocDataPropProxy';
 import { getRouteList, getDirectionList, getDirectionStopList } from '../selectors';
 import * as action from '../actions';
@@ -44,7 +42,6 @@ class SearchFormContainer extends React.Component {
   }
 
   handleStopSelect(value) {
-    // console.log('handleStopSelect');
     this.props.action.selectedStop(value.tag);
   }
 
@@ -57,7 +54,7 @@ class SearchFormContainer extends React.Component {
   }
 
   handleStopClear() {
-    // console.log('handleStopClear');
+    this.props.action.clearStop();
   }
 
   handleGetRouteConfig(route) {
