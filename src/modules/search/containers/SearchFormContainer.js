@@ -45,6 +45,7 @@ class SearchFormContainer extends React.Component {
 
   handleStopSelect(value) {
     // console.log('handleStopSelect');
+    this.props.action.selectedStop(value.tag);
   }
 
   handleRouteClear() {
@@ -107,9 +108,11 @@ const mapDispatchToProps = dispatch => ({
     loadRouteConfig: bindActionCreators(action.loadRouteConfigRequest, dispatch),
     clearRoute: bindActionCreators(action.clearRoute, dispatch),
     clearDirection: bindActionCreators(action.clearDirection, dispatch),
+    clearStop: bindActionCreators(action.clearStop, dispatch),
     inputRoute: bindActionCreators(action.inputRoute, dispatch),
     selectedRoute: bindActionCreators(action.selectedRoute, dispatch),
     selectedDirection: bindActionCreators(action.selectedDirection, dispatch),
+    selectedStop: bindActionCreators(action.selectedStop, dispatch),
   },
 });
 
