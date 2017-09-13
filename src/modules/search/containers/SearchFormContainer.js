@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import SelectFieldContainer from './SelectFieldContainer';
-import {hocDataPropProxy} from '../components/hocDataPropProxy';
+import { hocDataPropProxy } from '../components/hocDataPropProxy';
 import { getRouteList, getDirectionList, getDirectionStopList } from '../selectors';
 import * as action from '../actions';
 
@@ -90,6 +90,9 @@ class SearchFormContainer extends React.Component {
 
 SearchFormContainer.propTypes = {
   action: PropTypes.object.isRequired,
+  routeVisible: PropTypes.bool.isRequired,
+  directionVisible: PropTypes.bool.isRequired,
+  stopVisible: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => {
@@ -108,7 +111,6 @@ const mapDispatchToProps = dispatch => ({
     clearRoute: bindActionCreators(action.clearRoute, dispatch),
     clearDirection: bindActionCreators(action.clearDirection, dispatch),
     clearStop: bindActionCreators(action.clearStop, dispatch),
-    inputRoute: bindActionCreators(action.inputRoute, dispatch),
     selectedRoute: bindActionCreators(action.selectedRoute, dispatch),
     selectedDirection: bindActionCreators(action.selectedDirection, dispatch),
     selectedStop: bindActionCreators(action.selectedStop, dispatch),
