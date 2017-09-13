@@ -12,33 +12,10 @@ export default class AutoCompleteField extends React.Component {
   constructor(props) {
     super(props);
     this.handleClearClick = this.handleClearClick.bind(this);
-    this.handleUpdateInput = this.handleUpdateInput.bind(this);
-    /*this.state = {
-      input: '',
-    };*/
-    // console.log('AutoCompleteField constructor');
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // if (!nextProps.input) {
-    //   this.setState({
-    //     input: '',
-    //   });
-    // }
   }
 
   handleClearClick() {
-    /*this.setState({
-      input: '',
-    });*/
     this.props.onClear();
-  }
-
-  handleUpdateInput(value) {
-    this.setState({
-      input: value,
-    });
-    this.props.onChange(value);
   }
 
   render() {
@@ -92,6 +69,5 @@ AutoCompleteField.propTypes = {
   input: PropTypes.string,
   onClear: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
-  // onUpdateInput: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,
 };

@@ -33,14 +33,8 @@ export const getDirectionList = createSelector(
       tag: '',
       title: '',
     });
-
     const directions = config.get('direction');
-
-    /*return (directions)
-      ? new Immutable.OrderedSet(directions.map(Record))
-      : */
     if (directions) {
-      // console.dir(new Immutable.OrderedSet(directions.map(Record)));
       return new Immutable.OrderedSet(directions.map(Record));
     }
     return new Immutable.OrderedSet();

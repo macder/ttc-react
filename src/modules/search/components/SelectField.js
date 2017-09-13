@@ -10,10 +10,6 @@ export default function SelectField(props) {
     value: 'tag',
   };
 
-  /*console.log('#--------------------');
-  console.dir(props);
-  console.log('--------------------#');*/
-
   return (
     <div className="c-search__select-field">
       <AutoCompleteField
