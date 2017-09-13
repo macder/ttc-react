@@ -159,5 +159,5 @@ export const clearDirection = () => ({
 export const clearStop = () => ({
   type: t.CLEAR_STOP,
   selected: null,
-  input: null,
+  // input: null,
 });

@@ -19,10 +19,6 @@ const routeFieldReducer = (state = initialState, action = {}) => {
     case t.CLEAR_ROUTE:
       return state
         .set('selected', action.selected);
-        // .set('input', action.input)
-
-    /*case t.INPUT_ROUTE:
-      return state.set('input', action.input)*/
 
     default:
       return state;
