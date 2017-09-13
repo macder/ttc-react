@@ -4,7 +4,6 @@ import * as t from '../actionTypes';
 const initialState = Immutable.fromJS({
   selected: null,
   visible: false,
-  // input: null,
 });
 
 const stopFieldReducer = (state = initialState, action = {}) => {
