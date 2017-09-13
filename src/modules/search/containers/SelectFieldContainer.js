@@ -7,7 +7,6 @@ export default class SelectFieldContainer extends React.Component {
     super(props);
     this.handleClear = this.handleClear.bind(this);
     this.handleUpdateInput = this.handleUpdateInput.bind(this);
-
     this.state = {
       input: null,
     };
@@ -53,7 +52,9 @@ export default class SelectFieldContainer extends React.Component {
 }
 
 SelectFieldContainer.propTypes = {
-  //action: PropTypes.object.isRequired,
-  // list: PropTypes.array.isRequired,
-  //onSelect: PropTypes.func.isRequired,
+  data: PropTypes.array.isRequired,
+  isVisible: PropTypes.bool.isRequired,
+  onClear: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  placeholder: PropTypes.string.isRequired,
 };
