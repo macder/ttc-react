@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import SelectFieldContainer from './SelectFieldContainer';
-import {hocDataPropProxy} from '../components/hocDataPropProxy';
+import { hocDataPropProxy } from '../components/hocDataPropProxy';
 import { getRouteList, getDirectionList, getDirectionStopList } from '../selectors';
 import * as action from '../actions';
 
@@ -25,10 +25,6 @@ class SearchFormContainer extends React.Component {
 
   componentDidMount() {
     this.props.action.loadRouteList();
-  }
-
-  componentWillUpdate(){
-    console.log('SearchFormContainer update');
   }
 
   handleRouteSelect(value) {
@@ -68,17 +64,20 @@ class SearchFormContainer extends React.Component {
           placeholder={'Route number or name'}
           onSelect={this.handleRouteSelect}
           onClear={this.handleRouteClear}
+          isVisible={this.props.routeVisible}
         />
         <DirectionSelectField
           placeholder={"Direction"}
           onSelect={this.handleDirectionSelect}
           onClear={this.handleDirectionClear}
+          isVisible={this.props.directionVisible}
         />
 
         <StopSelectField
           placeholder={"Stop"}
           onSelect={this.handleStopSelect}
           onClear={this.handleStopClear}
+          isVisible={this.props.stopVisible}
         />
       </div>
     )
@@ -87,14 +86,16 @@ class SearchFormContainer extends React.Component {
 
 SearchFormContainer.propTypes = {
   action: PropTypes.object.isRequired,
+  routeVisible: PropTypes.bool.isRequired,
+  directionVisible: PropTypes.bool.isRequired,
+  stopVisible: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => {
-  // console.dir(state);
   return {
-    // routeInput:
-    // routeList: getRouteList(state),
-    // directionList: getDirectionList(state),
+    routeVisible: state.getIn(['searchState', 'routeField', 'visible']),
+    directionVisible: state.getIn(['searchState', 'directionField', 'visible']),
+    stopVisible: state.getIn(['searchState', 'stopField', 'visible']),
   }
 
 };
@@ -106,7 +107,6 @@ const mapDispatchToProps = dispatch => ({
     clearRoute: bindActionCreators(action.clearRoute, dispatch),
     clearDirection: bindActionCreators(action.clearDirection, dispatch),
     clearStop: bindActionCreators(action.clearStop, dispatch),
-    inputRoute: bindActionCreators(action.inputRoute, dispatch),
     selectedRoute: bindActionCreators(action.selectedRoute, dispatch),
     selectedDirection: bindActionCreators(action.selectedDirection, dispatch),
     selectedStop: bindActionCreators(action.selectedStop, dispatch),
