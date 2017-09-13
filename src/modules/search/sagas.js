@@ -1,11 +1,11 @@
 import 'regenerator-runtime/runtime';
 
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-
+import Immutable from 'immutable'
 import * as t from './actionTypes';
 import * as actions from './actions';
 import { httpGet } from '../../services/httpRequest';
-import { parseXML } from '../../services/parsers';
+
 
 /**
  * Worker Saga: will be fired on
@@ -20,8 +20,7 @@ function* fetch(args, action) {
       mergeAttrs: true,
       explicitArray: false,
     };
-
-    const data = parseXML(yield call(httpGet, action.url), options).body.route;
+    const data = Immutable.fromJS(yield call(httpGet, action.url)).get('route');
 
     yield put(actions[args.success](data));
   } catch (e) {
@@ -38,6 +37,7 @@ function* loadRouteList() {
   const args = {
     success: 'loadRoutesSuccess',
     fail: 'loadRoutesFailure',
+    callback: 'test',
   };
   yield takeEvery(t.LOAD_ROUTES_REQUEST, fetch, args);
 }
@@ -51,6 +51,7 @@ function* loadRouteConfig() {
   const args = {
     success: 'loadRouteConfigSuccess',
     fail: 'loadRouteConfigFailure',
+    callback: 'test',
   };
   yield takeEvery(t.LOAD_ROUTE_CONFIG_REQUEST, fetch, args);
 }
