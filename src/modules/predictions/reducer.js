@@ -1,10 +1,11 @@
+import Immutable from 'immutable';
 import * as t from './actionTypes.js';
 
-const initialState = {
+const initialState = Immutable.fromJS({
   fetching: false,
   visible: false,
-  payload: null,
-};
+  payload: {},
+});
 
 const updateObject = (oldObject, newValues) =>
   // Encapsulate the idea of passing a new object as the first parameter
@@ -39,16 +40,20 @@ const clearPredictions = (state, action) => updateObject(state, {
 const predictionsReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case t.LOAD_PREDICTIONS_REQUEST:
-      return loadPredictionsRequest(state, action);
+      // return loadPredictionsRequest(state, action);
+      return state;
 
     case t.LOAD_PREDICTIONS_SUCCESS:
-      return loadPredictionsSuccess(state, action);
+      return state;
+      // return loadPredictionsSuccess(state, action);
 
     case t.LOAD_PREDICTIONS_FAILURE:
-      return loadPredictionsFailure(state, action);
+      return state;
+      // return loadPredictionsFailure(state, action);
 
     case t.CLEAR_PREDICTIONS:
-      return clearPredictions(state, action);
+      return state;
+      // return clearPredictions(state, action);
 
     default:
       return state;
