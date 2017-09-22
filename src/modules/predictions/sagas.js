@@ -16,16 +16,9 @@ import { parseXML } from '../../services/parsers';
  */
 function* fetch(args, action) {
   try {
-
-    const data = yield call(httpGet, action.url);
-
-    // console.dir(data);
-
-    const test = yield call(format, data.predictions);
-
-    console.dir(test);
-
-    // yield put(actions[args.success](data));
+    const payload = yield call(httpGet, action.url);
+    const data = yield call(format, payload.predictions);
+    yield put(actions[args.success](data));
   } catch (e) {
     yield put(actions[args.fail](e));
   }
@@ -42,19 +35,16 @@ function format(payload) {
     const data = Immutable.fromJS(payload.direction);
 
     if (Array.isArray(payload.direction)) { // multi directions
-      return new Immutable.List(data.map(item => {
-        const prediction = formatPrediction(item.get('prediction'));
-        return new Immutable.Map({
+      return new Immutable.List(data.map(item =>
+        new Immutable.Map({
           title: item.get('title'),
-          prediction: prediction,
+          prediction: formatPrediction(item.get('prediction')),
         })
-      }));
+      ));
     } else {
-      const prediction = formatPrediction(data.get('prediction'));
-
       return new Immutable.Map({
         title: data.get('title'),
-        prediction: prediction,
+        prediction: formatPrediction(data.get('prediction')),
       })
     }
   }
