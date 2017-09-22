@@ -16,13 +16,7 @@ import { parseXML } from '../../services/parsers';
  */
 function* fetch(args, action) {
   try {
-    const options = {
-      trim: true,
-      mergeAttrs: true,
-      explicitArray: false,
-    };
 
-    // const data = parseXML(yield call(httpGet, action.url), options).body.predictions;
     const data = yield call(httpGet, action.url);
 
     // console.dir(data);
@@ -38,8 +32,30 @@ function* fetch(args, action) {
 }
 
 function format(payload) {
-  // console.dir(payload);
+  if (payload.direction) {
+    const data = Immutable.fromJS(payload.direction);
 
+    if (Array.isArray(payload.direction)) { // multi directions
+      return new Immutable.List(data.map(item => {
+        const prediction = formatPrediction(item.get('prediction'));
+        return new Immutable.Map({
+          title: item.get('title'),
+          prediction: prediction,
+        })
+      }));
+    } else {
+      const prediction = formatPrediction(data.get('prediction'));
+
+      return new Immutable.Map({
+        title: data.get('title'),
+        prediction: prediction,
+      })
+    }
+  }
+  return new Immutable.Map({});
+}
+
+function formatPrediction(data) {
   const PredictionRecord = new Immutable.Record({
     affectedByLayover: 'false',
     block: '',
@@ -53,44 +69,11 @@ function format(payload) {
     vehicle: '',
   });
 
-  if (payload.direction) {
-    // console.log('has predictions');
-    //console.dir(payload.direction);
-    // const test = Immutable.fromJS(payload.direction);
-    // console.dir(test);
-
-    if (Array.isArray(payload.direction)) { // multi directions
-      //console.log('is array');
-      //console.dir(payload.direction);
-
-      const data = Immutable.fromJS(payload.direction);
-
-      return new Immutable.List(data.map(item => {
-        //console.dir(item);
-        let prediction;
-
-        if(Immutable.Map.isMap(item.get('prediction'))) { // single prediction
-          prediction = new PredictionRecord(item.get('prediction'));
-        } else { // multi predictions
-          prediction = new Immutable.OrderedSet(item.get('prediction')).map(PredictionRecord);
-        }
-
-        // console.dir(prediction);
-        // console.dir(item.get('prediction'));
-
-        return new Immutable.Map({
-          title: item.get('title'),
-          // prediction: new Immutable.OrderedSet(item.get('prediction')).map(PredictionRecord),
-          prediction: prediction,
-        })
-      }));
-      // console.dir(lorem);
-
-    }
-
+  if(Immutable.Map.isMap(data)) { // single prediction
+    return new PredictionRecord(data);
+  } else { // multi predictions
+    return new Immutable.OrderedSet(data).map(PredictionRecord);
   }
-
-  return {hello: 'world'}
 }
 
 /**
