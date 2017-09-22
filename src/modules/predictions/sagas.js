@@ -31,6 +31,12 @@ function* fetch(args, action) {
   }
 }
 
+/**
+ * Formats and converts prediction data to ImmutableJS
+ *
+ * @param {object} payload
+ * @return {immutable}
+ */
 function format(payload) {
   if (payload.direction) {
     const data = Immutable.fromJS(payload.direction);
@@ -55,6 +61,12 @@ function format(payload) {
   return new Immutable.Map({});
 }
 
+/**
+ * Formats prediction to immutable records
+ *
+ * @param {immutable} data
+ * @return {immutable}
+ */
 function formatPrediction(data) {
   const PredictionRecord = new Immutable.Record({
     affectedByLayover: 'false',
