@@ -59,25 +59,19 @@ function format(payload) {
     // const test = Immutable.fromJS(payload.direction);
     // console.dir(test);
 
-    if (Array.isArray(payload.direction)) {
+    if (Array.isArray(payload.direction)) { // multi directions
       //console.log('is array');
       //console.dir(payload.direction);
 
       const data = Immutable.fromJS(payload.direction);
 
-      // console.dir(data);
-
       return new Immutable.List(data.map(item => {
         //console.dir(item);
         let prediction;
 
-        if(Immutable.Map.isMap(item.get('prediction'))) {
-          console.log('is map');
-          // const prediction = new Immutable.OrderedSet(item.get('prediction')).map(PredictionRecord);
-          // const prediction = item.get('prediction').map(PredictionRecord);
+        if(Immutable.Map.isMap(item.get('prediction'))) { // single prediction
           prediction = new PredictionRecord(item.get('prediction'));
-          // console.dir(prediction);
-        } else {
+        } else { // multi predictions
           prediction = new Immutable.OrderedSet(item.get('prediction')).map(PredictionRecord);
         }
 
