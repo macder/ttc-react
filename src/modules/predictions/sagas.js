@@ -41,12 +41,11 @@ function format(payload) {
           prediction: formatPrediction(item.get('prediction')),
         })
       ));
-    } else {
-      return new Immutable.Map({
-        title: data.get('title'),
-        prediction: formatPrediction(data.get('prediction')),
-      })
     }
+    return new Immutable.Map({
+      title: data.get('title'),
+      prediction: formatPrediction(data.get('prediction')),
+    });
   }
   return new Immutable.Map({});
 }
@@ -73,9 +72,8 @@ function formatPrediction(data) {
 
   if(Immutable.Map.isMap(data)) { // single prediction
     return new PredictionRecord(data);
-  } else { // multi predictions
-    return new Immutable.OrderedSet(data).map(PredictionRecord);
   }
+  return new Immutable.OrderedSet(data).map(PredictionRecord);
 }
 
 /**
