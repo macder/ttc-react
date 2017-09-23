@@ -4,7 +4,7 @@ import * as t from './actionTypes.js';
 const initialState = Immutable.fromJS({
   fetching: false,
   visible: false,
-  payload: {},
+  payload: null,
 });
 
 const updateObject = (oldObject, newValues) =>
@@ -40,12 +40,14 @@ const clearPredictions = (state, action) => updateObject(state, {
 const predictionsReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case t.LOAD_PREDICTIONS_REQUEST:
-      // return loadPredictionsRequest(state, action);
-      return state;
+      return state
+        .set('fetching', action.fetching)
+        .set('visible', action.visible);
 
     case t.LOAD_PREDICTIONS_SUCCESS:
-      return state;
-      // return loadPredictionsSuccess(state, action);
+      return state
+        .set('payload', action.payload)
+        .set('fetching', action.fetching);
 
     case t.LOAD_PREDICTIONS_FAILURE:
       return state;
