@@ -1,7 +1,9 @@
 import 'regenerator-runtime/runtime';
 
 import Immutable from 'immutable';
-import { all, call, put, takeEvery } from 'redux-saga/effects';
+import { all, call, put, select, takeEvery } from 'redux-saga/effects';
+
+import { getRoute, getStop } from './selectors';
 
 import * as t from './actionTypes';
 import * as actions from './actions';

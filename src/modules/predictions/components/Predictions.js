@@ -44,29 +44,6 @@ export default function Predictions(props) {
     </div>
   );
 
-  /*if (!props.isVisible) {
-    return null;
-  }
-
-  if (props.isVisible && props.isFetching) {
-    return (
-      <LoadingSpinner />
-    );
-  }
-
-  if (props.isVisible && !props.hasPredictions) {
-    return (
-      <div>No predictions availble</div>
-    );
-  }
-
-  // if (props.isVisible && props.hasPredictions) {
-    return (
-      <NextArrivals
-        data={props.predictionMins}
-      />
-    );*/
-  // }
 }
 
 Predictions.propTypes = {
