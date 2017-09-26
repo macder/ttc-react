@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LoadingSpinner from '../../core/components/LoadingSpinner';
+// import LoadingSpinner from '../../core/components/LoadingSpinner';
 
 /*function withPredictionsNull(Component) {
   return function (props) {
