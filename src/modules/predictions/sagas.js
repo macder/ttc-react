@@ -1,9 +1,7 @@
 import 'regenerator-runtime/runtime';
 
 import Immutable from 'immutable';
-import { all, call, put, select, takeEvery } from 'redux-saga/effects';
-
-import { getRoute, getStop } from './selectors';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import * as t from './actionTypes';
 import * as actions from './actions';
@@ -87,7 +85,7 @@ function* loadPredictions() {
     success: 'loadPredictionsSuccess',
     fail: 'loadPredictionsFailure',
   };
-  yield takeEvery(t.LOAD_PREDICTIONS_REQUEST, fetch, args);
+  yield takeLatest(t.LOAD_PREDICTIONS_REQUEST, fetch, args);
 }
 
 export default function* rootSaga() {
