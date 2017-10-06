@@ -10,10 +10,16 @@ import { clearPredictions, loadPredictionsRequest } from '../actions';
 const shouldFetchData = props =>
   (props.route && props.stop && !props.payload && !props.fetching) ? true : false
 
+const shouldClearData = props =>
+  ((!props.route || !props.stop) && props.payload) ? true : false
+
 const withPredictionData = lifecycle({
   componentWillReceiveProps(nextProps) {
     if (nextProps.requestData) {
       nextProps.requestData();
+    }
+    if (nextProps.clearData) {
+      nextProps.clearData();
     }
   }
 });
@@ -27,12 +33,16 @@ const enhance = compose(
       fetching: isFetching(state),
     }),
     (dispatch) => ({
-      requestFetch: (route, stop) => {dispatch(loadPredictionsRequest(route, stop))}
+      requestFetch: (route, stop) => {dispatch(loadPredictionsRequest(route, stop))},
+      clearPredictions: () => {dispatch(clearPredictions())}
     }),
     (stateProps, dispatchProps, ownProps) => ({
       requestData: (shouldFetchData(stateProps))
         ? () => dispatchProps.requestFetch(stateProps.route, stateProps.stop)
         : null,
+      clearData: (shouldClearData(stateProps))
+        ? () => dispatchProps.clearPredictions()
+        : false,
       payload: stateProps.payload,
       fetching: stateProps.fetching
     })
@@ -40,11 +50,13 @@ const enhance = compose(
   withPredictionData,
 );
 
-const Predictions = props => (
-  <div className="c-predictions">
-    <p>predictcions test</p>
-  </div>
-);
+const Predictions = props => {
+  return (
+    <div className="c-predictions">
+      <p>predictcions test</p>
+    </div>
+  )
+};
 
 export default enhance(Predictions);
 

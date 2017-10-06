@@ -29,7 +29,8 @@ const predictionsReducer = (state = initialState, action = {}) => {
 
     case t.CLEAR_PREDICTIONS:
       return state
-        .set('payload', action.payload);
+        .set('payload', action.payload)
+        .set('visible', action.visible);
 
     default:
       return state;
