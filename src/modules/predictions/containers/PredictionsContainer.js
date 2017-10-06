@@ -1,9 +1,7 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import { connect } from 'react-redux';
-import { branch, compose, lifecycle, renderComponent, renderNothing } from 'recompose';
+import { compose } from 'recompose';
+import { withData, withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
 import Predictions from '../components/Predictions';
-import LoadingSpinner from '../../core/components/LoadingSpinner';
 import { getPrediction, getRoute, getStop, isFetching, isVisible } from '../selectors';
 import { clearPredictions, loadPredictionsRequest } from '../actions';
 
@@ -12,32 +10,6 @@ const shouldFetchData = props =>
 
 const shouldClearData = props =>
   ((!props.route || !props.stop) && props.data)
-
-const withPredictionData = lifecycle({
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.requestData) {
-      nextProps.requestData();
-    }
-    if (nextProps.clearData) {
-      nextProps.clearData();
-    }
-  }
-});
-
-const isLoading = ({ fetching }) => fetching;
-
-const withSpinnerWhileLoading = branch(
-  isLoading,
-  renderComponent(LoadingSpinner)
-);
-
-const hasNoData = ({ data }) => !data
-
-
-const hideIfNoData = branch(
-  hasNoData,
-  renderNothing
-)
 
 const enhance = compose(
   connect(
@@ -62,7 +34,7 @@ const enhance = compose(
       fetching: stateProps.fetching,
     })
   ),
-  withPredictionData,
+  withData,
   withSpinnerWhileLoading,
   hideIfNoData
 );
