@@ -6,7 +6,7 @@ export const hideIfNoData = branch(
   renderNothing
 );
 
-export const withData = lifecycle({
+export const withDataOnUpdate = lifecycle({
   componentWillReceiveProps(nextProps) {
     if (nextProps.requestData) {
       nextProps.requestData();

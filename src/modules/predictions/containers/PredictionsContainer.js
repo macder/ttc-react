@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { withData, withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
+import { withDataOnUpdate, withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
 import Predictions from '../components/Predictions';
 import { getPrediction, getRoute, getStop, isFetching, isVisible } from '../selectors';
 import { clearPredictions, loadPredictionsRequest } from '../actions';
@@ -34,7 +34,7 @@ const enhance = compose(
       fetching: stateProps.fetching,
     })
   ),
-  withData,
+  withDataOnUpdate,
   withSpinnerWhileLoading,
   hideIfNoData
 );
