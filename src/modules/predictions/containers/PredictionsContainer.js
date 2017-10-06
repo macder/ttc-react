@@ -8,10 +8,10 @@ import { getPrediction, getRoute, getStop, isFetching, isVisible } from '../sele
 import { clearPredictions, loadPredictionsRequest } from '../actions';
 
 const shouldFetchData = props =>
-  (props.route && props.stop && !props.data && !props.fetching) ? true : false
+  (props.route && props.stop && !props.data && !props.fetching)
 
 const shouldClearData = props =>
-  ((!props.route || !props.stop) && props.data) ? true : false
+  ((!props.route || !props.stop) && props.data)
 
 const withPredictionData = lifecycle({
   componentWillReceiveProps(nextProps) {
@@ -31,7 +31,7 @@ const withSpinnerWhileLoading = branch(
   renderComponent(LoadingSpinner)
 );
 
-const hasNoData = ({ data }) => (!data) ? true : false;
+const hasNoData = ({ data }) => !data
 
 
 const hideIfNoData = branch(
