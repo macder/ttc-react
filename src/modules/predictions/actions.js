@@ -4,20 +4,18 @@ import * as t from './actionTypes';
  *
  * @return {object}
  */
-export const loadPredictionsRequest = (routeId, stopId) => {
-  return {
+export const loadPredictionsRequest = (routeId, stopId) => ({
     type: t.LOAD_PREDICTIONS_REQUEST,
     fetching: true,
     visible: true,
-    // url: `http://webservices.nextbus.com/service/publicJSONFeed?command=predictions&a=ttc&r=${routeId}&s=${stopId}`,
+    url: `http://webservices.nextbus.com/service/publicJSONFeed?command=predictions&a=ttc&r=${routeId}&s=${stopId}`,
     // url: '/data/prediction_2dirs_multi.json',
     // url: '/data/prediction_1dir_single.json',
-    url: '/data/prediction_2dirs_1multi_1single.json',
+    // url: '/data/prediction_2dirs_1multi_1single.json',
     // url: '/data/prediction_1dir_multi.json',
     // url: '/data/prediction_nonr.json',
-  }
 
-};
+});
 
 /**
  *
@@ -26,6 +24,7 @@ export const loadPredictionsRequest = (routeId, stopId) => {
 export const loadPredictionsSuccess = payload => ({
   type: t.LOAD_PREDICTIONS_SUCCESS,
   fetching: false,
+  visible: true,
   payload,
 });
 
