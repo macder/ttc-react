@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { compose, lifecycle } from 'recompose';
-// import Predictions from '../components/Predictions2';
+import { branch, compose, lifecycle, renderComponent, renderNothing } from 'recompose';
+import Predictions from '../components/Predictions';
 import LoadingSpinner from '../../core/components/LoadingSpinner';
 import { getPrediction, getRoute, getStop, isFetching, isVisible } from '../selectors';
 import { clearPredictions, loadPredictionsRequest } from '../actions';
 
 const shouldFetchData = props =>
-  (props.route && props.stop && !props.payload && !props.fetching) ? true : false
+  (props.route && props.stop && !props.data && !props.fetching) ? true : false
 
 const shouldClearData = props =>
-  ((!props.route || !props.stop) && props.payload) ? true : false
+  ((!props.route || !props.stop) && props.data) ? true : false
 
 const withPredictionData = lifecycle({
   componentWillReceiveProps(nextProps) {
@@ -24,10 +24,25 @@ const withPredictionData = lifecycle({
   }
 });
 
+const isLoading = ({ fetching }) => fetching;
+
+const withSpinnerWhileLoading = branch(
+  isLoading,
+  renderComponent(LoadingSpinner)
+);
+
+const hasNoData = ({ data }) => (!data) ? true : false;
+
+
+const hideIfNoData = branch(
+  hasNoData,
+  renderNothing
+)
+
 const enhance = compose(
   connect(
     (state) => ({
-      payload: getPrediction(state),
+      data: getPrediction(state),
       route: getRoute(state),
       stop: getStop(state),
       fetching: isFetching(state),
@@ -39,24 +54,17 @@ const enhance = compose(
     (stateProps, dispatchProps, ownProps) => ({
       requestData: (shouldFetchData(stateProps))
         ? () => dispatchProps.requestFetch(stateProps.route, stateProps.stop)
-        : null,
+        : false,
       clearData: (shouldClearData(stateProps))
         ? () => dispatchProps.clearPredictions()
         : false,
-      payload: stateProps.payload,
-      fetching: stateProps.fetching
+      data: stateProps.data,
+      fetching: stateProps.fetching,
     })
   ),
   withPredictionData,
+  withSpinnerWhileLoading,
+  hideIfNoData
 );
 
-const Predictions = props => {
-  return (
-    <div className="c-predictions">
-      <p>predictcions test</p>
-    </div>
-  )
-};
-
 export default enhance(Predictions);
-
