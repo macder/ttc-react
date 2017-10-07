@@ -40,12 +40,12 @@ const enhance = compose(
     mapDispatchToProps,
     mergeProps,
   ),
-  withPropsOnChange(['data'], ({data}) => ({
-    data: (data) && data.toJS() //: null
-  })),
   withDataOnUpdate,
   withSpinnerWhileLoading,
-  hideIfNoData
+  hideIfNoData,
+  withPropsOnChange(['data'], ({data}) => ({
+    data: (data) && data.toJS()
+  })),
 );
 
 export default enhance(Predictions);
