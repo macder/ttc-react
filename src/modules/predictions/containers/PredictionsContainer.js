@@ -24,12 +24,12 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mergeProps = (stateProps, dispatchProps) => ({
-  requestData: (shouldFetchData(stateProps))
-    ? () => dispatchProps.requestFetch(stateProps.route, stateProps.stop)
-    : false,
-  clearData: (shouldClearData(stateProps))
-    ? () => dispatchProps.clearPredictions()
-    : false,
+  requestData: (shouldFetchData(stateProps)) && (
+    () => dispatchProps.requestFetch(stateProps.route, stateProps.stop)
+  ),
+  clearData: (shouldClearData(stateProps)) && (
+    () => dispatchProps.clearPredictions()
+  ),
   data: stateProps.data,
   fetching: stateProps.fetching,
 });
@@ -41,7 +41,7 @@ const enhance = compose(
     mergeProps,
   ),
   withPropsOnChange(['data'], ({data}) => ({
-    data: (data) ? data.toJS() : null
+    data: (data) && data.toJS() //: null
   })),
   withDataOnUpdate,
   withSpinnerWhileLoading,

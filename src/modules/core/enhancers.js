@@ -8,12 +8,8 @@ export const hideIfNoData = branch(
 
 export const withDataOnUpdate = lifecycle({
   componentWillReceiveProps(nextProps) {
-    if (nextProps.requestData) {
-      nextProps.requestData();
-    }
-    if (nextProps.clearData) {
-      nextProps.clearData();
-    }
+    (nextProps.requestData) && nextProps.requestData();
+    (nextProps.clearData) && nextProps.clearData();
   }
 });
 
