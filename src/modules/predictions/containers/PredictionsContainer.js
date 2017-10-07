@@ -11,28 +11,34 @@ const shouldFetchData = props =>
 const shouldClearData = props =>
   ((!props.route || !props.stop) && props.data)
 
+const mapStateToProps = state => ({
+  data: getPrediction(state),
+  route: getRoute(state),
+  stop: getStop(state),
+  fetching: isFetching(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  requestFetch: (route, stop) => {dispatch(loadPredictionsRequest(route, stop))},
+  clearPredictions: () => {dispatch(clearPredictions())}
+});
+
+const mergeProps = (stateProps, dispatchProps) => ({
+  requestData: (shouldFetchData(stateProps))
+    ? () => dispatchProps.requestFetch(stateProps.route, stateProps.stop)
+    : false,
+  clearData: (shouldClearData(stateProps))
+    ? () => dispatchProps.clearPredictions()
+    : false,
+  data: stateProps.data,
+  fetching: stateProps.fetching,
+});
+
 const enhance = compose(
   connect(
-    (state) => ({
-      data: getPrediction(state),
-      route: getRoute(state),
-      stop: getStop(state),
-      fetching: isFetching(state),
-    }),
-    (dispatch) => ({
-      requestFetch: (route, stop) => {dispatch(loadPredictionsRequest(route, stop))},
-      clearPredictions: () => {dispatch(clearPredictions())}
-    }),
-    (stateProps, dispatchProps, ownProps) => ({
-      requestData: (shouldFetchData(stateProps))
-        ? () => dispatchProps.requestFetch(stateProps.route, stateProps.stop)
-        : false,
-      clearData: (shouldClearData(stateProps))
-        ? () => dispatchProps.clearPredictions()
-        : false,
-      data: stateProps.data,
-      fetching: stateProps.fetching,
-    })
+    mapStateToProps,
+    mapDispatchToProps,
+    mergeProps,
   ),
   withPropsOnChange(['data'], ({data}) => ({
     data: (data) ? data.toJS() : null
