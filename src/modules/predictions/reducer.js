@@ -3,7 +3,6 @@ import * as t from './actionTypes.js';
 
 const initialState = Immutable.fromJS({
   fetching: false,
-  visible: false,
   payload: null,
 });
 
@@ -23,14 +22,9 @@ const predictionsReducer = (state = initialState, action = {}) => {
     case t.LOAD_PREDICTIONS_FAILURE:
       return state;
 
-    case 'search/SELECTED_STOP':
-      return state
-        .set('visible', true);
-
     case t.CLEAR_PREDICTIONS:
       return state
         .set('payload', action.payload)
-        .set('visible', action.visible);
 
     default:
       return state;

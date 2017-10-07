@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { compose, withPropsOnChange } from 'recompose';
 import { withDataOnUpdate, withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
 import Predictions from '../components/Predictions';
-import { getPrediction, getRoute, getStop, isFetching, isVisible } from '../selectors';
+import { getPrediction, getRoute, getStop, isFetching } from '../selectors';
 import { clearPredictions, loadPredictionsRequest } from '../actions';
 
 const shouldFetchData = props =>

@@ -26,9 +26,3 @@ export const isFetching = createSelector(
   [predictionState],
   (prediction) => prediction.get('fetching')
 );
-
-// Is component visible? bool
-export const isVisible = createSelector(
-  [predictionState],
-  (prediction) => prediction.get('visible')
-);
