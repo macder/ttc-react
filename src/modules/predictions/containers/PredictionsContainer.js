@@ -19,8 +19,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  requestFetch: (route, stop) => {dispatch(loadPredictionsRequest(route, stop))},
-  clearPredictions: () => {dispatch(clearPredictions())}
+  requestFetch: (route, stop) => dispatch(loadPredictionsRequest(route, stop)),
+  clearPredictions: () => dispatch(clearPredictions())
 });
 
 const mergeProps = (stateProps, dispatchProps) => ({
