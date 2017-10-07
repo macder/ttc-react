@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import { compose, withPropsOnChange } from 'recompose';
 import { withDataOnUpdate, withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
 import Predictions from '../components/Predictions';
 import { getPrediction, getRoute, getStop, isFetching, isVisible } from '../selectors';
@@ -34,6 +34,9 @@ const enhance = compose(
       fetching: stateProps.fetching,
     })
   ),
+  withPropsOnChange(['data'], ({data}) => ({
+    data: (data) ? data.toJS() : null
+  })),
   withDataOnUpdate,
   withSpinnerWhileLoading,
   hideIfNoData
