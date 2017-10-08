@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { List as MaterialList, ListItem } from 'material-ui/List';
 
-export default function List(props) {
+const List = props => {
   const items = props.items.map(value =>
-    <li>{value}</li>,
+    <ListItem primaryText={value.text} key={value.id} />
   );
-
   return (
-    <div className="c-list">
-      <ul>
-        {items}
-      </ul>
-    </div>
-  );
+    <MaterialList>
+      {items}
+    </MaterialList>
+  )
 }
 
 List.propTypes = {
-  items: PropTypes.array.isRequired,
+  // items: PropTypes.array.isRequired,
   // title: PropTypes.string,
 };
+
+export default (List);
