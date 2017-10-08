@@ -17,4 +17,3 @@ export const withSpinnerWhileLoading = branch(
   ({ fetching }) => fetching,
   renderComponent(LoadingSpinner)
 );
-
