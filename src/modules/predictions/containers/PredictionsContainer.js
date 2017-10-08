@@ -1,9 +1,12 @@
+import Immutable from 'immutable';
+import React from 'react';
 import { connect } from 'react-redux';
-import { compose, withPropsOnChange } from 'recompose';
+import { branch, compose, mapProps, renderComponent, renderNothing, withPropsOnChange } from 'recompose';
 import { withDataOnUpdate, withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
-import Predictions from '../components/Predictions';
+import { BaseComponent, PredictionsEmpty } from '../components';
 import { getPrediction, getRoute, getStop, isFetching } from '../selectors';
 import { clearPredictions, loadPredictionsRequest } from '../actions';
+import List from '../../core/components/List';
 
 const shouldFetchData = props =>
   (props.route && props.stop && !props.data && !props.fetching)
@@ -34,6 +37,47 @@ const mergeProps = (stateProps, dispatchProps) => ({
   fetching: stateProps.fetching,
 });
 
+const withEmptyPredictions = branch(
+  ({ data }) => !data.size,
+  renderComponent(PredictionsEmpty)
+);
+
+const SingeDirPredictions = (Component) => (props) => (
+  <Component>
+    <List items={props.items}/>
+  </Component>
+);
+
+const withSinglePrediction = branch(
+  ({ data }) => Immutable.Record.isRecord(data.get('prediction')),
+  renderComponent(
+    compose(
+      mapProps(({data}) => ({
+        items: [{
+          id: data.get('prediction').tripTag,
+          text: data.get('prediction').minutes + ' Minutes'
+        }]
+      })),
+      SingeDirPredictions
+    )(BaseComponent)
+  )
+);
+
+const withSingeDirMultiPredictions = branch(
+  ({ data }) => Immutable.OrderedSet.isOrderedSet(data.get('prediction')),
+  renderComponent(
+    compose(
+      mapProps(({data}) => ({
+        items: data.get('prediction').map(item =>({
+          id: item.tripTag,
+          text: item.minutes + ' Minutes'
+        })).toJS()
+      })),
+      SingeDirPredictions
+    )(BaseComponent)
+  )
+);
+
 const enhance = compose(
   connect(
     mapStateToProps,
@@ -43,9 +87,9 @@ const enhance = compose(
   withDataOnUpdate,
   withSpinnerWhileLoading,
   hideIfNoData,
-  withPropsOnChange(['data'], ({data}) => ({
-    data: (data) && data.toJS()
-  })),
+  withEmptyPredictions,
+  withSinglePrediction,
+  withSingeDirMultiPredictions,
 );
 
-export default enhance(Predictions);
+export default enhance(BaseComponent);
