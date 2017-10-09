@@ -7,6 +7,7 @@ import withEmptyPredictions from './withEmptyPredictions';
 import withSinglePrediction from './withSinglePrediction';
 import withSingeRouteMultiPredictions from './withSingeRouteMultiPredictions';
 import withMultiRouteMultiPredictions from './withMultiRouteMultiPredictions';
+import withMultiRouteMixedPredictions from './withMultiRouteMixedPredictions';
 import { getPrediction, getRoute, getStop, isFetching } from '../selectors';
 import { clearPredictions, loadPredictionsRequest } from '../actions';
 
@@ -52,6 +53,7 @@ const enhance = compose(
   withSinglePrediction,
   withSingeRouteMultiPredictions,
   withMultiRouteMultiPredictions,
+  withMultiRouteMixedPredictions,
 );
 
 export default enhance(BaseComponent);
