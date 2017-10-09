@@ -4,12 +4,12 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import SelectFieldContainer from './SelectFieldContainer';
 import { hocDataPropProxy } from '../components/hocDataPropProxy';
-import { getRouteList, getDirectionList, getDirectionStopList, isRouteFieldVisible, isDirectionFieldVisible, isStopFieldVisible } from '../selectors';
+import * as selector from '../selectors';
 import * as action from '../actions';
 
-const RouteSelectField = hocDataPropProxy(SelectFieldContainer, getRouteList);
-const DirectionSelectField = hocDataPropProxy(SelectFieldContainer, getDirectionList);
-const StopSelectField = hocDataPropProxy(SelectFieldContainer, getDirectionStopList);
+const RouteSelectField = hocDataPropProxy(SelectFieldContainer, selector.getRouteList);
+const DirectionSelectField = hocDataPropProxy(SelectFieldContainer, selector.getDirectionList);
+const StopSelectField = hocDataPropProxy(SelectFieldContainer, selector.getDirectionStopList);
 
 class SearchFormContainer extends React.Component {
   constructor(props) {
@@ -77,9 +77,9 @@ SearchFormContainer.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  routeVisible: isRouteFieldVisible(state),
-  directionVisible: isDirectionFieldVisible(state),
-  stopVisible: isStopFieldVisible(state),
+  routeVisible: selector.isRouteFieldVisible(state),
+  directionVisible: selector.isDirectionFieldVisible(state),
+  stopVisible: selector.isStopFieldVisible(state),
 });
 
 const mapDispatchToProps = dispatch => ({
