@@ -24,10 +24,6 @@ class SearchFormContainer extends React.Component {
     this.props.action.loadRouteList();
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    console.log('SearchFormContainer componentWillUpdate');
-  }
-
   handleRouteSelect(value) {
     const routeTag = value.tag;
     this.props.action.selectedRoute(routeTag);
@@ -47,7 +43,6 @@ class SearchFormContainer extends React.Component {
   }
 
   render() {
-    console.log('SearchFormContainer rendered');
     return (
       <div className="c-search">
         <RouteSelectField
@@ -81,14 +76,11 @@ SearchFormContainer.propTypes = {
   stopVisible: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => {
-  return {
-    routeVisible: isRouteFieldVisible(state),
-    directionVisible: isDirectionFieldVisible(state),
-    stopVisible: isStopFieldVisible(state),
-  }
-
-};
+const mapStateToProps = state => ({
+  routeVisible: isRouteFieldVisible(state),
+  directionVisible: isDirectionFieldVisible(state),
+  stopVisible: isStopFieldVisible(state),
+});
 
 const mapDispatchToProps = dispatch => ({
   action: {
