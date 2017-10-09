@@ -23,6 +23,21 @@ const stopList = createSelector(
   (search) => search.getIn(['data', 'routeConfig', 'payload', 'stop'])
 );
 
+export const isRouteFieldVisible = createSelector(
+  [searchState],
+  (search) => search.getIn(['routeField', 'visible'])
+);
+
+export const isDirectionFieldVisible = createSelector(
+  [searchState],
+  (search) => search.getIn(['directionField', 'visible'])
+);
+
+export const isStopFieldVisible = createSelector(
+  [searchState],
+  (search) => search.getIn(['stopField', 'visible'])
+);
+
 // Get route list array for 'Route' autocomplete field
 export const getRouteList = createSelector(
   [routeList],

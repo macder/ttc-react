@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import SelectFieldContainer from './SelectFieldContainer';
 import { hocDataPropProxy } from '../components/hocDataPropProxy';
-import { getRouteList, getDirectionList, getDirectionStopList } from '../selectors';
+import { getRouteList, getDirectionList, getDirectionStopList, isRouteFieldVisible, isDirectionFieldVisible, isStopFieldVisible } from '../selectors';
 import * as action from '../actions';
 
 const RouteSelectField = hocDataPropProxy(SelectFieldContainer, getRouteList);
@@ -22,6 +22,10 @@ class SearchFormContainer extends React.Component {
 
   componentDidMount() {
     this.props.action.loadRouteList();
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('SearchFormContainer componentWillUpdate');
   }
 
   handleRouteSelect(value) {
@@ -43,6 +47,7 @@ class SearchFormContainer extends React.Component {
   }
 
   render() {
+    console.log('SearchFormContainer rendered');
     return (
       <div className="c-search">
         <RouteSelectField
@@ -78,9 +83,9 @@ SearchFormContainer.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    routeVisible: state.getIn(['searchState', 'routeField', 'visible']),
-    directionVisible: state.getIn(['searchState', 'directionField', 'visible']),
-    stopVisible: state.getIn(['searchState', 'stopField', 'visible']),
+    routeVisible: isRouteFieldVisible(state),
+    directionVisible: isDirectionFieldVisible(state),
+    stopVisible: isStopFieldVisible(state),
   }
 
 };
