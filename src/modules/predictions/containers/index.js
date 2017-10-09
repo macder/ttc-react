@@ -1,3 +1,2 @@
-import PredictionsContainer from './PredictionsContainer';
+export { default as PredictionsContainer } from './PredictionsContainer';
 
-export default { PredictionsContainer };

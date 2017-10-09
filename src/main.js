@@ -8,12 +8,12 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import reducer from './rootReducer';
 import { SearchFormContainer, SearchSagas } from './modules/search';
-import predictions from './modules/predictions';
+import { PredictionsContainer, PredictionsSagas } from './modules/predictions';
 
 const sagaMiddleware = createSagaMiddleware();
 const SearchForm = SearchFormContainer;
 
-const Predictions = predictions.containers.default.PredictionsContainer;
+const Predictions = PredictionsContainer
 
 const store = createStore(
   reducer,
@@ -22,9 +22,7 @@ const store = createStore(
 );
 
 sagaMiddleware.run(SearchSagas);
-sagaMiddleware.run(predictions.sagas.default);
-
-// console.dir(store.getState());
+sagaMiddleware.run(PredictionsSagas);
 
 ReactDOM.render(
   <Provider store={store} key="provider">
