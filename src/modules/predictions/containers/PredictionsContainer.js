@@ -8,20 +8,21 @@ import withSinglePrediction from './withSinglePrediction';
 import withSingeRouteMultiPredictions from './withSingeRouteMultiPredictions';
 import withMultiRouteMultiPredictions from './withMultiRouteMultiPredictions';
 import withMultiRouteMixedPredictions from './withMultiRouteMixedPredictions';
-import { getPrediction, getRoute, getStop, isFetching } from '../selectors';
+import { getError, getPrediction, getRoute, getStop, isFetching } from '../selectors';
 import { clearPredictions, loadPredictionsRequest } from '../actions';
 
 const shouldFetchData = props =>
-  (props.route && props.stop && !props.data && !props.fetching)
+  (props.route && props.stop && !props.data && !props.fetching && !props.error)
 
 const shouldClearData = props =>
-  ((!props.route || !props.stop) && props.data)
+  ((!props.route || !props.stop) && (props.data || props.error))
 
 const mapStateToProps = state => ({
   data: getPrediction(state),
   route: getRoute(state),
   stop: getStop(state),
   fetching: isFetching(state),
+  error: getError(state),
 });
 
 const mapDispatchToProps = dispatch => ({

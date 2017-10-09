@@ -26,3 +26,9 @@ export const isFetching = createSelector(
   [predictionState],
   (prediction) => prediction.get('fetching')
 );
+
+// Error message, if any, from data fetch
+export const getError = createSelector(
+  [predictionState],
+  (prediction) => prediction.get('error')
+);

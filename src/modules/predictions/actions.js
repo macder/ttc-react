@@ -44,4 +44,5 @@ export const loadPredictionsFailure = e => ({
 export const clearPredictions = () => ({
   type: t.CLEAR_PREDICTIONS,
   payload: null,
+  error: null,
 });
