@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { branch, compose, mapProps, renderComponent, renderNothing, withPropsOnChange } from 'recompose';
 import { withDataOnUpdate, withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
-import { BaseComponent, hasMultiRoutePredictions, hasSingeRoutePredictions, PredictionsEmpty } from '../components';
+import { BaseComponent, hasMultiRoutePredictions, hasSingeRoutePredictions, hasEmptyPredictions } from '../components';
 import { getPrediction, getRoute, getStop, isFetching } from '../selectors';
 import { clearPredictions, loadPredictionsRequest } from '../actions';
 
@@ -38,7 +38,9 @@ const mergeProps = (stateProps, dispatchProps) => ({
 
 const withEmptyPredictions = branch(
   ({ data }) => !data.size,
-  renderComponent(PredictionsEmpty)
+  renderComponent(
+    compose(hasEmptyPredictions)(BaseComponent)
+  )
 );
 
 const withSinglePrediction = branch(
