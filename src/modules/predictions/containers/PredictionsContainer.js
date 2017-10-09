@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { branch, compose, mapProps, renderComponent, renderNothing, withPropsOnChange } from 'recompose';
 import { withDataOnUpdate, withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
-import { BaseComponent, PredictionsEmpty } from '../components';
+import { BaseComponent, hasMultiRoutePredictions, hasSingeRoutePredictions, PredictionsEmpty } from '../components';
 import { getPrediction, getRoute, getStop, isFetching } from '../selectors';
 import { clearPredictions, loadPredictionsRequest } from '../actions';
 import List from '../../core/components/List';
@@ -41,28 +41,6 @@ const withEmptyPredictions = branch(
   ({ data }) => !data.size,
   renderComponent(PredictionsEmpty)
 );
-
-const hasSingeRoutePredictions = (Component) => (props) => (
-  <Component>
-    <List items={props.items}/>
-  </Component>
-);
-
-const hasMultiRoutePredictions = (Component) => (props) =>  {
-
-  const lists = props.direction.map(direction => (
-    <div key={direction.id}>
-      <p>{direction.title}</p>
-      <List items={direction.items} />
-    </div>
-  ));
-
-  return (
-    <Component>
-      {lists}
-    </Component>
-  )
-};
 
 const withSinglePrediction = branch(
   ({ data }) => Immutable.Record.isRecord(data.get('prediction')),
