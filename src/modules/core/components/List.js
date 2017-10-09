@@ -14,8 +14,10 @@ const List = props => {
 }
 
 List.propTypes = {
-  // items: PropTypes.array.isRequired,
-  // title: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  })).isRequired,
 };
 
 export default (List);
