@@ -4,5 +4,5 @@ import predictionsReducer from './modules/predictions/reducer';
 
 export default combineReducers({
   searchState: searchReducer,
-  // predictionState: predictionsReducer,
+  predictionState: predictionsReducer,
 });

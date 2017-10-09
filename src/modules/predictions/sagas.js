@@ -1,11 +1,11 @@
 import 'regenerator-runtime/runtime';
 
-import { all, call, put, takeEvery } from 'redux-saga/effects';
+import Immutable from 'immutable';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import * as t from './actionTypes';
 import * as actions from './actions';
 import { httpGet } from '../../services/httpRequest';
-import { parseXML } from '../../services/parsers';
 
 /**
  * Worker Saga: will be fired on
@@ -15,17 +15,64 @@ import { parseXML } from '../../services/parsers';
  */
 function* fetch(args, action) {
   try {
-    const options = {
-      trim: true,
-      mergeAttrs: true,
-      explicitArray: false,
-    };
-
-    const data = parseXML(yield call(httpGet, action.url), options).body.predictions;
+    const payload = yield call(httpGet, action.url);
+    const data = yield call(format, payload.predictions);
     yield put(actions[args.success](data));
   } catch (e) {
     yield put(actions[args.fail](e));
   }
+}
+
+/**
+ * Formats and converts prediction data to ImmutableJS
+ *
+ * @param {object} payload
+ * @return {immutable}
+ */
+function format(payload) {
+  if (payload.direction) {
+    const data = Immutable.fromJS(payload.direction);
+
+    if (Array.isArray(payload.direction)) { // multi directions
+      return new Immutable.List(data.map(item =>
+        new Immutable.Map({
+          title: item.get('title'),
+          prediction: formatPrediction(item.get('prediction')),
+        })
+      ));
+    }
+    return new Immutable.Map({
+      title: data.get('title'),
+      prediction: formatPrediction(data.get('prediction')),
+    });
+  }
+  return new Immutable.Map({});
+}
+
+/**
+ * Formats prediction to immutable records
+ *
+ * @param {immutable} data
+ * @return {immutable}
+ */
+function formatPrediction(data) {
+  const PredictionRecord = new Immutable.Record({
+    affectedByLayover: 'false',
+    block: '',
+    branch: '',
+    dirTag: '',
+    epochTime: '',
+    isDeparture: '',
+    minutes: '',
+    seconds: '',
+    tripTag: '',
+    vehicle: '',
+  });
+
+  if(Immutable.Map.isMap(data)) { // single prediction
+    return new PredictionRecord(data);
+  }
+  return new Immutable.OrderedSet(data).map(PredictionRecord);
 }
 
 /**
@@ -38,7 +85,7 @@ function* loadPredictions() {
     success: 'loadPredictionsSuccess',
     fail: 'loadPredictionsFailure',
   };
-  yield takeEvery(t.LOAD_PREDICTIONS_REQUEST, fetch, args);
+  yield takeLatest(t.LOAD_PREDICTIONS_REQUEST, fetch, args);
 }
 
 export default function* rootSaga() {
