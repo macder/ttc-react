@@ -1,10 +1,42 @@
 import Immutable from 'immutable'
 import { createSelector } from 'reselect';
 
-const routeList = state => state.getIn(['searchState', 'data', 'routeList', 'payload']);
-const routeConfig = state => state.getIn(['searchState', 'data', 'routeConfig', 'payload']);
-const selectedDirection = state => state.getIn(['searchState', 'directionField', 'selected']);
-const stopList = state => state.getIn(['searchState', 'data', 'routeConfig', 'payload', 'stop']);
+const searchState = state => state.get('searchState');
+
+const routeList = createSelector(
+  [searchState],
+  (search) => search.getIn(['data', 'routeList', 'payload'])
+);
+
+const routeConfig = createSelector(
+  [searchState],
+  (search) => search.getIn(['data', 'routeConfig', 'payload'])
+);
+
+const selectedDirection = createSelector(
+  [searchState],
+  (search) => search.getIn(['directionField', 'selected'])
+);
+
+const stopList = createSelector(
+  [searchState],
+  (search) => search.getIn(['data', 'routeConfig', 'payload', 'stop'])
+);
+
+export const isRouteFieldVisible = createSelector(
+  [searchState],
+  (search) => search.getIn(['routeField', 'visible'])
+);
+
+export const isDirectionFieldVisible = createSelector(
+  [searchState],
+  (search) => search.getIn(['directionField', 'visible'])
+);
+
+export const isStopFieldVisible = createSelector(
+  [searchState],
+  (search) => search.getIn(['stopField', 'visible'])
+);
 
 // Get route list array for 'Route' autocomplete field
 export const getRouteList = createSelector(
@@ -53,7 +85,6 @@ const getDirectionConfig = createSelector(
     return new Immutable.Map({});
   }
 );
-
 
 // Get stop list for a routes direction
 export const getDirectionStopList = createSelector(
