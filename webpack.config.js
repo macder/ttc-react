@@ -18,10 +18,10 @@ module.exports = {
         loader: 'eslint-loader'
       }, */
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         include: path.resolve(process.cwd(), 'src'),
         query: {
-          presets: ['react', 'es2015']
+          presets: ['react', 'es2015', 'stage-2']
         },
         loader: 'babel-loader',
       },

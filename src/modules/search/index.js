@@ -1,7 +1,5 @@
 import * as actions from './actions';
-import * as containers from './containers';
-import * as constants from './constants';
-import * as reducer from './reducer';
-import * as sagas from './sagas';
 
-export default { actions, containers, constants, reducer, sagas };
+export {default as SearchFormContainer} from './containers';
+export {default as SearchSagas} from './sagas';
+export default actions.selectedStop;
