@@ -11,11 +11,6 @@ injectTapEventPlugin();
 export default class AutoCompleteField extends React.Component {
   constructor(props) {
     super(props);
-    this.handleClearClick = this.handleClearClick.bind(this);
-  }
-
-  handleClearClick() {
-    this.props.onClear();
   }
 
   render() {
@@ -46,7 +41,7 @@ export default class AutoCompleteField extends React.Component {
 
           <IconButton
             tooltip="Clear"
-            onClick={this.handleClearClick}
+            onClick={this.props.onClear}
             iconStyle={iconStyle}
             style={clearButtonStyle}
             tooltipPosition={'top-center'}
