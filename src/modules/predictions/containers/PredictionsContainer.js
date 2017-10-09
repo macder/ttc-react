@@ -42,11 +42,27 @@ const withEmptyPredictions = branch(
   renderComponent(PredictionsEmpty)
 );
 
-const SingeDirPredictions = (Component) => (props) => (
+const hasSingeRoutePredictions = (Component) => (props) => (
   <Component>
     <List items={props.items}/>
   </Component>
 );
+
+const hasMultiRoutePredictions = (Component) => (props) =>  {
+
+  const lists = props.direction.map(direction => (
+    <div key={direction.id}>
+      <p>{direction.title}</p>
+      <List items={direction.items} />
+    </div>
+  ));
+
+  return (
+    <Component>
+      {lists}
+    </Component>
+  )
+};
 
 const withSinglePrediction = branch(
   ({ data }) => Immutable.Record.isRecord(data.get('prediction')),
@@ -58,12 +74,12 @@ const withSinglePrediction = branch(
           text: data.get('prediction').minutes + ' Minutes'
         }]
       })),
-      SingeDirPredictions
+      hasSingeRoutePredictions
     )(BaseComponent)
   )
 );
 
-const withSingeDirMultiPredictions = branch(
+const withSingeRouteMultiPredictions = branch(
   ({ data }) => Immutable.OrderedSet.isOrderedSet(data.get('prediction')),
   renderComponent(
     compose(
@@ -73,7 +89,34 @@ const withSingeDirMultiPredictions = branch(
           text: item.minutes + ' Minutes'
         })).toJS()
       })),
-      SingeDirPredictions
+      hasSingeRoutePredictions
+    )(BaseComponent)
+  )
+);
+
+const withMultiRouteMultiPredictions = branch(
+  ({ data }) => {
+    if (Immutable.List.isList(data)) {
+      for (let entry of data.entries()) {
+        if (!Immutable.OrderedSet.isOrderedSet(entry[1].get('prediction')))
+          return false;
+      }
+      return true
+    }
+  },
+  renderComponent(
+    compose(
+      mapProps(({data}) => ({
+        direction: data.map((entry, index) => ({
+          id: index,
+          title: entry.get('title'),
+          items: entry.get('prediction').map(item =>({
+            id: item.tripTag,
+            text: item.minutes + ' Minutes'
+          })).toJS()
+        })).toJS()
+      })),
+      hasMultiRoutePredictions
     )(BaseComponent)
   )
 );
@@ -89,7 +132,8 @@ const enhance = compose(
   hideIfNoData,
   withEmptyPredictions,
   withSinglePrediction,
-  withSingeDirMultiPredictions,
+  withSingeRouteMultiPredictions,
+  withMultiRouteMultiPredictions,
 );
 
 export default enhance(BaseComponent);
