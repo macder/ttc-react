@@ -6,7 +6,6 @@ import { withDataOnUpdate, withSpinnerWhileLoading, hideIfNoData } from '../../c
 import { BaseComponent, hasMultiRoutePredictions, hasSingeRoutePredictions, PredictionsEmpty } from '../components';
 import { getPrediction, getRoute, getStop, isFetching } from '../selectors';
 import { clearPredictions, loadPredictionsRequest } from '../actions';
-import List from '../../core/components/List';
 
 const shouldFetchData = props =>
   (props.route && props.stop && !props.data && !props.fetching)
