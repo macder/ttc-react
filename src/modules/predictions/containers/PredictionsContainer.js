@@ -63,7 +63,7 @@ const withSingeRouteMultiPredictions = branch(
   renderComponent(
     compose(
       mapProps(({data}) => ({
-        items: data.get('prediction').map(item =>({
+        items: data.get('prediction').map(item => ({
           id: item.tripTag,
           text: item.minutes + ' Minutes'
         })).toJS()
@@ -89,7 +89,7 @@ const withMultiRouteMultiPredictions = branch(
         direction: data.map((entry, index) => ({
           id: index,
           title: entry.get('title'),
-          items: entry.get('prediction').map(item =>({
+          items: entry.get('prediction').map(item => ({
             id: item.tripTag,
             text: item.minutes + ' Minutes'
           })).toJS()
