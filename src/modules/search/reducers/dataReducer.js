@@ -5,12 +5,12 @@ const initialState = Immutable.fromJS({
 
   routeList: {
     fetching: false,
-    payload: {},
+    payload: null,
   },
 
   routeConfig: {
     fetching: false,
-    payload: {},
+    payload: null,
   },
 });
 

@@ -28,6 +28,11 @@ export const isRouteFieldVisible = createSelector(
   (search) => search.getIn(['routeField', 'visible'])
 );
 
+export const isRouteFieldFetching = createSelector(
+  [searchState],
+  (search) => search.getIn(['data', 'routeList', 'fetching'])
+);
+
 export const isDirectionFieldVisible = createSelector(
   [searchState],
   (search) => search.getIn(['directionField', 'visible'])
@@ -46,8 +51,7 @@ export const getRouteList = createSelector(
       tag: '',
       title: '',
     });
-
-    return new Immutable.OrderedSet(list.map(Record));
+    return (list) && new Immutable.OrderedSet(list.map(Record));
   }
 );
 
