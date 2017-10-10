@@ -7,9 +7,9 @@ import { hocDataPropProxy } from '../components/hocDataPropProxy';
 import * as selector from '../selectors';
 import * as action from '../actions';
 
-const RouteSelectField = hocDataPropProxy(SelectFieldContainer, selector.getRouteList);
-const DirectionSelectField = hocDataPropProxy(SelectFieldContainer, selector.getDirectionList);
-const StopSelectField = hocDataPropProxy(SelectFieldContainer, selector.getDirectionStopList);
+const RouteSelectField = hocDataPropProxy(SelectFieldContainer, selector.getRouteList, selector.isRouteFieldVisible);
+const DirectionSelectField = hocDataPropProxy(SelectFieldContainer, selector.getDirectionList, selector.isDirectionFieldVisible);
+const StopSelectField = hocDataPropProxy(SelectFieldContainer, selector.getDirectionStopList, selector.isStopFieldVisible);
 
 class SearchFormContainer extends React.Component {
   constructor(props) {
@@ -49,20 +49,17 @@ class SearchFormContainer extends React.Component {
           placeholder={'Route number or name'}
           onSelect={this.handleRouteSelect}
           onClear={this.props.action.clearRoute}
-          isVisible={this.props.routeVisible}
         />
         <DirectionSelectField
           placeholder={"Direction"}
           onSelect={this.handleDirectionSelect}
           onClear={this.props.action.clearDirection}
-          isVisible={this.props.directionVisible}
         />
 
         <StopSelectField
           placeholder={"Stop"}
           onSelect={this.handleStopSelect}
           onClear={this.props.action.clearStop}
-          isVisible={this.props.stopVisible}
         />
       </div>
     )
@@ -71,16 +68,7 @@ class SearchFormContainer extends React.Component {
 
 SearchFormContainer.propTypes = {
   action: PropTypes.object.isRequired,
-  routeVisible: PropTypes.bool.isRequired,
-  directionVisible: PropTypes.bool.isRequired,
-  stopVisible: PropTypes.bool.isRequired,
 };
-
-const mapStateToProps = state => ({
-  routeVisible: selector.isRouteFieldVisible(state),
-  directionVisible: selector.isDirectionFieldVisible(state),
-  stopVisible: selector.isStopFieldVisible(state),
-});
 
 const mapDispatchToProps = dispatch => ({
   action: {
@@ -95,4 +83,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchFormContainer);
+export default connect(null, mapDispatchToProps)(SearchFormContainer);

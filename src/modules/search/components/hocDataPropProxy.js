@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // converts immutable to js for presentational components
-export const hocDataPropProxy = (Component, dataSelector) => {
+export const hocDataPropProxy = (Component, dataSelector, visibleSelector) => {
   class DataPropProxy extends React.Component {
     constructor(props) {
       super(props);
@@ -13,13 +13,15 @@ export const hocDataPropProxy = (Component, dataSelector) => {
       return (
         <Component
           {...this.props}
-          data = {this.props.data.toJS()}
+          isVisible={this.props.visible}
+          data={this.props.data.toJS()}
         />
       );
     }
   }
 
   const mapStateToProps = state => ({
+    visible: visibleSelector(state),
     data: dataSelector(state),
   });
   return connect(mapStateToProps)(DataPropProxy);
