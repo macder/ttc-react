@@ -14,7 +14,7 @@ Coming soon
 
 ## Stack:
 * React
-* Recompose (Predictions module, Search is WIP)
+* Recompose
 * Redux
 * Redux-Saga
 * Reselect
