@@ -3,26 +3,14 @@ import * as t from '../actionTypes';
 
 const initialState = Immutable.fromJS({
   selected: null,
-  visible: false,
 });
 
 const directionFieldReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-
-    case t.CLEAR_ROUTE:
-      return state
-        .set('visible', false)
-        .set('selected', null);
-
     case t.SELECTED_ROUTE:
-      return state
-        .set('visible', true);
+      return state.set('selected', null)
 
     case t.SELECTED_DIRECTION:
-      return state
-        .set('selected', action.selected);
-
-    case t.CLEAR_DIRECTION:
       return state
         .set('selected', action.selected);
 

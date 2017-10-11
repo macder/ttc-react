@@ -1,1 +1,2 @@
-export { default as BaseComponent } from './BaseComponent';
+import SearchForm from './SearchForm';
+export default SearchForm;

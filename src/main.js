@@ -7,12 +7,10 @@ import { MuiThemeProvider } from 'material-ui/styles';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import reducer from './rootReducer';
-import { SearchFormContainer, SearchSagas } from './modules/search';
+import { SearchForm, SearchSagas } from './modules/search';
 import { PredictionsContainer, PredictionsSagas } from './modules/predictions';
 
 const sagaMiddleware = createSagaMiddleware();
-const SearchForm = SearchFormContainer;
-
 const Predictions = PredictionsContainer
 
 const store = createStore(
