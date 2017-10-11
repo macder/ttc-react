@@ -1,21 +1,19 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { compose, mapProps } from 'recompose';
 import { Dropdown } from 'semantic-ui-react'
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
-import { BaseComponent } from '../components';
-import * as selector from '../selectors';
-import * as action from '../actions';
+import { getDirectionList, isRouteConfigFetching } from '../selectors';
+import { selectedDirection } from '../actions';
 
 const DirectionFieldContainer = compose(
   connect(
     state => ({
-      data: selector.getDirectionList(state),
-      fetching: selector.isRouteConfigFetching(state),
+      data: getDirectionList(state),
+      fetching: isRouteConfigFetching(state),
     }),
     dispatch => ({
-      directionSelected: (direction) => dispatch(action.selectedDirection(direction)),
+      directionSelected: (direction) => dispatch(selectedDirection(direction)),
     }),
     (stateProps, dispatchProps, ownProps) => ({
       directionSelected: dispatchProps.directionSelected,
