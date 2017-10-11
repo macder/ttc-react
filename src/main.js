@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { MuiThemeProvider } from 'material-ui/styles';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import reducer from './rootReducer';
 import { SearchForm, SearchSagas } from './modules/search';
 import { PredictionsContainer, PredictionsSagas } from './modules/predictions';
@@ -24,12 +21,10 @@ sagaMiddleware.run(PredictionsSagas);
 
 ReactDOM.render(
   <Provider store={store} key="provider">
-    <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-      <div>
-        <h1>TTC NextBus</h1>
-        <SearchForm />
-        <Predictions />
-      </div>
-    </MuiThemeProvider>
+    <div>
+      <h1>TTC NextBus</h1>
+      <SearchForm />
+      <Predictions />
+    </div>
   </Provider>, document.getElementById('root'),
 );
