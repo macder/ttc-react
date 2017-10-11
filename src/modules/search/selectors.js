@@ -28,11 +28,6 @@ export const isRouteFieldVisible = createSelector(
   (search) => search.getIn(['routeField', 'visible'])
 );
 
-export const isRouteFieldFetching = createSelector(
-  [searchState],
-  (search) => search.getIn(['data', 'routeList', 'fetching'])
-);
-
 export const isDirectionFieldVisible = createSelector(
   [searchState],
   (search) => search.getIn(['directionField', 'visible'])
@@ -43,15 +38,39 @@ export const isStopFieldVisible = createSelector(
   (search) => search.getIn(['stopField', 'visible'])
 );
 
+export const isRouteListFetching = createSelector(
+  [searchState],
+  (search) => search.getIn(['data', 'routeList', 'fetching'])
+);
+
+export const isRouteConfigFetching = createSelector(
+  [searchState],
+  (search) => search.getIn(['data', 'routeConfig', 'fetching'])
+);
+
+// Get selected route
+export const getSelectedRoute = createSelector(
+  [searchState],
+  (search) => search.getIn(['routeField', 'selected'])
+);
+
 // Get route list array for 'Route' autocomplete field
 export const getRouteList = createSelector(
   [routeList],
   list => {
     const Record = new Immutable.Record({
-      tag: '',
-      title: '',
+      key: '',
+      value: '',
+      text: '',
     });
-    return (list) && new Immutable.OrderedSet(list.map(Record));
+
+    return (list) && new Immutable.OrderedSet(list.map((item, index) =>
+      new Record({
+        key: item.get('tag'),
+        value: item.get('tag'),
+        text: item.get('title')
+      })
+    ));
   }
 );
 
@@ -66,14 +85,17 @@ export const getDirectionList = createSelector(
   [routeConfig],
   (config) => {
     const Record = new Immutable.Record({
-      tag: '',
-      title: '',
+      key: '',
+      value: '',
+      text: '',
     });
-    const directions = config.get('direction');
-    if (directions) {
-      return new Immutable.OrderedSet(directions.map(Record));
-    }
-    return new Immutable.OrderedSet();
+    return (config) && new Immutable.OrderedSet(config.get('direction').map((item, index) =>
+      new Record({
+        key: item.get('tag'),
+        value: item.get('tag'),
+        text: item.get('title')
+      })
+    ));
   },
 );
 
@@ -110,6 +132,6 @@ export const getDirectionStopList = createSelector(
       });
       return new Immutable.OrderedSet(list.map(Record));
     }
-    return new Immutable.OrderedSet();
+    return null;
   },
 );
