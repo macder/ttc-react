@@ -29,6 +29,10 @@ const predictionsReducer = (state = initialState, action = {}) => {
         .set('payload', action.payload)
         .set('error', action.error);
 
+    case 'search/SELECTED_STOP':
+      return state
+        .set('payload', null);
+
     default:
       return state;
   }

@@ -1,17 +1,10 @@
 import React from 'react';
-import CircularProgress from 'material-ui/CircularProgress';
+import { Loader } from 'semantic-ui-react'
 
-export default function LoadingSpinner() {
-  const style = {
-    marginTop: 24,
-  };
-  return (
-    <div className="c-loading-spinner">
-      <CircularProgress
-        size={24}
-        thickness={3}
-        style={style}
-      />
-    </div>
-  );
-}
+const LoadingSpinner = () => (
+  <div className='c-loading-spinner'>
+    <Loader active inline />
+  </div>
+)
+
+export default LoadingSpinner
