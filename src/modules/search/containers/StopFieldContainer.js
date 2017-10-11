@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose, mapProps } from 'recompose';
-import { Dropdown } from 'semantic-ui-react'
+import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getDirectionStopList, isRouteConfigFetching } from '../selectors';
 import { selectedStop } from '../actions';
@@ -30,16 +30,6 @@ const StopFieldContainer = compose(
     onChange: (e,d) => stopSelected(d.value),
     placeholder
   })),
-)(({ data, placeholder, onChange }) => (
-  <Dropdown
-    placeholder={placeholder}
-    options={data}
-    onChange={onChange}
-    fluid
-    search
-    scrolling
-    selection
-  />
-));
+)(DropdownField);
 
 export default (StopFieldContainer);

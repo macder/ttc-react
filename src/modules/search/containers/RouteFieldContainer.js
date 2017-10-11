@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose, mapProps } from 'recompose';
-import { Dropdown } from 'semantic-ui-react'
+import { DropdownField } from '../components';
 import { withDataOnInit, hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getRouteList, isRouteListFetching } from '../selectors';
 import { loadRoutesRequest, loadRouteConfigRequest, selectedRoute } from '../actions';
@@ -39,16 +39,6 @@ const RouteFieldContainer = compose(
       requestRouteConfig(d.value);
     }
   })),
-)(({ data, placeholder, onChange }) => (
-  <Dropdown
-    placeholder={placeholder}
-    options={data}
-    onChange={onChange}
-    fluid
-    search
-    scrolling
-    selection
-  />
-));
+)(DropdownField);
 
 export default (RouteFieldContainer);
