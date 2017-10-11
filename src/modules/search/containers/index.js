@@ -1,3 +1,2 @@
-import SearchFormContainer from './SearchFormContainer2';
-
-export default SearchFormContainer;
+export { default as RouteField } from './RouteFieldContainer';
+export { default as DirectionField } from './DirectionFieldContainer';
