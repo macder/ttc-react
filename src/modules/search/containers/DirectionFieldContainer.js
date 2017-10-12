@@ -26,7 +26,7 @@ const DirectionFieldContainer = compose(
   withSpinnerWhileLoading,
   hideIfNoData,
   mapProps(({ data, placeholder, directionSelected }) => ({
-    data: data.toJS(),
+    data: data.toArray().map(item => item.toObject()),
     placeholder,
     directionSelected
   })),

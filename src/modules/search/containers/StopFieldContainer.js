@@ -31,7 +31,7 @@ const StopFieldContainer = compose(
   withSpinnerWhileLoading,
   hideIfNoData,
   mapProps(({ data, placeholder, stopSelected }) => ({
-    data: data.toJS(),
+    data: data.toArray().map(item => item.toObject()),
     placeholder,
     stopSelected
   })),

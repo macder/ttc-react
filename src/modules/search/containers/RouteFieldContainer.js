@@ -32,7 +32,7 @@ const RouteFieldContainer = compose(
   withSpinnerWhileLoading,
   hideIfNoData,
   mapProps(({ data, placeholder, requestRouteConfig, routeSelected }) => ({
-    data: data.toJS(),
+    data: data.toArray().map(item => item.toObject()),
     placeholder,
     routeSelected,
     requestRouteConfig,
