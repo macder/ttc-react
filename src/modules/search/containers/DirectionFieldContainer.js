@@ -6,22 +6,27 @@ import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getDirectionList, isRouteConfigFetching } from '../selectors';
 import { selectedDirection } from '../actions';
 
+const mapStateToProps = state => ({
+  data: getDirectionList(state),
+  fetching: isRouteConfigFetching(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  directionSelected: (direction) => dispatch(selectedDirection(direction)),
+});
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  directionSelected: dispatchProps.directionSelected,
+  data: stateProps.data,
+  fetching: stateProps.fetching,
+  ...ownProps
+});
+
 const DirectionFieldContainer = compose(
   connect(
-    state => ({
-      data: getDirectionList(state),
-      fetching: isRouteConfigFetching(state),
-    }),
-    dispatch => ({
-      directionSelected: (direction) => dispatch(selectedDirection(direction)),
-    }),
-    (stateProps, dispatchProps, ownProps) => ({
-      directionSelected: dispatchProps.directionSelected,
-      data: stateProps.data,
-      fetching: stateProps.fetching,
-      ...ownProps
-      }
-    ),
+    mapStateToProps,
+    mapDispatchToProps,
+    mergeProps,
   ),
   withSpinnerWhileLoading,
   hideIfNoData,
