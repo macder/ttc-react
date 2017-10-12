@@ -9,6 +9,7 @@ const DropdownField = ({ data, placeholder, onChange }) => (
       options={data}
       onChange={onChange}
       selectOnBlur={false}
+      selectOnNavigation={false}
       fluid
       search
       scrolling
