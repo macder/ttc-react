@@ -48,6 +48,15 @@ export const isRouteConfigFetching = createSelector(
   (search) => search.getIn(['data', 'routeConfig', 'fetching'])
 );
 
+export const isStopFieldFetching = createSelector(
+  selectedDirection,
+  isRouteConfigFetching,
+  (selectedDirection, isRouteConfigFetching) => {
+    const isDirectionSelected = (selectedDirection) && true;
+    return (isRouteConfigFetching && isDirectionSelected);
+  }
+);
+
 // Get selected route
 export const getSelectedRoute = createSelector(
   [searchState],

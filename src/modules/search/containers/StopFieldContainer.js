@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { compose, mapProps, withHandlers } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
-import { getDirectionStopList, isRouteConfigFetching } from '../selectors';
+import { getDirectionStopList, isStopFieldFetching } from '../selectors';
 import { selectedStop } from '../actions';
 
 const StopFieldContainer = compose(
   connect(
     state => ({
       data: getDirectionStopList(state),
-      fetching: isRouteConfigFetching(state),
+      fetching: isStopFieldFetching(state),
     }),
     dispatch => ({
       stopSelected: (stop) => dispatch(selectedStop(stop)),
