@@ -7,16 +7,10 @@ import axios from 'axios';
  * @return {object} The response.
  */
 export function* httpGet(url) {
-  let data = {};
-
-  yield axios({
+  // yield delay(1200);
+  return yield axios({
     method: 'get',
     url,
     responseType: 'text',
-  })
-    .then((response) => {
-      data = response.data;
-    });
-  // yield delay(1200);
-  return data;
+  }).then((response) => response.data);
 }
