@@ -10,7 +10,8 @@ Leverages the [TTC Real-Time Next Vehicle Arrival (NVAS)](https://www1.toronto.c
 Built with [React](https://facebook.github.io/react/), [Recompose](https://github.com/acdlite/recompose), [Redux](http://redux.js.org/), [Redux-Saga](https://redux-saga.js.org/), [Reselect](https://github.com/reactjs/reselect), and [ImmutableJS](https://facebook.github.io/immutable-js/docs/#/)
 
 ## Demo
-Coming soon
+**Functional but not fully styled WIP**<br>
+[http://ttc.derulski.com](http://ttc.derulski.com)
 
 ## Stack:
 * React
