@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { compose, mapProps } from 'recompose';
+import { compose, mapProps, withHandlers } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getDirectionList, isRouteConfigFetching } from '../selectors';
@@ -27,9 +27,14 @@ const DirectionFieldContainer = compose(
   hideIfNoData,
   mapProps(({ data, placeholder, directionSelected }) => ({
     data: data.toJS(),
-    onChange: (e,d) => directionSelected(d.value),
-    placeholder
+    placeholder,
+    directionSelected
   })),
+  withHandlers({
+    onChange: props => (event, data) => {
+      props.directionSelected(data.value);
+    }
+  })
 )(DropdownField);
 
 export default (DirectionFieldContainer);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { compose, mapProps } from 'recompose';
+import { compose, mapProps, withHandlers } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getDirectionStopList, isRouteConfigFetching } from '../selectors';
@@ -27,9 +27,14 @@ const StopFieldContainer = compose(
   hideIfNoData,
   mapProps(({ data, placeholder, stopSelected }) => ({
     data: data.toJS(),
-    onChange: (e,d) => stopSelected(d.value),
-    placeholder
+    placeholder,
+    stopSelected
   })),
+  withHandlers({
+    onChange: props => (event, data) => {
+      props.stopSelected(data.value);
+    }
+  })
 )(DropdownField);
 
 export default (StopFieldContainer);
