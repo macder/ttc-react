@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 
 const hasEmptyPredictions = (Component) => (props) => (
   <Component>
-    <p>No predictions available</p>
+    <p>There are no current predictions for your selection.</p>
   </Component>
 );
-
 
 hasEmptyPredictions.propTypes = {
 };
