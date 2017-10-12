@@ -7,7 +7,6 @@ const hasEmptyPredictions = (Component) => (props) => (
   </Component>
 );
 
-
 hasEmptyPredictions.propTypes = {
 };
 
