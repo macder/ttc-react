@@ -39,7 +39,6 @@ const RouteFieldContainer = compose(
   })),
   withHandlers({
     onChange: props => (event, data) => {
-      console.dir(data)
       props.routeSelected(data.value);
       props.requestRouteConfig(data.value);
     }
