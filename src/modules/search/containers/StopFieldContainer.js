@@ -6,22 +6,27 @@ import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getDirectionStopList, isStopFieldFetching } from '../selectors';
 import { selectedStop } from '../actions';
 
+const mapStateToProps = state => ({
+  data: getDirectionStopList(state),
+  fetching: isStopFieldFetching(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  stopSelected: (stop) => dispatch(selectedStop(stop)),
+});
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  stopSelected: dispatchProps.stopSelected,
+  data: stateProps.data,
+  fetching: stateProps.fetching,
+  ...ownProps
+});
+
 const StopFieldContainer = compose(
   connect(
-    state => ({
-      data: getDirectionStopList(state),
-      fetching: isStopFieldFetching(state),
-    }),
-    dispatch => ({
-      stopSelected: (stop) => dispatch(selectedStop(stop)),
-    }),
-    (stateProps, dispatchProps, ownProps) => ({
-      stopSelected: dispatchProps.stopSelected,
-      data: stateProps.data,
-      fetching: stateProps.fetching,
-      ...ownProps
-      }
-    ),
+    mapStateToProps,
+    mapDispatchToProps,
+    mergeProps,
   ),
   withSpinnerWhileLoading,
   hideIfNoData,
