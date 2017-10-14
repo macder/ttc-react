@@ -15,13 +15,7 @@ import { httpGet } from '../../services/httpRequest';
  */
 function* fetch(args, action) {
   try {
-    const options = {
-      trim: true,
-      mergeAttrs: true,
-      explicitArray: false,
-    };
     const data = Immutable.fromJS(yield call(httpGet, action.url)).get('route');
-
     yield put(actions[args.success](data));
   } catch (e) {
     yield put(actions[args.fail](e));
