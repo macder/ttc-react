@@ -38,7 +38,7 @@ function format(payload) {
         new Immutable.Map({
           title: item.get('title'),
           prediction: formatPrediction(item.get('prediction')),
-        })
+        }),
       ));
     }
     return new Immutable.Map({
@@ -69,7 +69,7 @@ function formatPrediction(data) {
     vehicle: '',
   });
 
-  if(Immutable.Map.isMap(data)) { // single prediction
+  if (Immutable.Map.isMap(data)) { // single prediction
     return new PredictionRecord(data);
   }
   return new Immutable.OrderedSet(data).map(PredictionRecord);

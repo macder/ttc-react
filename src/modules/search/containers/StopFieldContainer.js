@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  stopSelected: (stop) => dispatch(selectedStop(stop)),
+  stopSelected: stop => dispatch(selectedStop(stop)),
 });
 
 const StopFieldContainer = compose(
@@ -26,21 +26,21 @@ const StopFieldContainer = compose(
     ['data'],
     ({ data }) => ({
       data: data.toArray().map(item => item.toObject()),
-    })
+    }),
   ),
-  withStateHandlers({ searchQuery: '' },{
+  withStateHandlers({ searchQuery: '' }, {
     onSearchChange: ({ searchQuery }) => (e, data) => ({
-      searchQuery: data.searchQuery
+      searchQuery: data.searchQuery,
     }),
     onClose: (state, props) => (e, data) => ({
-      searchQuery: ''
-    })
+      searchQuery: '',
+    }),
   }),
   withHandlers({
     onChange: props => (e, data) => {
       props.stopSelected(data.value);
-    }
-  })
+    },
+  }),
 )(DropdownField);
 
 export default (StopFieldContainer);

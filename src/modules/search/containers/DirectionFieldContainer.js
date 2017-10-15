@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  directionSelected: (direction) => dispatch(selectedDirection(direction)),
+  directionSelected: direction => dispatch(selectedDirection(direction)),
 });
 
 const DirectionFieldContainer = compose(
@@ -26,21 +26,21 @@ const DirectionFieldContainer = compose(
     ['data'],
     ({ data }) => ({
       data: data.toArray().map(item => item.toObject()),
-    })
+    }),
   ),
-  withStateHandlers({ searchQuery: '' },{
+  withStateHandlers({ searchQuery: '' }, {
     onSearchChange: ({ searchQuery }) => (e, data) => ({
-      searchQuery: data.searchQuery
+      searchQuery: data.searchQuery,
     }),
     onClose: (state, props) => (e, data) => ({
-      searchQuery: ''
-    })
+      searchQuery: '',
+    }),
   }),
   withHandlers({
     onChange: props => (e, data) => {
       props.directionSelected(data.value);
-    }
-  })
+    },
+  }),
 )(DropdownField);
 
 export default (DirectionFieldContainer);

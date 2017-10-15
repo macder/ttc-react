@@ -8,7 +8,7 @@ const initialState = Immutable.fromJS({
 const routeFieldReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case t.SELECTED_ROUTE:
-      return state.set('selected', action.selected)
+      return state.set('selected', action.selected);
 
     default:
       return state;

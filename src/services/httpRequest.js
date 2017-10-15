@@ -12,5 +12,5 @@ export function* httpGet(url) {
     method: 'get',
     url,
     responseType: 'json',
-  }).then((response) => response.data);
+  }).then(response => response.data);
 }

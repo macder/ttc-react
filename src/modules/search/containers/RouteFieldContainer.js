@@ -13,8 +13,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   requestData: () => dispatch(loadRoutesRequest()),
-  requestRouteConfig: (route) => dispatch(loadRouteConfigRequest(route)),
-  routeSelected: (route) => dispatch(selectedRoute(route)),
+  requestRouteConfig: route => dispatch(loadRouteConfigRequest(route)),
+  routeSelected: route => dispatch(selectedRoute(route)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -39,22 +39,22 @@ const RouteFieldContainer = compose(
     ['data'],
     ({ data }) => ({
       data: data.toArray().map(item => item.toObject()),
-    })
+    }),
   ),
-  withStateHandlers({ searchQuery: '' },{
+  withStateHandlers({ searchQuery: '' }, {
     onSearchChange: ({ searchQuery }) => (e, data) => ({
-      searchQuery: data.searchQuery
+      searchQuery: data.searchQuery,
     }),
     onClose: (state, props) => (e, data) => ({
-      searchQuery: ''
-    })
+      searchQuery: '',
+    }),
   }),
   withHandlers({
     onChange: props => (e, data) => {
       props.routeSelected(data.value);
       props.requestRouteConfig(data.value);
-    }
-  })
+    },
+  }),
 )(DropdownField);
 
 export default (RouteFieldContainer);

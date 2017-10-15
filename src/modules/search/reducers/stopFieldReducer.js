@@ -11,7 +11,7 @@ const stopFieldReducer = (state = initialState, action = {}) => {
       return state.set('selected', null);
 
     case t.SELECTED_ROUTE:
-      return state.set('selected', null)
+      return state.set('selected', null);
 
     case t.SELECTED_STOP:
       return state.set('selected', action.selected);
