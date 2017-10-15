@@ -18,11 +18,13 @@ const getItems = (entry) => {
 const withMultiRouteMixedPredictions = branch(
   ({ data }) => {
     if (Immutable.List.isList(data)) {
-      for (const entry of data.entries()) {
-        if (!Immutable.OrderedSet.isOrderedSet(entry[1].get('prediction'))) { return true; }
-      }
-      return false;
+      let isMixed = false;
+      data.forEach((item) => {
+        if (!Immutable.OrderedSet.isOrderedSet(item.get('prediction'))) { isMixed = true; }
+      });
+      return isMixed;
     }
+    return false;
   },
   renderComponent(
     compose(

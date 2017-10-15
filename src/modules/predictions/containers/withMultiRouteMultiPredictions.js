@@ -5,11 +5,13 @@ import { BaseComponent, hasMultiRoutePredictions } from '../components';
 const withMultiRouteMultiPredictions = branch(
   ({ data }) => {
     if (Immutable.List.isList(data)) {
-      for (const entry of data.entries()) {
-        if (!Immutable.OrderedSet.isOrderedSet(entry[1].get('prediction'))) { return false; }
-      }
-      return true;
+      let allMulti = true;
+      data.forEach((item) => {
+        if (!Immutable.OrderedSet.isOrderedSet(item.get('prediction'))) { allMulti = false; }
+      });
+      return allMulti;
     }
+    return false;
   },
   renderComponent(
     compose(

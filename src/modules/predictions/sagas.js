@@ -8,19 +8,29 @@ import * as actions from './actions';
 import httpGet from '../../services/httpRequest';
 
 /**
- * Worker Saga: will be fired on
- *  LOAD_PREDICTIONS_REQUEST actions
- * @param {object} args
- * @param {object} action - redux action
+ * Formats prediction to immutable records
+ *
+ * @param {immutable} data
+ * @return {immutable}
  */
-function* fetch(args, action) {
-  try {
-    const payload = yield call(httpGet, action.url);
-    const data = yield call(format, payload.predictions);
-    yield put(actions[args.success](data));
-  } catch (e) {
-    yield put(actions[args.fail](e));
+function formatPrediction(data) {
+  const PredictionRecord = new Immutable.Record({
+    affectedByLayover: 'false',
+    block: '',
+    branch: '',
+    dirTag: '',
+    epochTime: '',
+    isDeparture: '',
+    minutes: '',
+    seconds: '',
+    tripTag: '',
+    vehicle: '',
+  });
+
+  if (Immutable.Map.isMap(data)) { // single prediction
+    return new PredictionRecord(data);
   }
+  return new Immutable.OrderedSet(data).map(PredictionRecord);
 }
 
 /**
@@ -50,29 +60,19 @@ function format(payload) {
 }
 
 /**
- * Formats prediction to immutable records
- *
- * @param {immutable} data
- * @return {immutable}
+ * Worker Saga: will be fired on
+ *  LOAD_PREDICTIONS_REQUEST actions
+ * @param {object} args
+ * @param {object} action - redux action
  */
-function formatPrediction(data) {
-  const PredictionRecord = new Immutable.Record({
-    affectedByLayover: 'false',
-    block: '',
-    branch: '',
-    dirTag: '',
-    epochTime: '',
-    isDeparture: '',
-    minutes: '',
-    seconds: '',
-    tripTag: '',
-    vehicle: '',
-  });
-
-  if (Immutable.Map.isMap(data)) { // single prediction
-    return new PredictionRecord(data);
+function* fetch(args, action) {
+  try {
+    const payload = yield call(httpGet, action.url);
+    const data = yield call(format, payload.predictions);
+    yield put(actions[args.success](data));
+  } catch (e) {
+    yield put(actions[args.fail](e));
   }
-  return new Immutable.OrderedSet(data).map(PredictionRecord);
 }
 
 /**
