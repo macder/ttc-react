@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { compose, withHandlers, withPropsOnChange, withStateHandlers } from 'recompose';
 import { DropdownField } from '../components';
@@ -42,10 +41,10 @@ const RouteFieldContainer = compose(
     }),
   ),
   withStateHandlers({ searchQuery: '' }, {
-    onSearchChange: ({ searchQuery }) => (e, data) => ({
+    onSearchChange: () => (e, data) => ({
       searchQuery: data.searchQuery,
     }),
-    onClose: (state, props) => (e, data) => ({
+    onClose: () => () => ({
       searchQuery: '',
     }),
   }),

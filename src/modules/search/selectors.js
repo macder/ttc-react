@@ -51,9 +51,9 @@ export const isRouteConfigFetching = createSelector(
 export const isStopFieldFetching = createSelector(
   selectedDirection,
   isRouteConfigFetching,
-  (selectedDirection, isRouteConfigFetching) => {
-    const isDirectionSelected = (selectedDirection) && true;
-    return (isRouteConfigFetching && isDirectionSelected);
+  (direction, fetching) => {
+    const isDirectionSelected = (direction) && true;
+    return (fetching && isDirectionSelected);
   },
 );
 
@@ -73,7 +73,7 @@ export const getRouteList = createSelector(
       text: '',
     });
 
-    return (list) && new Immutable.OrderedSet(list.map((item, index) =>
+    return (list) && new Immutable.OrderedSet(list.map(item =>
       new Record({
         key: item.get('tag'),
         value: item.get('tag'),
@@ -98,7 +98,7 @@ export const getDirectionList = createSelector(
       value: '',
       text: '',
     });
-    return (config) && new Immutable.OrderedSet(config.get('direction').map((item, index) =>
+    return (config) && new Immutable.OrderedSet(config.get('direction').map(item =>
       new Record({
         key: item.get('tag'),
         value: item.get('tag'),
@@ -114,7 +114,7 @@ const getDirectionConfig = createSelector(
   (config, directionTag) => {
     if (directionTag) {
       return config.get('direction').find(row =>
-        (directionTag == row.get('tag')),
+        (directionTag === row.get('tag')),
       );
     }
     return null;
@@ -125,23 +125,21 @@ const getDirectionConfig = createSelector(
 export const getDirectionStopList = createSelector(
   getDirectionConfig,
   stopList,
-  (direction, stopList) => {
+  (direction, allStops) => {
     if (direction) {
       if (direction.get('stop')) {
         const stopTags = direction.get('stop');
-        const list = stopTags.map(
-          (item, index) => {
-            const tag = item.get('tag');
-            return stopList
-              .find(row => (tag === row.get('tag')));
-          },
-        );
+        const list = stopTags.map((item) => {
+          const tag = item.get('tag');
+          return allStops
+            .find(row => (tag === row.get('tag')));
+        });
         const Record = new Immutable.Record({
           key: '',
           value: '',
           text: '',
         });
-        return new Immutable.OrderedSet(list.map((item, index) =>
+        return new Immutable.OrderedSet(list.map(item =>
           new Record({
             key: item.get('tag'),
             value: item.get('tag'),
