@@ -40,7 +40,7 @@ export const loadRouteConfigRequest = routeTag => ({
   type: t.LOAD_ROUTE_CONFIG_REQUEST,
   fetching: true,
   payload: null,
-  url: `http://webservices.nextbus.com/service/publicJSONFeed?command=routeConfig&a=ttc&r=${routeTag}`,
+  url: `http://webservices.nextbus.com/service/publicJSONFeed?command=routeConfig&a=ttc&r=${routeTag}&terse`,
 });
 
 /**

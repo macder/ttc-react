@@ -11,6 +11,6 @@ export function* httpGet(url) {
   return yield axios({
     method: 'get',
     url,
-    responseType: 'text',
+    responseType: 'json',
   }).then((response) => response.data);
 }
