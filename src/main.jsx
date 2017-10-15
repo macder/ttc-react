@@ -9,7 +9,7 @@ import { SearchForm, SearchSagas } from './modules/search';
 import { PredictionsContainer, PredictionsSagas } from './modules/predictions';
 
 const sagaMiddleware = createSagaMiddleware();
-const Predictions = PredictionsContainer
+const Predictions = PredictionsContainer;
 
 const store = createStore(
   reducer,

@@ -6,15 +6,15 @@ const withSinglePrediction = branch(
   ({ data }) => Immutable.Record.isRecord(data.get('prediction')),
   renderComponent(
     compose(
-      mapProps(({data}) => ({
+      mapProps(({ data }) => ({
         items: [{
           id: data.get('prediction').tripTag,
-          text: data.get('prediction').minutes + ' Minutes'
-        }]
+          text: `${data.get('prediction').minutes} Minutes`,
+        }],
       })),
-      hasSingeRoutePredictions
-    )(BaseComponent)
-  )
+      hasSingeRoutePredictions,
+    )(BaseComponent),
+  ),
 );
 
 export default (withSinglePrediction);

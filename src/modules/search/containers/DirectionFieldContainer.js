@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { compose, withHandlers, withPropsOnChange, withStateHandlers } from 'recompose';
 import { DropdownField } from '../components';
@@ -12,7 +11,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  directionSelected: (direction) => dispatch(selectedDirection(direction)),
+  directionSelected: direction => dispatch(selectedDirection(direction)),
 });
 
 const DirectionFieldContainer = compose(
@@ -26,21 +25,21 @@ const DirectionFieldContainer = compose(
     ['data'],
     ({ data }) => ({
       data: data.toArray().map(item => item.toObject()),
-    })
-  ),
-  withStateHandlers({ searchQuery: '' },{
-    onSearchChange: ({ searchQuery }) => (e, data) => ({
-      searchQuery: data.searchQuery
     }),
-    onClose: (state, props) => (e, data) => ({
-      searchQuery: ''
-    })
+  ),
+  withStateHandlers({ searchQuery: '' }, {
+    onSearchChange: () => (e, data) => ({
+      searchQuery: data.searchQuery,
+    }),
+    onClose: () => () => ({
+      searchQuery: '',
+    }),
   }),
   withHandlers({
     onChange: props => (e, data) => {
       props.directionSelected(data.value);
-    }
-  })
+    },
+  }),
 )(DropdownField);
 
 export default (DirectionFieldContainer);

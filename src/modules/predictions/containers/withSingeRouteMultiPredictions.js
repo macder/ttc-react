@@ -6,15 +6,15 @@ const withSingeRouteMultiPredictions = branch(
   ({ data }) => Immutable.OrderedSet.isOrderedSet(data.get('prediction')),
   renderComponent(
     compose(
-      mapProps(({data}) => ({
+      mapProps(({ data }) => ({
         items: data.get('prediction').map(item => ({
           id: item.tripTag,
-          text: item.minutes + ' Minutes'
-        })).toJS()
+          text: `${item.minutes} Minutes`,
+        })).toJS(),
       })),
-      hasSingeRoutePredictions
-    )(BaseComponent)
-  )
+      hasSingeRoutePredictions,
+    )(BaseComponent),
+  ),
 );
 
 export default (withSingeRouteMultiPredictions);

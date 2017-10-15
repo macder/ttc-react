@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import * as t from './actionTypes.js';
+import * as t from './actionTypes';
 
 const initialState = Immutable.fromJS({
   fetching: false,

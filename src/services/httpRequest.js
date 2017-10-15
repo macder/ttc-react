@@ -6,11 +6,11 @@ import axios from 'axios';
  * @param {string} url
  * @return {object} The response.
  */
-export function* httpGet(url) {
+export default function* httpGet(url) {
   // yield delay(1200);
   return yield axios({
     method: 'get',
     url,
     responseType: 'json',
-  }).then((response) => response.data);
+  }).then(response => response.data);
 }

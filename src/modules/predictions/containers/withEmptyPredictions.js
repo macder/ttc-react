@@ -4,8 +4,8 @@ import { BaseComponent, hasEmptyPredictions } from '../components';
 const withEmptyPredictions = branch(
   ({ data }) => !data.size,
   renderComponent(
-    compose(hasEmptyPredictions)(BaseComponent)
-  )
+    compose(hasEmptyPredictions)(BaseComponent),
+  ),
 );
 
 export default (withEmptyPredictions);

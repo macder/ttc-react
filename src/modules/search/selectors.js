@@ -1,86 +1,86 @@
-import Immutable from 'immutable'
+import Immutable from 'immutable';
 import { createSelector } from 'reselect';
 
 const searchState = state => state.get('searchState');
 
 const routeList = createSelector(
   [searchState],
-  (search) => search.getIn(['data', 'routeList', 'payload'])
+  search => search.getIn(['data', 'routeList', 'payload']),
 );
 
 const routeConfig = createSelector(
   [searchState],
-  (search) => search.getIn(['data', 'routeConfig', 'payload'])
+  search => search.getIn(['data', 'routeConfig', 'payload']),
 );
 
 const selectedDirection = createSelector(
   [searchState],
-  (search) => search.getIn(['directionField', 'selected'])
+  search => search.getIn(['directionField', 'selected']),
 );
 
 const stopList = createSelector(
   [routeConfig],
-  (config) => (config) && config.get('stop')
+  config => (config) && config.get('stop'),
 );
 
 export const isRouteFieldVisible = createSelector(
   [searchState],
-  (search) => search.getIn(['routeField', 'visible'])
+  search => search.getIn(['routeField', 'visible']),
 );
 
 export const isDirectionFieldVisible = createSelector(
   [searchState],
-  (search) => search.getIn(['directionField', 'visible'])
+  search => search.getIn(['directionField', 'visible']),
 );
 
 export const isStopFieldVisible = createSelector(
   [searchState],
-  (search) => search.getIn(['stopField', 'visible'])
+  search => search.getIn(['stopField', 'visible']),
 );
 
 export const isRouteListFetching = createSelector(
   [searchState],
-  (search) => search.getIn(['data', 'routeList', 'fetching'])
+  search => search.getIn(['data', 'routeList', 'fetching']),
 );
 
 export const isRouteConfigFetching = createSelector(
   [searchState],
-  (search) => search.getIn(['data', 'routeConfig', 'fetching'])
+  search => search.getIn(['data', 'routeConfig', 'fetching']),
 );
 
 export const isStopFieldFetching = createSelector(
   selectedDirection,
   isRouteConfigFetching,
-  (selectedDirection, isRouteConfigFetching) => {
-    const isDirectionSelected = (selectedDirection) && true;
-    return (isRouteConfigFetching && isDirectionSelected);
-  }
+  (direction, fetching) => {
+    const isDirectionSelected = (direction) && true;
+    return (fetching && isDirectionSelected);
+  },
 );
 
 // Get selected route
 export const getSelectedRoute = createSelector(
   [searchState],
-  (search) => search.getIn(['routeField', 'selected'])
+  search => search.getIn(['routeField', 'selected']),
 );
 
 // Get route list array for 'Route' autocomplete field
 export const getRouteList = createSelector(
   [routeList],
-  list => {
+  (list) => {
     const Record = new Immutable.Record({
       key: '',
       value: '',
       text: '',
     });
 
-    return (list) && new Immutable.OrderedSet(list.map((item, index) =>
+    return (list) && new Immutable.OrderedSet(list.map(item =>
       new Record({
         key: item.get('tag'),
         value: item.get('tag'),
-        text: item.get('title')
-      })
+        text: item.get('title'),
+      }),
     ));
-  }
+  },
 );
 
 // Get complete route config object
@@ -98,12 +98,12 @@ export const getDirectionList = createSelector(
       value: '',
       text: '',
     });
-    return (config) && new Immutable.OrderedSet(config.get('direction').map((item, index) =>
+    return (config) && new Immutable.OrderedSet(config.get('direction').map(item =>
       new Record({
         key: item.get('tag'),
         value: item.get('tag'),
-        text: item.get('title')
-      })
+        text: item.get('title'),
+      }),
     ));
   },
 );
@@ -114,39 +114,37 @@ const getDirectionConfig = createSelector(
   (config, directionTag) => {
     if (directionTag) {
       return config.get('direction').find(row =>
-        (directionTag == row.get('tag'))
+        (directionTag === row.get('tag')),
       );
     }
     return null;
-  }
+  },
 );
 
 // Get stop list for a routes direction
 export const getDirectionStopList = createSelector(
   getDirectionConfig,
   stopList,
-  (direction, stopList) => {
+  (direction, allStops) => {
     if (direction) {
       if (direction.get('stop')) {
         const stopTags = direction.get('stop');
-        const list = stopTags.map(
-          (item, index) => {
-            const tag = item.get('tag');
-            return stopList
-              .find(row => (tag === row.get('tag')) );
-          }
-        );
+        const list = stopTags.map((item) => {
+          const tag = item.get('tag');
+          return allStops
+            .find(row => (tag === row.get('tag')));
+        });
         const Record = new Immutable.Record({
           key: '',
           value: '',
           text: '',
         });
-        return new Immutable.OrderedSet(list.map((item, index) =>
+        return new Immutable.OrderedSet(list.map(item =>
           new Record({
             key: item.get('tag'),
             value: item.get('tag'),
-            text: item.get('title')
-          })
+            text: item.get('title'),
+          }),
         ));
       }
     }
