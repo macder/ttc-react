@@ -5,49 +5,7 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import * as t from './actionTypes';
 import * as actions from './actions';
-import { httpGet } from '../../services/httpRequest';
-
-/**
- * Worker Saga: will be fired on
- *  LOAD_PREDICTIONS_REQUEST actions
- * @param {object} args
- * @param {object} action - redux action
- */
-function* fetch(args, action) {
-  try {
-    const payload = yield call(httpGet, action.url);
-    const data = yield call(format, payload.predictions);
-    yield put(actions[args.success](data));
-  } catch (e) {
-    yield put(actions[args.fail](e));
-  }
-}
-
-/**
- * Formats and converts prediction data to ImmutableJS
- *
- * @param {object} payload
- * @return {immutable}
- */
-function format(payload) {
-  if (payload.direction) {
-    const data = Immutable.fromJS(payload.direction);
-
-    if (Array.isArray(payload.direction)) { // multi directions
-      return new Immutable.List(data.map(item =>
-        new Immutable.Map({
-          title: item.get('title'),
-          prediction: formatPrediction(item.get('prediction')),
-        })
-      ));
-    }
-    return new Immutable.Map({
-      title: data.get('title'),
-      prediction: formatPrediction(data.get('prediction')),
-    });
-  }
-  return new Immutable.Map({});
-}
+import httpGet from '../../services/httpRequest';
 
 /**
  * Formats prediction to immutable records
@@ -69,10 +27,52 @@ function formatPrediction(data) {
     vehicle: '',
   });
 
-  if(Immutable.Map.isMap(data)) { // single prediction
+  if (Immutable.Map.isMap(data)) { // single prediction
     return new PredictionRecord(data);
   }
   return new Immutable.OrderedSet(data).map(PredictionRecord);
+}
+
+/**
+ * Formats and converts prediction data to ImmutableJS
+ *
+ * @param {object} payload
+ * @return {immutable}
+ */
+function format(payload) {
+  if (payload.direction) {
+    const data = Immutable.fromJS(payload.direction);
+
+    if (Array.isArray(payload.direction)) { // multi directions
+      return new Immutable.List(data.map(item =>
+        new Immutable.Map({
+          title: item.get('title'),
+          prediction: formatPrediction(item.get('prediction')),
+        }),
+      ));
+    }
+    return new Immutable.Map({
+      title: data.get('title'),
+      prediction: formatPrediction(data.get('prediction')),
+    });
+  }
+  return new Immutable.Map({});
+}
+
+/**
+ * Worker Saga: will be fired on
+ *  LOAD_PREDICTIONS_REQUEST actions
+ * @param {object} args
+ * @param {object} action - redux action
+ */
+function* fetch(args, action) {
+  try {
+    const payload = yield call(httpGet, action.url);
+    const data = yield call(format, payload.predictions);
+    yield put(actions[args.success](data));
+  } catch (e) {
+    yield put(actions[args.fail](e));
+  }
 }
 
 /**

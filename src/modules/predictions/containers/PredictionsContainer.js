@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { withDataOnUpdate, withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
@@ -12,10 +11,10 @@ import { getError, getPrediction, getRoute, getStop, isFetching } from '../selec
 import { clearPredictions, loadPredictionsRequest } from '../actions';
 
 const shouldFetchData = props =>
-  (props.route && props.stop && !props.data && !props.fetching && !props.error)
+  (props.route && props.stop && !props.data && !props.fetching && !props.error);
 
 const shouldClearData = props =>
-  ((!props.route || !props.stop) && (props.data || props.error))
+  ((!props.route || !props.stop) && (props.data || props.error));
 
 const mapStateToProps = state => ({
   data: getPrediction(state),
@@ -27,7 +26,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   requestFetch: (route, stop) => dispatch(loadPredictionsRequest(route, stop)),
-  clearPredictions: () => dispatch(clearPredictions())
+  clearPredictions: () => dispatch(clearPredictions()),
 });
 
 const mergeProps = (stateProps, dispatchProps) => ({

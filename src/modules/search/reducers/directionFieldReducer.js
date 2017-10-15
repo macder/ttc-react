@@ -8,7 +8,7 @@ const initialState = Immutable.fromJS({
 const directionFieldReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case t.SELECTED_ROUTE:
-      return state.set('selected', null)
+      return state.set('selected', null);
 
     case t.SELECTED_DIRECTION:
       return state

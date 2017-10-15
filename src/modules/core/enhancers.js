@@ -1,31 +1,25 @@
-import { branch, compose, lifecycle, renderComponent, renderNothing } from 'recompose';
+import { branch, lifecycle, renderComponent, renderNothing } from 'recompose';
 import LoadingSpinner from './components/LoadingSpinner';
 
 export const hideIfNoData = branch(
   ({ data }) => !data,
-  renderNothing
+  renderNothing,
 );
 
 export const withDataOnUpdate = lifecycle({
   componentWillReceiveProps(nextProps) {
-    (nextProps.requestData) && nextProps.requestData();
-    (nextProps.clearData) && nextProps.clearData();
-  }
+    if (nextProps.requestData) nextProps.requestData();
+    if (nextProps.clearData) nextProps.clearData();
+  },
 });
 
 export const withDataOnInit = lifecycle({
   componentDidMount() {
-    (this.props.requestData) && this.props.requestData();
-  }
+    if (this.props.requestData) this.props.requestData();
+  },
 });
 
 export const withSpinnerWhileLoading = branch(
   ({ fetching }) => fetching,
-  renderComponent(LoadingSpinner)
+  renderComponent(LoadingSpinner),
 );
-
-/*export const withData = compose(
-  withDataOnInit,
-  withSpinnerWhileLoading,
-  hideIfNoData,
-);*/
