@@ -42,7 +42,7 @@ const RouteFieldContainer = compose(
     })
   ),
   withStateHandlers({ searchQuery: '' },{
-    onSearchChange: ({ searchQuery }) => (event, data) => ({
+    onSearchChange: ({ searchQuery }) => (e, data) => ({
       searchQuery: data.searchQuery
     }),
     onClose: (state, props) => (e, data) => ({
@@ -50,7 +50,7 @@ const RouteFieldContainer = compose(
     })
   }),
   withHandlers({
-    onChange: props => (event, data) => {
+    onChange: props => (e, data) => {
       props.routeSelected(data.value);
       props.requestRouteConfig(data.value);
     }
