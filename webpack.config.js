@@ -8,6 +8,9 @@ module.exports = {
     path: path.resolve(ROOT_PATH, 'build'),
     publicPath: '/build',
   },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
   module: {
     loaders: [
       /*{
