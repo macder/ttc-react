@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { compose, mapProps, withHandlers } from 'recompose';
+import { compose, withHandlers, withPropsOnChange, withStateHandlers } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getDirectionStopList, isStopFieldFetching } from '../selectors';
@@ -15,28 +15,29 @@ const mapDispatchToProps = dispatch => ({
   stopSelected: (stop) => dispatch(selectedStop(stop)),
 });
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  stopSelected: dispatchProps.stopSelected,
-  data: stateProps.data,
-  fetching: stateProps.fetching,
-  ...ownProps
-});
-
 const StopFieldContainer = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
   ),
   withSpinnerWhileLoading,
   hideIfNoData,
-  mapProps(({ data, placeholder, stopSelected }) => ({
-    data: data.toArray().map(item => item.toObject()),
-    placeholder,
-    stopSelected
-  })),
+  withPropsOnChange(
+    ['data'],
+    ({ data }) => ({
+      data: data.toArray().map(item => item.toObject()),
+    })
+  ),
+  withStateHandlers({ searchQuery: '' },{
+    onSearchChange: ({ searchQuery }) => (e, data) => ({
+      searchQuery: data.searchQuery
+    }),
+    onClose: (state, props) => (e, data) => ({
+      searchQuery: ''
+    })
+  }),
   withHandlers({
-    onChange: props => (event, data) => {
+    onChange: props => (e, data) => {
       props.stopSelected(data.value);
     }
   })
