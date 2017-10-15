@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { withDataOnUpdate, withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
