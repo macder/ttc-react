@@ -15,25 +15,16 @@ const mapDispatchToProps = dispatch => ({
   stopSelected: (stop) => dispatch(selectedStop(stop)),
 });
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  stopSelected: dispatchProps.stopSelected,
-  data: stateProps.data,
-  fetching: stateProps.fetching,
-  ...ownProps
-});
-
 const StopFieldContainer = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
   ),
   withSpinnerWhileLoading,
   hideIfNoData,
-  mapProps(({ data, placeholder, stopSelected }) => ({
-    data: data.toArray().map(item => item.toObject()),
-    placeholder,
-    stopSelected
+  mapProps(props => ({
+    ...props,
+    data: props.data.toArray().map(item => item.toObject()),
   })),
   withStateHandlers({ searchQuery: '' },{
     onSearchChange: ({ searchQuery }) => (event, data) => ({

@@ -15,25 +15,16 @@ const mapDispatchToProps = dispatch => ({
   directionSelected: (direction) => dispatch(selectedDirection(direction)),
 });
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  directionSelected: dispatchProps.directionSelected,
-  data: stateProps.data,
-  fetching: stateProps.fetching,
-  ...ownProps
-});
-
 const DirectionFieldContainer = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
   ),
   withSpinnerWhileLoading,
   hideIfNoData,
-  mapProps(({ data, placeholder, directionSelected }) => ({
-    data: data.toArray().map(item => item.toObject()),
-    placeholder,
-    directionSelected
+  mapProps(props => ({
+    ...props,
+    data: props.data.toArray().map(item => item.toObject()),
   })),
   withStateHandlers({ searchQuery: '' },{
     onSearchChange: ({ searchQuery }) => (event, data) => ({
