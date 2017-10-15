@@ -4,7 +4,7 @@ import { all, call, put, takeEvery } from 'redux-saga/effects';
 import Immutable from 'immutable';
 import * as t from './actionTypes';
 import * as actions from './actions';
-import { httpGet } from '../../services/httpRequest';
+import httpGet from '../../services/httpRequest';
 
 
 /**
