@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { compose, mapProps, withHandlers, withStateHandlers } from 'recompose';
+import { compose, withHandlers, withPropsOnChange, withStateHandlers } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getDirectionList, isRouteConfigFetching } from '../selectors';
@@ -22,12 +22,14 @@ const DirectionFieldContainer = compose(
   ),
   withSpinnerWhileLoading,
   hideIfNoData,
-  mapProps(props => ({
-    ...props,
-    data: props.data.toArray().map(item => item.toObject()),
-  })),
+  withPropsOnChange(
+    ['data'],
+    ({ data }) => ({
+      data: data.toArray().map(item => item.toObject()),
+    })
+  ),
   withStateHandlers({ searchQuery: '' },{
-    onSearchChange: ({ searchQuery }) => (event, data) => ({
+    onSearchChange: ({ searchQuery }) => (e, data) => ({
       searchQuery: data.searchQuery
     }),
     onClose: (state, props) => (e, data) => ({
@@ -35,7 +37,7 @@ const DirectionFieldContainer = compose(
     })
   }),
   withHandlers({
-    onChange: props => (event, data) => {
+    onChange: props => (e, data) => {
       props.directionSelected(data.value);
     }
   })
