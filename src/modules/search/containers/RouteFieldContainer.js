@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { compose, mapProps, withHandlers } from 'recompose';
+import { compose, mapProps, withHandlers, withStateHandlers } from 'recompose';
 import { DropdownField } from '../components';
 import { withDataOnInit, hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getRouteList, isRouteListFetching } from '../selectors';
@@ -43,6 +43,14 @@ const RouteFieldContainer = compose(
     routeSelected,
     requestRouteConfig,
   })),
+  withStateHandlers({ searchQuery: '' },{
+    onSearchChange: ({ searchQuery }) => (event, data) => ({
+      searchQuery: data.searchQuery
+    }),
+    onClose: (state, props) => (e, data) => ({
+      searchQuery: ''
+    })
+  }),
   withHandlers({
     onChange: props => (event, data) => {
       props.routeSelected(data.value);
