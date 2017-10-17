@@ -11,8 +11,8 @@ const withSingeRouteMultiPredictions = branch(
           key: item.tripTag,
           header: `${item.minutes} Minutes`,
           icon: 'marker',
-          value: item.vehicle,
-          active: (selectedPrediction === item.vehicle),
+          value: item.tripTag,
+          active: (selectedPrediction === item.tripTag),
         })).toJS(),
         onItemClick
       })),

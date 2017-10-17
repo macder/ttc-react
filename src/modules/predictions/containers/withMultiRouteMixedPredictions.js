@@ -8,16 +8,16 @@ const getItems = (entry, selectedPrediction) => {
       key: item.tripTag,
       header: `${item.minutes} Minutes`,
       icon: 'marker',
-      value: item.vehicle,
-      active: (selectedPrediction === item.vehicle),
+      value: item.tripTag,
+      active: (selectedPrediction === item.tripTag),
     })).toJS();
   }
   return [{
     key: entry.tripTag,
     header: `${entry.minutes} Minutes`,
     icon: 'marker',
-    value: entry.vehicle,
-    active: (selectedPrediction === entry.vehicle),
+    value: entry.tripTag,
+    active: (selectedPrediction === entry.tripTag),
   }];
 };
 
