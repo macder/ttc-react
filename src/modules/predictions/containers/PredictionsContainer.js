@@ -10,9 +10,6 @@ import withMultiRouteMixedPredictions from './withMultiRouteMixedPredictions';
 import { getError, getPrediction, getRoute, getStop, isFetching } from '../selectors';
 import { clearPredictions, loadPredictionsRequest } from '../actions';
 
-import { loadVehLocationRequest } from '../../vehicleLocation';
-
-
 const shouldFetchData = props =>
   (props.route && props.stop && !props.data && !props.fetching && !props.error);
 
