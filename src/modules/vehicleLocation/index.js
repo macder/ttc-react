@@ -1,3 +1,2 @@
-// export { default as VehicleLocation } from './components';
-
 export { VehicleLocationContainer } from './containers';
+export { loadVehLocationRequest } from './actions';
