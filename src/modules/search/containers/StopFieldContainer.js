@@ -27,14 +27,6 @@ const StopFieldContainer = compose(
       data: data.toArray().map(item => item.toObject()),
     }),
   ),
-  withStateHandlers({ searchQuery: '' }, {
-    onSearchChange: () => (e, data) => ({
-      searchQuery: data.searchQuery,
-    }),
-    onClose: () => () => ({
-      searchQuery: '',
-    }),
-  }),
   withHandlers({
     onChange: props => (e, data) => {
       props.stopSelected(data.value);
