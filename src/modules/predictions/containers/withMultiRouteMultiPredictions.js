@@ -15,7 +15,7 @@ const withMultiRouteMultiPredictions = branch(
   },
   renderComponent(
     compose(
-      mapProps(({ data }) => ({
+      mapProps(({ data, onItemClick, selectedPrediction  }) => ({
         direction: data.map((entry, index) => ({
           id: index,
           title: entry.get('title'),
@@ -23,8 +23,11 @@ const withMultiRouteMultiPredictions = branch(
             key: item.tripTag,
             header: `${item.minutes} Minutes`,
             icon: 'marker',
+            value: item.vehicle,
+            active: (selectedPrediction === item.vehicle),
           })).toJS(),
         })).toJS(),
+        onItemClick
       })),
       hasMultiRoutePredictions,
     )(BaseComponent),

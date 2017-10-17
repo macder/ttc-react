@@ -6,12 +6,15 @@ const withSinglePrediction = branch(
   ({ data }) => Immutable.Record.isRecord(data.get('prediction')),
   renderComponent(
     compose(
-      mapProps(({ data }) => ({
+      mapProps(({ data, onItemClick, selectedPrediction }) => ({
         items: [{
           key: data.get('prediction').tripTag,
           header: `${data.get('prediction').minutes} Minutes`,
           icon: 'marker',
+          value: data.get('prediction').vehicle,
+          active: (selectedPrediction === data.get('prediction').vehicle),
         }],
+        onItemClick,
       })),
       hasSingeRoutePredictions,
     )(BaseComponent),

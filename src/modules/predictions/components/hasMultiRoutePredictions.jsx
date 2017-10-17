@@ -9,6 +9,7 @@ const hasMultiRoutePredictions = Component => (props) => {
       <List
         items={direction.items}
         listClass='c-predictions__list'
+        onItemClick={props.onItemClick}
         isSelect
       />
     </div>

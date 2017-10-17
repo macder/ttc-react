@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import { compose, withHandlers, withState } from 'recompose';
 import { withDataOnUpdate, withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
 import { BaseComponent } from '../components';
 import withEmptyPredictions from './withEmptyPredictions';
@@ -9,6 +9,9 @@ import withMultiRouteMultiPredictions from './withMultiRouteMultiPredictions';
 import withMultiRouteMixedPredictions from './withMultiRouteMixedPredictions';
 import { getError, getPrediction, getRoute, getStop, isFetching } from '../selectors';
 import { clearPredictions, loadPredictionsRequest } from '../actions';
+
+import { loadVehLocationRequest } from '../../vehicleLocation';
+
 
 const shouldFetchData = props =>
   (props.route && props.stop && !props.data && !props.fetching && !props.error);
@@ -49,6 +52,12 @@ const enhance = compose(
   withDataOnUpdate,
   withSpinnerWhileLoading,
   hideIfNoData,
+  withState('selectedPrediction', 'setActive', ''),
+  withHandlers({
+    onItemClick: props => (e,d) => {
+      props.setActive(d.value);
+    }
+  }),
   withEmptyPredictions,
   withSinglePrediction,
   withSingeRouteMultiPredictions,

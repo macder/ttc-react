@@ -1,22 +1,20 @@
 import Immutable from 'immutable';
-import { branch, compose, mapProps, renderComponent } from 'recompose';
+import { branch, compose, mapProps, withHandlers, renderComponent } from 'recompose';
 import { BaseComponent, hasSingeRoutePredictions } from '../components';
 
 const withSingeRouteMultiPredictions = branch(
   ({ data }) => Immutable.OrderedSet.isOrderedSet(data.get('prediction')),
   renderComponent(
     compose(
-      mapProps(({ data }) => ({
+      mapProps(({ data, onItemClick, selectedPrediction }) => ({
         items: data.get('prediction').map(item => ({
           key: item.tripTag,
           header: `${item.minutes} Minutes`,
           icon: 'marker',
           value: item.vehicle,
-          onClick: (e, d) => {
-            console.dir(e);
-            console.dir(d);
-          },
+          active: (selectedPrediction === item.vehicle),
         })).toJS(),
+        onItemClick
       })),
       hasSingeRoutePredictions,
     )(BaseComponent),

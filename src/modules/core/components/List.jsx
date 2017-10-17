@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 
 import { List as SemanticList } from 'semantic-ui-react';
 
-const List = ({ items, isSelect, listClass }) => (
+const List = ({ items, isSelect, listClass, onItemClick }) => (
   <SemanticList
     className={listClass}
     items={items}
     selection={isSelect}
+    onItemClick={onItemClick}
   />
 );
 
