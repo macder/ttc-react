@@ -2,9 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import List from '../../core/components/List';
 
-const hasSingeRoutePredictions = Component => props => (
+const hasSingeRoutePredictions = Component => ({ items }) => (
   <Component>
-    <List items={props.items} />
+    <List
+      items={items}
+      listClass='c-predictions__list'
+      isSelect
+    />
   </Component>
 );
 

@@ -8,8 +8,14 @@ const withSingeRouteMultiPredictions = branch(
     compose(
       mapProps(({ data }) => ({
         items: data.get('prediction').map(item => ({
-          id: item.tripTag,
-          text: `${item.minutes} Minutes`,
+          key: item.tripTag,
+          header: `${item.minutes} Minutes`,
+          icon: 'marker',
+          value: item.vehicle,
+          onClick: (e, d) => {
+            console.dir(e);
+            console.dir(d);
+          },
         })).toJS(),
       })),
       hasSingeRoutePredictions,

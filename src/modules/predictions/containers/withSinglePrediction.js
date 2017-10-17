@@ -8,8 +8,9 @@ const withSinglePrediction = branch(
     compose(
       mapProps(({ data }) => ({
         items: [{
-          id: data.get('prediction').tripTag,
-          text: `${data.get('prediction').minutes} Minutes`,
+          key: data.get('prediction').tripTag,
+          header: `${data.get('prediction').minutes} Minutes`,
+          icon: 'marker',
         }],
       })),
       hasSingeRoutePredictions,

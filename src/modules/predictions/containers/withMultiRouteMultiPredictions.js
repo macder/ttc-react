@@ -20,8 +20,9 @@ const withMultiRouteMultiPredictions = branch(
           id: index,
           title: entry.get('title'),
           items: entry.get('prediction').map(item => ({
-            id: item.tripTag,
-            text: `${item.minutes} Minutes`,
+            key: item.tripTag,
+            header: `${item.minutes} Minutes`,
+            icon: 'marker',
           })).toJS(),
         })).toJS(),
       })),

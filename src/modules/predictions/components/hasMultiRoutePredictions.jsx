@@ -4,9 +4,13 @@ import List from '../../core/components/List';
 
 const hasMultiRoutePredictions = Component => (props) => {
   const lists = props.direction.map(direction => (
-    <div key={direction.id}>
+    <div key={direction.id} className='c-predictions__wrap'>
       <p>{direction.title}</p>
-      <List items={direction.items} />
+      <List
+        items={direction.items}
+        listClass='c-predictions__list'
+        isSelect
+      />
     </div>
   ));
   return (

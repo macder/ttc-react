@@ -5,13 +5,15 @@ import { BaseComponent, hasMultiRoutePredictions } from '../components';
 const getItems = (entry) => {
   if (Immutable.OrderedSet.isOrderedSet(entry)) {
     return entry.map(item => ({
-      id: item.tripTag,
-      text: `${item.minutes} Minutes`,
+      key: item.tripTag,
+      header: `${item.minutes} Minutes`,
+      icon: 'marker',
     })).toJS();
   }
   return [{
-    id: entry.tripTag,
-    text: `${entry.minutes} Minutes`,
+    key: entry.tripTag,
+    header: `${entry.minutes} Minutes`,
+    icon: 'marker',
   }];
 };
 
