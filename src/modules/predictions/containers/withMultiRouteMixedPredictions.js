@@ -1,9 +1,9 @@
-import Immutable from 'immutable';
+import { OrderedSet, List } from 'immutable';
 import { branch, compose, mapProps, renderComponent } from 'recompose';
 import { BaseComponent, hasMultiRoutePredictions } from '../components';
 
 const getItems = (entry, selectedPrediction) => {
-  if (Immutable.OrderedSet.isOrderedSet(entry)) {
+  if (OrderedSet.isOrderedSet(entry)) {
     return entry.map(item => ({
       key: item.tripTag,
       header: `${item.minutes} Minutes`,
@@ -23,10 +23,10 @@ const getItems = (entry, selectedPrediction) => {
 
 const withMultiRouteMixedPredictions = branch(
   ({ data }) => {
-    if (Immutable.List.isList(data)) {
+    if (List.isList(data)) {
       let isMixed = false;
       data.forEach((item) => {
-        if (!Immutable.OrderedSet.isOrderedSet(item.get('prediction'))) { isMixed = true; }
+        if (!OrderedSet.isOrderedSet(item.get('prediction'))) { isMixed = true; }
       });
       return isMixed;
     }

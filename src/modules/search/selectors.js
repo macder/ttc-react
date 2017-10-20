@@ -1,4 +1,4 @@
-import Immutable from 'immutable';
+import { Record, OrderedSet } from 'immutable';
 import { createSelector } from 'reselect';
 
 const searchState = state => state.get('searchState');
@@ -77,14 +77,14 @@ export const getSelectedStop = createSelector(
 export const getRouteList = createSelector(
   [routeList],
   (list) => {
-    const Record = new Immutable.Record({
+    const routeRecord = new Record({
       key: '',
       value: '',
       text: '',
     });
 
-    return (list) && new Immutable.OrderedSet(list.map(item =>
-      new Record({
+    return (list) && new OrderedSet(list.map(item =>
+      new routeRecord({
         key: item.get('tag'),
         value: item.get('tag'),
         text: item.get('title'),
@@ -103,13 +103,13 @@ export const getRouteConfig = createSelector(
 export const getDirectionList = createSelector(
   [routeConfig],
   (config) => {
-    const Record = new Immutable.Record({
+    const directionRecord = new Record({
       key: '',
       value: '',
       text: '',
     });
-    return (config) && new Immutable.OrderedSet(config.get('direction').map(item =>
-      new Record({
+    return (config) && new OrderedSet(config.get('direction').map(item =>
+      new directionRecord({
         key: item.get('tag'),
         value: item.get('tag'),
         text: item.get('title'),
@@ -144,13 +144,13 @@ export const getDirectionStopList = createSelector(
           return allStops
             .find(row => (tag === row.get('tag')));
         });
-        const Record = new Immutable.Record({
+        const stopRecord = new Record({
           key: '',
           value: '',
           text: '',
         });
-        return new Immutable.OrderedSet(list.map(item =>
-          new Record({
+        return new OrderedSet(list.map(item =>
+          new stopRecord({
             key: item.get('tag'),
             value: item.get('tag'),
             text: item.get('title'),

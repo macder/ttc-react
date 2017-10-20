@@ -1,7 +1,7 @@
 import 'regenerator-runtime/runtime';
 
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-import Immutable from 'immutable';
+import { fromJS } from 'immutable';
 import * as t from './actionTypes';
 import * as actions from './actions';
 import httpGet from '../../services/httpRequest';
@@ -15,7 +15,7 @@ import httpGet from '../../services/httpRequest';
  */
 function* fetch(args, action) {
   try {
-    const data = Immutable.fromJS(yield call(httpGet, action.url)).get('route');
+    const data = fromJS(yield call(httpGet, action.url)).get('route');
     yield put(actions[args.success](data));
   } catch (e) {
     yield put(actions[args.fail](e));
