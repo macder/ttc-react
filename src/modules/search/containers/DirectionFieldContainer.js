@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...dispatchProps,
-  data: stateProps.data,
+  ...stateProps,
   historyReplace: ownProps.history.replace,
   urlParams: ownProps.match.params,
   defaultValue: ownProps.match.params.direction,
