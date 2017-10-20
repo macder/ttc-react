@@ -7,7 +7,7 @@ Simple interface to search the next TTC vehicle arrival in real-time.
 
 Leverages the [TTC Real-Time Next Vehicle Arrival (NVAS)](https://www1.toronto.ca/wps/portal/contentonly?vgnextoid=4427790e6f21d210VgnVCM1000003dd60f89RCRD&vgnextchannel=1a66e03bb8d1e310VgnVCM10000071d60f89RCRD) public XML feed
 
-Built with [React](https://facebook.github.io/react/), [Recompose](https://github.com/acdlite/recompose), [Redux](http://redux.js.org/), [Redux-Saga](https://redux-saga.js.org/), [Reselect](https://github.com/reactjs/reselect), and [ImmutableJS](https://facebook.github.io/immutable-js/docs/#/)
+Built with [React](https://facebook.github.io/react/), [React Router](https://reacttraining.com/react-router/), [Recompose](https://github.com/acdlite/recompose), [Redux](http://redux.js.org/), [Redux-Saga](https://redux-saga.js.org/), [Reselect](https://github.com/reactjs/reselect), and [ImmutableJS](https://facebook.github.io/immutable-js/docs/#/)
 
 ## Demo
 **Functional but not fully styled WIP**<br>
@@ -15,6 +15,7 @@ Built with [React](https://facebook.github.io/react/), [Recompose](https://githu
 
 ## Stack:
 * React
+* React Router
 * Recompose
 * Redux
 * Redux-Saga
