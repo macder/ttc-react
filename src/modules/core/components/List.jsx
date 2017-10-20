@@ -1,22 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const List = (props) => {
-  const items = props.items.map(value =>
-    <li key={value.id}>{value.text} </li>,
-  );
-  return (
-    <ul>
-      {items}
-    </ul>
-  );
-};
+import { List as SemanticList } from 'semantic-ui-react';
+
+const List = ({ items, isSelect, listClass, onItemClick }) => (
+  <SemanticList
+    className={listClass}
+    items={items}
+    selection={isSelect}
+    onItemClick={onItemClick}
+  />
+);
 
 List.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
+    key: PropTypes.string.isRequired,
+    header: PropTypes.string.isRequired,
+    icon: PropTypes.string,
   })).isRequired,
+  isSelect: PropTypes.bool,
+  listClass: PropTypes.string.isRequired,
 };
 
 export default (List);

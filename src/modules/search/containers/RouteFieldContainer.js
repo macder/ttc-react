@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
-import { compose, withHandlers, withPropsOnChange, withStateHandlers } from 'recompose';
+import { compose, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
 import { withDataOnInit, hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
-import { getRouteList, isRouteListFetching } from '../selectors';
+import { getRouteList, getSelectedRoute, isRouteListFetching } from '../selectors';
 import { loadRoutesRequest, loadRouteConfigRequest, selectedRoute } from '../actions';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   data: getRouteList(state),
   fetching: isRouteListFetching(state),
+  selected: getSelectedRoute(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -16,13 +17,27 @@ const mapDispatchToProps = dispatch => ({
   routeSelected: route => dispatch(selectedRoute(route)),
 });
 
+const valueFromURL = (isInitLoad, value, dispatchProps) => {
+  if (isInitLoad && value) {
+    dispatchProps.routeSelected(value);
+    dispatchProps.requestRouteConfig(value);
+  }
+  return value;
+}
+
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  ...stateProps,
   ...dispatchProps,
-  ...ownProps,
   requestData: (!stateProps.data && !stateProps.fetching) && (
     () => dispatchProps.requestData()
   ),
+  data: stateProps.data,
+  historyReplace: ownProps.history.replace,
+  defaultValue: valueFromURL(
+    (stateProps.data && !stateProps.selected),
+    ownProps.match.params.route,
+    dispatchProps,
+  ),
+  placeholder: ownProps.placeholder,
 });
 
 const RouteFieldContainer = compose(
@@ -40,18 +55,11 @@ const RouteFieldContainer = compose(
       data: data.toArray().map(item => item.toObject()),
     }),
   ),
-  withStateHandlers({ searchQuery: '' }, {
-    onSearchChange: () => (e, data) => ({
-      searchQuery: data.searchQuery,
-    }),
-    onClose: () => () => ({
-      searchQuery: '',
-    }),
-  }),
   withHandlers({
     onChange: props => (e, data) => {
       props.routeSelected(data.value);
       props.requestRouteConfig(data.value);
+      props.historyReplace('/'+ data.value);
     },
   }),
 )(DropdownField);

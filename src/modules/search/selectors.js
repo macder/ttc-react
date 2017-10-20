@@ -63,6 +63,16 @@ export const getSelectedRoute = createSelector(
   search => search.getIn(['routeField', 'selected']),
 );
 
+export const getSelectedDirection = createSelector(
+  [selectedDirection],
+  direction => direction
+);
+
+export const getSelectedStop = createSelector(
+  [searchState],
+  search => search.getIn(['stopField', 'selected']),
+);
+
 // Get route list array for 'Route' autocomplete field
 export const getRouteList = createSelector(
   [routeList],

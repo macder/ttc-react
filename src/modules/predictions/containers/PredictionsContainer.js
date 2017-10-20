@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import { compose, withHandlers, withState } from 'recompose';
 import { withDataOnUpdate, withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
 import { BaseComponent } from '../components';
 import withEmptyPredictions from './withEmptyPredictions';
@@ -49,6 +49,12 @@ const enhance = compose(
   withDataOnUpdate,
   withSpinnerWhileLoading,
   hideIfNoData,
+  withState('selectedPrediction', 'setActive', ''),
+  withHandlers({
+    onItemClick: props => (e,d) => {
+      props.setActive(d.value);
+    }
+  }),
   withEmptyPredictions,
   withSinglePrediction,
   withSingeRouteMultiPredictions,

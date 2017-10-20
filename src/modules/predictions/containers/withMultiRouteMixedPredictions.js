@@ -2,16 +2,22 @@ import Immutable from 'immutable';
 import { branch, compose, mapProps, renderComponent } from 'recompose';
 import { BaseComponent, hasMultiRoutePredictions } from '../components';
 
-const getItems = (entry) => {
+const getItems = (entry, selectedPrediction) => {
   if (Immutable.OrderedSet.isOrderedSet(entry)) {
     return entry.map(item => ({
-      id: item.tripTag,
-      text: `${item.minutes} Minutes`,
+      key: item.tripTag,
+      header: `${item.minutes} Minutes`,
+      icon: 'marker',
+      value: item.tripTag,
+      active: (selectedPrediction === item.tripTag),
     })).toJS();
   }
   return [{
-    id: entry.tripTag,
-    text: `${entry.minutes} Minutes`,
+    key: entry.tripTag,
+    header: `${entry.minutes} Minutes`,
+    icon: 'marker',
+    value: entry.tripTag,
+    active: (selectedPrediction === entry.tripTag),
   }];
 };
 
@@ -28,12 +34,13 @@ const withMultiRouteMixedPredictions = branch(
   },
   renderComponent(
     compose(
-      mapProps(({ data }) => ({
+      mapProps(({ data, onItemClick, selectedPrediction }) => ({
         direction: data.map((entry, index) => ({
           id: index,
           title: entry.get('title'),
-          items: getItems(entry.get('prediction')),
+          items: getItems(entry.get('prediction'), selectedPrediction),
         })).toJS(),
+        onItemClick,
       })),
       hasMultiRoutePredictions,
     )(BaseComponent),
