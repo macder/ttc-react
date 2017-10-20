@@ -2,7 +2,9 @@ import React from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import './DropdownField.scss';
 
-const DropdownField = ({ data, placeholder, onChange }) => (
+const DropdownField = ({ data, placeholder, onChange, defaultValue }) => {
+  // console.dir(defaultValue)
+return (
   <div className="c-input__dropdown">
     <Dropdown
       placeholder={placeholder}
@@ -10,6 +12,7 @@ const DropdownField = ({ data, placeholder, onChange }) => (
       onChange={onChange}
       selectOnBlur={false}
       selectOnNavigation={false}
+      defaultValue={defaultValue}
       fluid
       search
       scrolling
@@ -17,4 +20,5 @@ const DropdownField = ({ data, placeholder, onChange }) => (
     />
   </div>
 );
+}
 export default (DropdownField);
