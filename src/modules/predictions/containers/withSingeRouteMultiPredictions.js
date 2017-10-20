@@ -1,9 +1,9 @@
-import Immutable from 'immutable';
+import { OrderedSet } from 'immutable';
 import { branch, compose, mapProps, withHandlers, renderComponent } from 'recompose';
 import { BaseComponent, hasSingeRoutePredictions } from '../components';
 
 const withSingeRouteMultiPredictions = branch(
-  ({ data }) => Immutable.OrderedSet.isOrderedSet(data.get('prediction')),
+  ({ data }) => OrderedSet.isOrderedSet(data.get('prediction')),
   renderComponent(
     compose(
       mapProps(({ data, onItemClick, selectedPrediction }) => ({

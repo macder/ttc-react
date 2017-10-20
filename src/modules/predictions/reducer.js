@@ -1,7 +1,7 @@
-import Immutable from 'immutable';
+import { fromJS } from 'immutable';
 import * as t from './actionTypes';
 
-const initialState = Immutable.fromJS({
+const initialState = fromJS({
   fetching: false,
   payload: null,
   error: null,

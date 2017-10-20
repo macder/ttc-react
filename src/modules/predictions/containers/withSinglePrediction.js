@@ -1,9 +1,9 @@
-import Immutable from 'immutable';
+import { Record } from 'immutable';
 import { branch, compose, mapProps, renderComponent } from 'recompose';
 import { BaseComponent, hasSingeRoutePredictions } from '../components';
 
 const withSinglePrediction = branch(
-  ({ data }) => Immutable.Record.isRecord(data.get('prediction')),
+  ({ data }) => Record.isRecord(data.get('prediction')),
   renderComponent(
     compose(
       mapProps(({ data, onItemClick, selectedPrediction }) => ({
