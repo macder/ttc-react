@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { compose, withHandlers, withPropsOnChange, withStateHandlers } from 'recompose';
+import { compose, lifecycle, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getDirectionStopList, isStopFieldFetching } from '../selectors';
@@ -14,10 +14,20 @@ const mapDispatchToProps = dispatch => ({
   stopSelected: stop => dispatch(selectedStop(stop)),
 });
 
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...dispatchProps,
+  data: stateProps.data,
+  historyReplace: ownProps.history.replace,
+  urlParams: ownProps.match.params,
+  defaultValue: ownProps.match.params.stop,
+  placeholder: ownProps.placeholder,
+});
+
 const StopFieldContainer = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps,
+    mergeProps,
   ),
   withSpinnerWhileLoading,
   hideIfNoData,
@@ -30,7 +40,15 @@ const StopFieldContainer = compose(
   withHandlers({
     onChange: props => (e, data) => {
       props.stopSelected(data.value);
+      props.historyReplace('/' + props.urlParams.route + '/' + props.urlParams.direction + '/' + data.value);
     },
+  }),
+  lifecycle({
+    componentDidMount() {
+      if (this.props.defaultValue) {
+        this.props.stopSelected(this.props.defaultValue);
+      }
+    }
   }),
 )(DropdownField);
 
