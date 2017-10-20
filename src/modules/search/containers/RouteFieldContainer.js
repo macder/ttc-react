@@ -27,12 +27,12 @@ const valueFromURL = (isInitLoad, value, dispatchProps) => {
 }
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  ...stateProps,
   ...dispatchProps,
-  ...ownProps,
   requestData: (!stateProps.data && !stateProps.fetching) && (
     () => dispatchProps.requestData()
   ),
+  data: stateProps.data,
+  historyReplace: ownProps.history.replace,
   defaultValue: valueFromURL(
     (stateProps.data && !stateProps.selected),
     ownProps.match.params.route,
@@ -58,10 +58,9 @@ const RouteFieldContainer = compose(
   ),
   withHandlers({
     onChange: props => (e, data) => {
-      // console.dir(props);
       props.routeSelected(data.value);
       props.requestRouteConfig(data.value);
-      props.history.push('/'+ data.value);
+      props.historyReplace('/'+ data.value);
     },
   }),
 )(DropdownField);

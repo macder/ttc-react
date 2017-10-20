@@ -1,20 +1,25 @@
 import React from 'react';
+import { HashRouter as Router, Route } from 'react-router-dom'
 import { RouteField, DirectionField, StopField } from '../containers';
 
-const SearchForm = () => {
-  console.log('SearchForm render');
-return (
+const SearchForm = () => (
   <div className="c-search-form">
-    <RouteField
-      placeholder="Route number or name"
-    />
-    <DirectionField
-      placeholder="Direction"
-    />
-    <StopField
-      placeholder="Stop"
-    />
+    <Router>
+      <div>
+        <Route
+          path="/:route?"
+          render={(props) => <RouteField {...props} />}
+        />
+        <Route
+          path="/:route?/:direction?"
+          render={(props) => <DirectionField {...props} />}
+        />
+        <Route
+          path="/:route?/:direction?/:stop?"
+          render={(props) => <StopField {...props} />}
+        />
+      </div>
+    </Router>
   </div>
 );
-}
 export default (SearchForm);

@@ -93,3 +93,30 @@ export const selectedStop = stop => ({
   type: t.SELECTED_STOP,
   selected: stop,
 });
+
+/**
+ *
+ * @return {object}
+ */
+export const clearRoute = () => ({
+  type: t.CLEAR_ROUTE,
+  selected: null,
+});
+
+/**
+ *
+ * @return {object}
+ */
+export const clearDirection = () => ({
+  type: t.CLEAR_DIRECTION,
+  selected: null,
+});
+
+/**
+ *
+ * @return {object}
+ */
+export const clearStop = () => ({
+  type: t.CLEAR_STOP,
+  selected: null,
+});

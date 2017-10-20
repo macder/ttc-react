@@ -2,9 +2,7 @@ import React from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import './DropdownField.scss';
 
-const DropdownField = ({ data, placeholder, onChange, defaultValue }) => {
-  // console.dir(defaultValue)
-return (
+const DropdownField = ({ data, placeholder, onChange, defaultValue }) => (
   <div className="c-input__dropdown">
     <Dropdown
       placeholder={placeholder}
@@ -20,5 +18,5 @@ return (
     />
   </div>
 );
-}
+
 export default (DropdownField);
