@@ -10,10 +10,6 @@ const routeFieldReducer = (state = initialState, action = {}) => {
     case t.SELECTED_ROUTE:
       return state.set('selected', action.selected);
 
-    case t.CLEAR_ROUTE:
-      return state
-        .set('selected', action.selected);
-
     default:
       return state;
   }

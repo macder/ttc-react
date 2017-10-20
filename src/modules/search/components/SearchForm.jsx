@@ -22,4 +22,5 @@ const SearchForm = () => (
     </Router>
   </div>
 );
+
 export default (SearchForm);

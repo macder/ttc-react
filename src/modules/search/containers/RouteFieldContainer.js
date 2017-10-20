@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { compose, withHandlers, withPropsOnChange } from 'recompose';
-import { withRouter } from 'react-router-dom'
 import { DropdownField } from '../components';
 import { withDataOnInit, hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getRouteList, getSelectedRoute, isRouteListFetching } from '../selectors';
@@ -42,7 +41,6 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
 });
 
 const RouteFieldContainer = compose(
-  withRouter,
   connect(
     mapStateToProps,
     mapDispatchToProps,
