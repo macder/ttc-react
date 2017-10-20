@@ -33,6 +33,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
     ownProps.match.params.stop,
     dispatchProps,
   ),
+  placeholder: ownProps.placeholder,
 });
 
 const StopFieldContainer = compose(

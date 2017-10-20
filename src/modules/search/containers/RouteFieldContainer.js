@@ -38,6 +38,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
     ownProps.match.params.route,
     dispatchProps,
   ),
+  placeholder: ownProps.placeholder,
 });
 
 const RouteFieldContainer = compose(

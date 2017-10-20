@@ -33,6 +33,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
     ownProps.match.params.direction,
     dispatchProps,
   ),
+  placeholder: ownProps.placeholder,
 });
 
 const DirectionFieldContainer = compose(
