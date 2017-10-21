@@ -21,8 +21,8 @@ const directionRecord = Record({
 });
 
 /**
- * Creates a route record from map
- * @param {Immutable.Map}
+ * Converts a route entity from map to record
+ * @param {Immutable.Map} item
  * @return {Immutable.Record}
  */
 const createRouteRecord = item => new routeRecord({
