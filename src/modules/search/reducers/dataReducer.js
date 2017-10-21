@@ -10,6 +10,8 @@ const initialState = fromJS({
     fetching: false,
     payload: null,
   },
+  routeFetching: false,
+  route: {},
 });
 
 const dataReducer = (state = initialState, action = {}) => {

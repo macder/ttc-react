@@ -1,11 +1,10 @@
-import 'regenerator-runtime/runtime';
+// import 'regenerator-runtime/runtime';
 
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-import { fromJS } from 'immutable';
 import * as t from './actionTypes';
 import * as actions from './actions';
+import { createRouteMap } from './model';
 import httpGet from '../../services/httpRequest';
-
 
 /**
  * Worker Saga: will be fired on
@@ -15,8 +14,10 @@ import httpGet from '../../services/httpRequest';
  */
 function* fetch(args, action) {
   try {
-    const data = fromJS(yield call(httpGet, action.url)).get('route');
-    yield put(actions[args.success](data));
+    const data = yield call(httpGet, action.url);
+    const normalized = yield call(args.callback, data.route);
+
+    yield put(actions[args.success](normalized));
   } catch (e) {
     yield put(actions[args.fail](e));
   }
@@ -31,7 +32,7 @@ function* loadRouteList() {
   const args = {
     success: 'loadRoutesSuccess',
     fail: 'loadRoutesFailure',
-    callback: 'test',
+    callback: createRouteMap,
   };
   yield takeEvery(t.LOAD_ROUTES_REQUEST, fetch, args);
 }
