@@ -36,9 +36,10 @@ const createRouteRecord = item => new routeRecord({
  * @param {array} data Array of route objects
  * @return {Immutable.Map}
  */
-export const createRouteMap = data => (
-  new Map(fromJS(data).map(item => [
-    item.get('tag'),
-    createRouteRecord(item),
-  ])).set('results', new OrderedSet(data.map(item => item.tag)))
-);
+export const mapRouteEntities = data => new Map([
+  ['byId',
+    new Map(fromJS(data).map(item =>
+      [item.get('tag'), createRouteRecord(item)],
+    )),
+  ],
+]).set('allIds', new OrderedSet(data.map(item => item.tag)));

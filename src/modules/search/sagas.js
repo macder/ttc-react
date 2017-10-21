@@ -3,7 +3,7 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
 import * as t from './actionTypes';
 import * as actions from './actions';
-import { createRouteMap } from './model';
+import { mapRouteEntities } from './model';
 import httpGet from '../../services/httpRequest';
 
 /**
@@ -16,6 +16,8 @@ function* fetch(args, action) {
   try {
     const data = yield call(httpGet, action.url);
     const normalized = yield call(args.callback, data.route);
+
+    console.dir(normalized);
 
     yield put(actions[args.success](normalized));
   } catch (e) {
@@ -32,7 +34,7 @@ function* loadRouteList() {
   const args = {
     success: 'loadRoutesSuccess',
     fail: 'loadRoutesFailure',
-    callback: createRouteMap,
+    callback: mapRouteEntities,
   };
   yield takeEvery(t.LOAD_ROUTES_REQUEST, fetch, args);
 }
