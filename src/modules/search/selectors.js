@@ -65,7 +65,7 @@ export const getSelectedRoute = createSelector(
 
 export const getSelectedDirection = createSelector(
   [selectedDirection],
-  direction => direction
+  direction => direction,
 );
 
 export const getSelectedStop = createSelector(

@@ -14,7 +14,7 @@ const withSingeRouteMultiPredictions = branch(
           value: item.tripTag,
           active: (selectedPrediction === item.tripTag),
         })).toJS(),
-        onItemClick
+        onItemClick,
       })),
       hasSingeRoutePredictions,
     )(BaseComponent),

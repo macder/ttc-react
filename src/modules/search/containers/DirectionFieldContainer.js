@@ -40,7 +40,7 @@ const DirectionFieldContainer = compose(
   withHandlers({
     onChange: props => (e, data) => {
       props.directionSelected(data.value);
-      props.historyReplace('/' + props.urlParams.route + '/' + data.value);
+      props.historyReplace(`/${props.urlParams.route}/${data.value}`);
     },
   }),
   lifecycle({
@@ -48,7 +48,7 @@ const DirectionFieldContainer = compose(
       if (this.props.defaultValue) {
         this.props.directionSelected(this.props.defaultValue);
       }
-    }
+    },
   }),
 )(DropdownField);
 

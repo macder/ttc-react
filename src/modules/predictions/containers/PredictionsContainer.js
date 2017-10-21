@@ -51,9 +51,9 @@ const enhance = compose(
   hideIfNoData,
   withState('selectedPrediction', 'setActive', ''),
   withHandlers({
-    onItemClick: props => (e,d) => {
+    onItemClick: props => (e, d) => {
       props.setActive(d.value);
-    }
+    },
   }),
   withEmptyPredictions,
   withSinglePrediction,

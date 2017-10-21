@@ -40,7 +40,7 @@ const StopFieldContainer = compose(
   withHandlers({
     onChange: props => (e, data) => {
       props.stopSelected(data.value);
-      props.historyReplace('/' + props.urlParams.route + '/' + props.urlParams.direction + '/' + data.value);
+      props.historyReplace(`/${props.urlParams.route}/${props.urlParams.direction}/${data.value}`);
     },
   }),
   lifecycle({
@@ -48,7 +48,7 @@ const StopFieldContainer = compose(
       if (this.props.defaultValue) {
         this.props.stopSelected(this.props.defaultValue);
       }
-    }
+    },
   }),
 )(DropdownField);
 
