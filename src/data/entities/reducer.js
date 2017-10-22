@@ -16,6 +16,9 @@ const entityReducer = (state = initialEntityState, action = {}) => {
         .set('route', action.payload.data)
         .setIn(['status', 'routeListFetching'], action.payload.fetching);
 
+    case REQUEST_ROUTE_CONFIG:
+      return state;
+
     default:
       return state;
   }

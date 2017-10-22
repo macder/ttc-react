@@ -4,25 +4,18 @@ import { DropdownField } from '../components';
 import { withDataOnInit, hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getRouteListForDropdown, isRouteListFetching } from '../selectors';
 import { selectRoute } from '../actions';
-import { requestRouteList } from '../../../data/entities/actions';
+import { requestRouteConfig, requestRouteList } from '../../../data/entities/actions';
 
-// console.dir(fetchRouteListIfNeeded);
-const mapStateToProps = (state, ownProps) => {
-// console.dir(state);
-// console.dir(getRouteList(state));
-// getRouteListForDropdown(state)
-return {
+const mapStateToProps = (state, ownProps) => ({
   data: getRouteListForDropdown(state),
   fetching: isRouteListFetching(state),
-};
-}
+});
 
 const mapDispatchToProps = dispatch => ({
-  /*requestData: () => dispatch(loadRoutesRequest()),
-  requestRouteConfig: route => dispatch(loadRouteConfigRequest(route)),*/
   action: {
     requestRouteList: () => dispatch(requestRouteList()),
     selectRoute: route => dispatch(selectRoute(route)),
+    requestRouteConfig: route => dispatch(requestRouteConfig(route)),
   }
 });
 
@@ -62,9 +55,7 @@ const RouteFieldContainer = compose(
       action.requestRouteList()
     },
   }),
-  //withDataOnInit,
   withSpinnerWhileLoading,
-
   hideIfNoData,
   withPropsOnChange(
     ['data'],
@@ -77,7 +68,7 @@ const RouteFieldContainer = compose(
     onChange: props => (e, data) => {
       const { action } = props
       action.selectRoute(data.value);
-      //props.requestRouteConfig(data.value);
+      action.requestRouteConfig(data.value);
       //props.historyReplace(`/${data.value}`);
     },
   }),
