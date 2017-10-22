@@ -1,4 +1,4 @@
-// import { isFSA } from 'flux-standard-action';
+import { isFSA } from 'flux-standard-action';
 
 export const REQUEST_ROUTE_LIST = 'REQUEST_ROUTE_LIST';
 export const RECEIVE_ROUTE_LIST = 'RECEIVE_ROUTE_LIST';
@@ -28,7 +28,7 @@ export const receiveRouteList = (payload, error = false) => ({
   type: RECEIVE_ROUTE_LIST,
   payload: {
     fetching: false,
-    route: payload,
+    data: payload,
   },
   error,
 });
@@ -37,13 +37,12 @@ export const receiveRouteConfig = (payload, error = false) => ({
   type: RECEIVE_ROUTE_CONFIG,
   payload: {
     fetching: false,
-    stop: payload.get('stop'),
-    direction: payload.get('direction'),
+    data: payload,
   },
   error,
 });
 
-// console.log('requestRouteList is FSA', isFSA(requestRouteList()));
-// console.log('requestRouteConfig is FSA', isFSA(requestRouteConfig()));
-// console.log('receiveRouteList is FSA', isFSA(receiveRouteList()));
-// console.log('receiveRouteConfig is FSA', isFSA(receiveRouteConfig()));
+/*console.log('requestRouteList is FSA', isFSA(requestRouteList()));
+console.log('requestRouteConfig is FSA', isFSA(requestRouteConfig()));
+console.log('receiveRouteList is FSA', isFSA(receiveRouteList()));
+console.log('receiveRouteConfig is FSA', isFSA(receiveRouteConfig()));*/
