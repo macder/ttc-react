@@ -6,7 +6,7 @@ const App = () => (
   <div>
     <h1>TTC NextBus</h1>
     <SearchForm />
-    <Predictions />
+    {/*<Predictions />*/}
   </div>
 );
 
