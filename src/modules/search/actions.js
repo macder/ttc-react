@@ -1,31 +1,26 @@
-import * as t from './actionTypes';
+// import { isFSA } from 'flux-standard-action';
 
-/**
- *
- * @param {object} route.
- * @return {object}
- */
-export const selectedRoute = routeTag => ({
-  type: t.SELECTED_ROUTE,
-  selected: routeTag,
-});
+export const SELECT_ROUTE = 'search/SELECT_ROUTE';
+export const SELECT_DIRECTION = 'search/SELECT_DIRECTION';
+export const SELECT_STOP = 'search/SELECT_STOP';
 
-/**
- *
- * @param {object} route.
- * @return {object}
- */
-export const selectedDirection = directionTag => ({
-  type: t.SELECTED_DIRECTION,
-  selected: directionTag,
-});
+export const ADD_TODO = 'search/ADD_TODO';
 
-/**
- *
- * @param {object} route.
- * @return {object}
- */
-export const selectedStop = stop => ({
-  type: t.SELECTED_STOP,
-  selected: stop,
-});
+// FSA compliant - https://github.com/acdlite/flux-standard-action
+
+const makeActionCreator = (type, ...argNames) => (...args) => {
+  let action = { type, payload: {} }
+  argNames.forEach((arg, index) =>
+    action.payload[argNames[index]] = args[index]
+  )
+  return action
+}
+
+export const selectRoute = makeActionCreator(SELECT_ROUTE, 'selected');
+export const selectDirection = makeActionCreator(SELECT_ROUTE, 'selected');
+export const selectStop = makeActionCreator(SELECT_ROUTE, 'selected');
+
+
+// console.log('selectRoute is FSA', isFSA(selectRoute()));
+// console.log('selectDirection is FSA', isFSA(selectDirection()));
+// console.log('selectStop is FSA', isFSA(selectStop()));
