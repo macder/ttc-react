@@ -18,11 +18,14 @@ import {
 function* fetch(args, action) {
   try {
     const data = yield call(httpGet, action.meta.url);
-    const normalized = yield call(args.normalize, data);
+    const normalized = (args.normalize)
+      ? yield call(args.normalize, data)
+      : data;
 
-    yield put(receiveRouteList(normalized));
+
+    yield put(args.nextAction(normalized));
   } catch (e) {
-    yield put(receiveRouteList(e, true));
+    yield put(args.nextAction(e, true));
   }
 }
 
