@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import reducer from './rootReducer';
-import { SearchSagas } from './modules/search';
 import { PredictionsSagas } from './modules/predictions';
 import { entitySagas } from './data/entities';
 
