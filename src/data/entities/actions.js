@@ -5,6 +5,9 @@ export const RECEIVE_ROUTE_CONFIG = 'RECEIVE_ROUTE_CONFIG';
 
 export const requestRouteList = () => ({
   type: REQUEST_ROUTE_LIST,
+  payload: {
+    fetching: true,
+  },
   meta: {
     url: 'http://webservices.nextbus.com/service/publicJSONFeed?command=routeList&a=ttc'
   }
@@ -19,6 +22,9 @@ export const requestRouteConfig = routeId => ({
 
 export const receiveRouteList = (payload, error = false) => ({
   type: RECEIVE_ROUTE_LIST,
-  payload,
+  payload: {
+    fetching: false,
+    data: payload,
+  },
   error,
 });
