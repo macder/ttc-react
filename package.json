@@ -21,6 +21,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "babel-polyfill": "^6.26.0",
+    "flux-standard-action": "^1.2.0",
     "immutable": "^3.8.2",
     "normalizr": "^3.2.4",
     "prop-types": "^15.6.0",
