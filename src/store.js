@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import reducer from './rootReducer';
 import { SearchSagas } from './modules/search';
 import { PredictionsSagas } from './modules/predictions';
+import { entitySagas } from './data/entities';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -12,7 +13,8 @@ const store = createStore(
   applyMiddleware(sagaMiddleware),
 );
 
-sagaMiddleware.run(SearchSagas);
-sagaMiddleware.run(PredictionsSagas);
+// sagaMiddleware.run(SearchSagas);
+// sagaMiddleware.run(PredictionsSagas);
+sagaMiddleware.run(entitySagas);
 
 export default store;
