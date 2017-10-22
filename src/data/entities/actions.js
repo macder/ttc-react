@@ -1,3 +1,5 @@
+// import { isFSA } from 'flux-standard-action';
+
 export const REQUEST_ROUTE_LIST = 'REQUEST_ROUTE_LIST';
 export const RECEIVE_ROUTE_LIST = 'RECEIVE_ROUTE_LIST';
 export const REQUEST_ROUTE_CONFIG = 'REQUEST_ROUTE_CONFIG';
@@ -19,7 +21,7 @@ export const requestRouteConfig = routeId => ({
   type: REQUEST_ROUTE_CONFIG,
   meta: {
     url: `http://webservices.nextbus.com/service/publicJSONFeed?command=routeConfig&a=ttc&r=${routeId}&terse`
-  }
+  },
 });
 
 export const receiveRouteList = (payload, error = false) => ({
@@ -30,3 +32,7 @@ export const receiveRouteList = (payload, error = false) => ({
   },
   error,
 });
+
+// console.log('requestRouteList is FSA', isFSA(requestRouteList()));
+// console.log('requestRouteConfig is FSA', isFSA(requestRouteConfig()));
+// console.log('receiveRouteList is FSA', isFSA(receiveRouteList()));
