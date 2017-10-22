@@ -22,8 +22,6 @@ function* fetch(args, action) {
       ? yield call(args.normalize, data)
       : data;
 
-    // console.dir(normalized);
-
     yield put(args.nextAction(normalized));
   } catch (e) {
     yield put(args.nextAction(e, true));
