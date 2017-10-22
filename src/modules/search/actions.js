@@ -17,8 +17,8 @@ const makeActionCreator = (type, ...argNames) => (...args) => {
 }
 
 export const selectRoute = makeActionCreator(SELECT_ROUTE, 'selected');
-export const selectDirection = makeActionCreator(SELECT_ROUTE, 'selected');
-export const selectStop = makeActionCreator(SELECT_ROUTE, 'selected');
+export const selectDirection = makeActionCreator(SELECT_DIRECTION, 'selected');
+export const selectStop = makeActionCreator(SELECT_STOP, 'selected');
 
 
 // console.log('selectRoute is FSA', isFSA(selectRoute()));
