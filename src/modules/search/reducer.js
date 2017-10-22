@@ -10,7 +10,7 @@ const initialState = new Map({
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case SELECT_ROUTE:
-      return state;
+      return state.set('selectedRoute', action.payload.selected);
 
     default:
       return state;

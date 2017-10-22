@@ -3,7 +3,7 @@ import { compose, lifecycle, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
 import { withDataOnInit, hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getRouteListForDropdown/*getRouteList, getSelectedRoute, isRouteListFetching*/ } from '../selectors';
-import { loadRoutesRequest, loadRouteConfigRequest, selectedRoute } from '../actions';
+import { selectRoute } from '../actions';
 import { requestRouteList } from '../../../data/entities/actions';
 
 // console.dir(fetchRouteListIfNeeded);
@@ -20,8 +20,11 @@ return {
 
 const mapDispatchToProps = dispatch => ({
   /*requestData: () => dispatch(loadRoutesRequest()),
-  requestRouteConfig: route => dispatch(loadRouteConfigRequest(route)),
-  routeSelected: route => dispatch(selectedRoute(route)),*/
+  requestRouteConfig: route => dispatch(loadRouteConfigRequest(route)),*/
+  action: {
+    requestRouteList: () => dispatch(requestRouteList()),
+    selectRoute: route => dispatch(selectRoute(route)),
+  }
 });
 
 /*const valueFromURL = (isInitLoad, value, dispatchProps) => {
@@ -51,13 +54,13 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
 const RouteFieldContainer = compose(
   connect(
     mapStateToProps,
-    // mapDispatchToProps,
+    mapDispatchToProps,
     // mergeProps,
   ),
   lifecycle({
     componentDidMount() {
-      const { dispatch } = this.props
-      dispatch(requestRouteList())
+      const { action } = this.props
+      action.requestRouteList()
     },
   }),
   //withDataOnInit,
@@ -71,13 +74,14 @@ const RouteFieldContainer = compose(
     }),
   ),
 
-  /*withHandlers({
+  withHandlers({
     onChange: props => (e, data) => {
-      props.routeSelected(data.value);
-      props.requestRouteConfig(data.value);
-      props.historyReplace(`/${data.value}`);
+      const { action } = props
+      action.selectRoute(data.value);
+      //props.requestRouteConfig(data.value);
+      //props.historyReplace(`/${data.value}`);
     },
-  }),*/
+  }),
 )(DropdownField);
 
 export default (RouteFieldContainer);
