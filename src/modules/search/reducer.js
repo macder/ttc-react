@@ -1,8 +1,20 @@
-import { combineReducers } from 'redux-immutable';
-import * as reducer from './reducers';
+import { Map } from 'immutable';
+import { SELECT_ROUTE, SELECT_DIRECTION, SELECT_STOP } from './actions'
 
-export default combineReducers({
-  routeField: reducer.default.routeFieldReducer,
-  directionField: reducer.default.directionFieldReducer,
-  stopField: reducer.default.stopFieldReducer,
+const initialState = new Map({
+  selectedRoute: null,
+  selectedDirection: null,
+  selectedStop: null,
 });
+
+const reducer = (state = initialState, action = {}) => {
+  switch (action.type) {
+    case SELECT_ROUTE:
+      return state;
+
+    default:
+      return state;
+  }
+};
+
+export default reducer;
