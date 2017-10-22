@@ -68,8 +68,10 @@ const createDirectionRecord = item => new directionRecord({
 });
 
 /**
- *
- * @param {array} data Array
+ * Normalizes and converts to Immutable an entity set
+ *  eg. route, stop, direction
+ * @param {array} data
+ * @param {function} recordCreator
  * @return {Immutable.Map}
  */
 const mapEntity = (data, recordCreator) => new Map([
@@ -81,18 +83,18 @@ const mapEntity = (data, recordCreator) => new Map([
 ]).set('allIds', new List(data.map(item => item.tag)));
 
 /**
- *
- * @param {array} data
- * @return {Object}
+ * Called immediately after successful API routeConfig fetch
+ * @param {array} data Response payload from remote API
+ * @return {Immutable.Map}
  */
-export const mapEntitiesFromConfig = data => ({
+export const mapEntitiesFromConfig = data => new Map({
   stop: mapEntity(data.route.stop, createStopRecord),
   direction: mapEntity(data.route.direction, createDirectionRecord),
 });
 
 /**
- *
- * @param {array} data
- * @return {Object}
+ * Called immediately after successful API routeList fetch
+ * @param {array} data Response payload from remote API
+ * @return {Immutable.Map}
  */
 export const mapRouteEntity = data => mapEntity(data.route, createRouteRecord);
