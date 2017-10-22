@@ -1,163 +1,29 @@
 import { Record, OrderedSet } from 'immutable';
 import { createSelector } from 'reselect';
 
-const searchState = state => state.get('searchState');
+const dropdownRecord = new Record({
+  key: '',
+  value: '',
+  text: '',
+});
 
-const routeList = createSelector(
-  [searchState],
-  search => search.getIn(['data', 'routeList', 'payload']),
-);
+// const searchState = state => state.get('searchState');
+const routeEntity = state => state.getIn(['entity', 'route']);
 
-const routeConfig = createSelector(
-  [searchState],
-  search => search.getIn(['data', 'routeConfig', 'payload']),
-);
-
-const selectedDirection = createSelector(
-  [searchState],
-  search => search.getIn(['directionField', 'selected']),
-);
-
-const stopList = createSelector(
-  [routeConfig],
-  config => (config) && config.get('stop'),
-);
-
-export const isRouteFieldVisible = createSelector(
-  [searchState],
-  search => search.getIn(['routeField', 'visible']),
-);
-
-export const isDirectionFieldVisible = createSelector(
-  [searchState],
-  search => search.getIn(['directionField', 'visible']),
-);
-
-export const isStopFieldVisible = createSelector(
-  [searchState],
-  search => search.getIn(['stopField', 'visible']),
-);
-
-export const isRouteListFetching = createSelector(
-  [searchState],
-  search => search.getIn(['data', 'routeList', 'fetching']),
-);
-
-export const isRouteConfigFetching = createSelector(
-  [searchState],
-  search => search.getIn(['data', 'routeConfig', 'fetching']),
-);
-
-export const isStopFieldFetching = createSelector(
-  selectedDirection,
-  isRouteConfigFetching,
-  (direction, fetching) => {
-    const isDirectionSelected = (direction) && true;
-    return (fetching && isDirectionSelected);
-  },
-);
-
-// Get selected route
-export const getSelectedRoute = createSelector(
-  [searchState],
-  search => search.getIn(['routeField', 'selected']),
-);
-
-export const getSelectedDirection = createSelector(
-  [selectedDirection],
-  direction => direction,
-);
-
-export const getSelectedStop = createSelector(
-  [searchState],
-  search => search.getIn(['stopField', 'selected']),
-);
-
-// Get route list array for 'Route' autocomplete field
 export const getRouteList = createSelector(
-  [routeList],
-  (list) => {
-    const routeRecord = new Record({
-      key: '',
-      value: '',
-      text: '',
-    });
-
-    return (list) && new OrderedSet(list.map(item =>
-      new routeRecord({
-        key: item.get('tag'),
-        value: item.get('tag'),
-        text: item.get('title'),
-      }),
-    ));
-  },
+  [routeEntity],
+  route => (route.get('allIds'))
+    ? route.get('allIds').map(id => route.getIn(['byId', id]))
+    : null
 );
 
-// Get complete route config object
-export const getRouteConfig = createSelector(
-  [routeConfig],
-  config => config,
-);
-
-// Get direction list array for 'Direction' autocomplete field
-export const getDirectionList = createSelector(
-  [routeConfig],
-  (config) => {
-    const directionRecord = new Record({
-      key: '',
-      value: '',
-      text: '',
-    });
-    return (config) && new OrderedSet(config.get('direction').map(item =>
-      new directionRecord({
-        key: item.get('tag'),
-        value: item.get('tag'),
-        text: item.get('title'),
-      }),
-    ));
-  },
-);
-
-const getDirectionConfig = createSelector(
-  routeConfig,
-  selectedDirection,
-  (config, directionTag) => {
-    if (directionTag) {
-      return config.get('direction').find(row =>
-        (directionTag === row.get('tag')),
-      );
-    }
-    return null;
-  },
-);
-
-// Get stop list for a routes direction
-export const getDirectionStopList = createSelector(
-  getDirectionConfig,
-  stopList,
-  (direction, allStops) => {
-    if (direction) {
-      if (direction.get('stop')) {
-        const stopTags = direction.get('stop');
-        const list = stopTags.map((item) => {
-          const tag = item.get('tag');
-          return allStops
-            .find(row => (tag === row.get('tag')));
-        });
-        const stopRecord = new Record({
-          key: '',
-          value: '',
-          text: '',
-        });
-        return new OrderedSet(list.map(item =>
-          new stopRecord({
-            key: item.get('tag'),
-            value: item.get('tag'),
-            text: item.get('title'),
-          }),
-        ));
-      }
-    }
-    return null;
-  },
+export const getRouteListForDropdown = createSelector(
+  [getRouteList],
+  list => (list) && new OrderedSet(list.map(item =>
+    new dropdownRecord({
+      key: item.get('id'),
+      value: item.get('id'),
+      text: item.get('title'),
+    })
+  ))
 );
