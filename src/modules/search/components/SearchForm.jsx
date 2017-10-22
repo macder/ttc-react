@@ -10,14 +10,14 @@ const SearchForm = () => (
           path="/:route?"
           render={(props) => <RouteField {...props} placeholder='Route number or name' />}
         />
-        <Route
-          path="/:route?/:direction?"
-          render={(props) => <DirectionField {...props} placeholder='Direction' />}
-        />
-        <Route
-          path="/:route?/:direction?/:stop?"
-          render={(props) => <StopField {...props} placeholder='Stop' />}
-        />
+        {/*<Route
+                  path="/:route?/:direction?"
+                  render={(props) => <DirectionField {...props} placeholder='Direction' />}
+                />
+                <Route
+                  path="/:route?/:direction?/:stop?"
+                  render={(props) => <StopField {...props} placeholder='Stop' />}
+                />*/}
       </div>
     </Router>
   </div>
