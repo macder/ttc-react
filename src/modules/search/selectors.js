@@ -13,9 +13,8 @@ export const isRouteListFetching = state => state.getIn(['entity', 'status', 'ro
 
 export const getRouteList = createSelector(
   [routeEntity],
-  route => (route.get('allIds'))
-    ? route.get('allIds').map(id => route.getIn(['byId', id]))
-    : null
+  route => (route.get('allIds')) &&
+    route.get('allIds').map(id => route.getIn(['byId', id]))
 );
 
 export const getRouteListForDropdown = createSelector(
