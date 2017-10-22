@@ -20,10 +20,16 @@ export const directionRecord = Record({
   stops: new Map(),
 });
 
+const entityStatusRecord = Record({
+  routeListFetching: false,
+  routeConfigFetching: false,
+});
+
 export const initialEntityState = new Map({
   direction: new Map(),
   route: new Map(),
   stop: new Map(),
+  status: new entityStatusRecord(),
 });
 
 /**
