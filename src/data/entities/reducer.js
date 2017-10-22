@@ -13,10 +13,13 @@ const entityReducer = (state = initialEntityState, action = {}) => {
 
     case RECEIVE_ROUTE_LIST:
       return state
-        .set('route', action.payload.data)
+        .set('route', action.payload.route)
         .setIn(['status', 'routeListFetching'], action.payload.fetching);
 
     case REQUEST_ROUTE_CONFIG:
+      return state;
+
+    case RECEIVE_ROUTE_CONFIG:
       return state;
 
     default:
