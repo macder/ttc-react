@@ -28,7 +28,17 @@ export const receiveRouteList = (payload, error = false) => ({
   type: RECEIVE_ROUTE_LIST,
   payload: {
     fetching: false,
-    data: payload,
+    route: payload,
+  },
+  error,
+});
+
+export const receiveRouteConfig = (payload, error = false) => ({
+  type: RECEIVE_ROUTE_CONFIG,
+  payload: {
+    fetching: false,
+    stop: payload.get('stop'),
+    direction: payload.get('direction'),
   },
   error,
 });
@@ -36,3 +46,4 @@ export const receiveRouteList = (payload, error = false) => ({
 // console.log('requestRouteList is FSA', isFSA(requestRouteList()));
 // console.log('requestRouteConfig is FSA', isFSA(requestRouteConfig()));
 // console.log('receiveRouteList is FSA', isFSA(receiveRouteList()));
+// console.log('receiveRouteConfig is FSA', isFSA(receiveRouteConfig()));
