@@ -1,12 +1,12 @@
 // import 'regenerator-runtime/runtime';
 
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-import { mapRouteEntities } from './models';
+import { mapEntitiesFromConfig, mapRouteEntity } from './models';
 import httpGet from '../../services/httpRequest';
 import {
   REQUEST_ROUTE_LIST, RECEIVE_ROUTE_LIST,
   REQUEST_ROUTE_CONFIG, RECEIVE_ROUTE_CONFIG,
-  receiveRouteList
+  receiveRouteList, receiveRouteConfig
 } from './actions'
 
 /**
@@ -22,6 +22,7 @@ function* fetch(args, action) {
       ? yield call(args.normalize, data)
       : data;
 
+    // console.dir(normalized);
 
     yield put(args.nextAction(normalized));
   } catch (e) {
@@ -30,35 +31,34 @@ function* fetch(args, action) {
 }
 
 /**
- * Starts fetch on each dispatched `LOAD_ROUTES_REQUEST` action.
+ * Starts fetch on each dispatched `REQUEST_ROUTE_LIST` action.
  * Allows concurrent fetches.
  *
  */
 function* loadRouteList() {
   const args = {
     nextAction: receiveRouteList,
-    normalize: mapRouteEntities,
+    normalize: mapRouteEntity,
   };
   yield takeEvery(REQUEST_ROUTE_LIST, fetch, args);
 }
 
 /**
- * Starts fetch on each dispatched `LOAD_ROUTE_CONFIG_REQUEST` action.
+ * Starts fetch on each dispatched `REQUEST_ROUTE_CONFIG` action.
  * Allows concurrent fetches.
  *
  */
-/*function* loadRouteConfig() {
+function* loadRouteConfig() {
   const args = {
-    success: 'loadRouteConfigSuccess',
-    fail: 'loadRouteConfigFailure',
-    callback: 'test',
+    nextAction: receiveRouteConfig,
+    normalize: mapEntitiesFromConfig,
   };
-  yield takeEvery(t.LOAD_ROUTE_CONFIG_REQUEST, fetch, args);
-}*/
+  yield takeEvery(REQUEST_ROUTE_CONFIG, fetch, args);
+}
 
 export default function* rootSaga() {
   yield all([
     loadRouteList(),
-    // loadRouteConfig(),
+    loadRouteConfig(),
   ]);
 }
