@@ -17,7 +17,7 @@ export const directionRecord = Record({
   routeId: '',
   title: '',
   name: '',
-  stops: new Map(),
+  stop: new List(),
 });
 
 const entityStatusRecord = Record({
@@ -33,7 +33,7 @@ export const initialEntityState = new Map({
 });
 
 /**
- * Converts a route entity from map to record
+ *
  * @param {Immutable.Map} item
  * @return {Immutable.Record}
  */
@@ -43,15 +43,56 @@ const createRouteRecord = item => new routeRecord({
 });
 
 /**
- * Callback for successfull data fetch for route list
- * Normalizes and converts response data to immutable map
- * @param {array} data Array of route objects
+ *
+ * @param {Immutable.Map} item
+ * @return {Immutable.Record}
+ */
+const createStopRecord = item => new stopRecord({
+  id: item.get('tag'),
+  title: item.get('title'),
+  lat: item.get('lat'),
+  lon: item.get('lon'),
+});
+
+/**
+ *
+ * @param {Immutable.Map} item
+ * @return {Immutable.Record}
+ */
+const createDirectionRecord = item => new directionRecord({
+  id: item.get('tag'),
+  title: item.get('title'),
+  routeId: item.get('branch'),
+  name: item.get('name'),
+  stop: new List(item.get('stop').map(item => item.get('tag'))),
+});
+
+/**
+ *
+ * @param {array} data Array
  * @return {Immutable.Map}
  */
-export const mapRouteEntities = data => new Map([
+const mapEntity = (data, recordCreator) => new Map([
   ['byId',
-    new Map(fromJS(data.route).map(item =>
-      [item.get('tag'), createRouteRecord(item)],
+    new Map(fromJS(data).map(item =>
+      [item.get('tag'), recordCreator(item)],
     )),
   ],
-]).set('allIds', new List(data.route.map(item => item.tag)));
+]).set('allIds', new List(data.map(item => item.tag)));
+
+/**
+ *
+ * @param {array} data
+ * @return {Object}
+ */
+export const mapEntitiesFromConfig = data => ({
+  stop: mapEntity(data.route.stop, createStopRecord),
+  direction: mapEntity(data.route.direction, createDirectionRecord),
+});
+
+/**
+ *
+ * @param {array} data
+ * @return {Object}
+ */
+export const mapRouteEntity = data => mapEntity(data.route, createRouteRecord);
