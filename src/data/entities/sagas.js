@@ -4,8 +4,7 @@ import { all, call, put, takeEvery } from 'redux-saga/effects';
 import { mapEntitiesFromConfig, mapRouteEntity } from './models';
 import httpGet from '../../services/httpRequest';
 import {
-  REQUEST_ROUTE_LIST, RECEIVE_ROUTE_LIST,
-  REQUEST_ROUTE_CONFIG, RECEIVE_ROUTE_CONFIG,
+  REQUEST_ROUTE_LIST, REQUEST_ROUTE_CONFIG,
   receiveRouteList, receiveRouteConfig
 } from './actions'
 
