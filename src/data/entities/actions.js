@@ -3,6 +3,8 @@ export const RECEIVE_ROUTE_LIST = 'RECEIVE_ROUTE_LIST';
 export const REQUEST_ROUTE_CONFIG = 'REQUEST_ROUTE_CONFIG';
 export const RECEIVE_ROUTE_CONFIG = 'RECEIVE_ROUTE_CONFIG';
 
+// FSA compliant - https://github.com/acdlite/flux-standard-action
+
 export const requestRouteList = () => ({
   type: REQUEST_ROUTE_LIST,
   payload: {
