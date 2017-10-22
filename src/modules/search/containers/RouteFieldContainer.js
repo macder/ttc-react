@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { compose, lifecycle, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
-import { withDataOnInit, hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
+import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getRouteListForDropdown, isRouteListFetching } from '../selectors';
 import { selectRoute } from '../actions';
 import { requestRouteConfig, requestRouteList } from '../../../data/entities/actions';
@@ -19,28 +19,8 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-/*const valueFromURL = (isInitLoad, value, dispatchProps) => {
-  if (isInitLoad && value) {
-    dispatchProps.routeSelected(value);
-    dispatchProps.requestRouteConfig(value);
-  }
-  return value;
-};*/
-
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  /*...dispatchProps,
-  requestData: (!stateProps.data && !stateProps.fetching) && (
-    () => dispatchProps.requestData()
-  ),
-  data: stateProps.data,
-  historyReplace: ownProps.history.replace,
-  defaultValue: valueFromURL(
-    (stateProps.data && !stateProps.selected),
-    ownProps.match.params.route,
-    dispatchProps,
-  ),
-  placeholder: ownProps.placeholder,
-  fetching: stateProps.fetching,*/
+
 });
 
 const RouteFieldContainer = compose(
