@@ -18,9 +18,7 @@ import {
 function* fetch(args, action) {
   try {
     const data = yield call(httpGet, action.meta.url);
-    const normalized = (args.normalize)
-      ? yield call(args.normalize, data)
-      : data;
+    const normalized = yield call(args.normalize, data);
 
     yield put(args.nextAction(normalized));
   } catch (e) {
