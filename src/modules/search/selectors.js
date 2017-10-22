@@ -7,8 +7,9 @@ const dropdownRecord = new Record({
   text: '',
 });
 
-// const searchState = state => state.get('searchState');
 const routeEntity = state => state.getIn(['entity', 'route']);
+
+export const isRouteListFetching = state => state.getIn(['entity', 'status', 'routeListFetching']);
 
 export const getRouteList = createSelector(
   [routeEntity],

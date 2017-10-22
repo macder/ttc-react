@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { compose, lifecycle, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
 import { withDataOnInit, hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
-import { getRouteListForDropdown/*getRouteList, getSelectedRoute, isRouteListFetching*/ } from '../selectors';
+import { getRouteListForDropdown, isRouteListFetching } from '../selectors';
 import { selectRoute } from '../actions';
 import { requestRouteList } from '../../../data/entities/actions';
 
@@ -13,8 +13,7 @@ const mapStateToProps = (state, ownProps) => {
 // getRouteListForDropdown(state)
 return {
   data: getRouteListForDropdown(state),
-  /*fetching: isRouteListFetching(state),
-  selected: getSelectedRoute(state),*/
+  fetching: isRouteListFetching(state),
 };
 }
 
@@ -64,7 +63,7 @@ const RouteFieldContainer = compose(
     },
   }),
   //withDataOnInit,
-  //withSpinnerWhileLoading,
+  withSpinnerWhileLoading,
 
   hideIfNoData,
   withPropsOnChange(
