@@ -4,6 +4,7 @@ import { createSelector } from 'reselect';
 const searchState = state => state.get('search');
 const routeEntity = state => state.getIn(['entities', 'route']);
 const directionEntity = state => state.getIn(['entities', 'direction']);
+const stopEntity = state => state.getIn(['entities', 'stop']);
 
 const dropdownRecord = new Record({
   key: '',
@@ -29,6 +30,11 @@ const makeDropdownSet = data => new OrderedSet(
 const selectedRoute = createSelector(
   [searchState],
   search => search.get('selectedRoute')
+);
+
+const selectedDirection = createSelector(
+  [searchState],
+  search => search.get('selectedDirection')
 );
 
 export const isRouteListFetching = createSelector(
@@ -61,5 +67,17 @@ export const getDirectionListForDropdown = createSelector(
       makeDropdownSet(
         routeList.getIn(['byId', routeId, 'direction'])
           .map(id => direction.getIn(['byId', id]))
+      )
+);
+
+export const getStopListForDropdown = createSelector(
+  stopEntity,
+  directionEntity,
+  selectedDirection,
+  (stop, directionList, directionId) =>
+    (directionId && directionList.getIn(['byId', directionId, 'stop'])) &&
+      makeDropdownSet(
+        directionList.getIn(['byId', directionId, 'stop'])
+          .map(id => stop.getIn(['byId', id]))
       )
 );
