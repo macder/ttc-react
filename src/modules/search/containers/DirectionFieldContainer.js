@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { compose, lifecycle, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
-import { getDirectionListForDropdown } from '../selectors';
+import { getDirectionListForDropdown, isDirectionListFetching } from '../selectors';
 // import { selectedDirection } from '../actions';
 
 const mapStateToProps = (state, ownProps) => {
@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
   // getRouteDirections(state);
 return {
   data: getDirectionListForDropdown(state),
-  // fetching: isRouteConfigFetching(state),
+  fetching: isDirectionListFetching(state),
 }
 };
 
