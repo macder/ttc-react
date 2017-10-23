@@ -3,6 +3,7 @@ import { fromJS, List, Map, OrderedSet, Record } from 'immutable';
 export const routeRecord = Record({
   id: '',
   title: '',
+  direction: new List(),
 });
 
 export const stopRecord = Record({

@@ -27,6 +27,7 @@ export const requestRouteConfig = routeId => ({
     error: false,
   },
   meta: {
+    routeId,
     url: `http://webservices.nextbus.com/service/publicJSONFeed?command=routeConfig&a=ttc&r=${routeId}&terse`
   },
 });
@@ -48,9 +49,12 @@ export const addRouteList = (payload) => ({
   payload,
 });
 
-export const addDirection = (payload) => ({
+export const addDirection = (data, routeId) => ({
   type: ADD_DIRECTION,
-  payload,
+  payload: {
+    data,
+    routeId,
+  }
 });
 
 /*console.log('requestRouteList is FSA', isFSA(requestRouteList()));

@@ -32,6 +32,10 @@ const routeEntityReducer = (state = initialState, action = {}) => {
         .set('byId', action.payload.get('byId'))
         .set('allIds', action.payload.get('allIds'));
 
+    case ADD_DIRECTION:
+      return state
+      .setIn(['byId', action.payload.routeId, 'direction'], action.payload.data.get('allIds'));
+
     default:
       return state;
   }
@@ -53,7 +57,7 @@ const directionEntityReducer = (state = initialState, action = {}) => {
           .set('error', action.payload);
 
     case ADD_DIRECTION:
-      return state.mergeIn(['byId'], action.payload.get('byId'));
+      return state.mergeIn(['byId'], action.payload.data.get('byId'));
 
     default:
       return state;
