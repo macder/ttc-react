@@ -36,6 +36,11 @@ export const isRouteListFetching = createSelector(
   route => route.get('isFetching')
 );
 
+export const isDirectionListFetching = createSelector(
+  [directionEntity],
+  direction => direction.get('isFetching')
+);
+
 export const getRouteList = createSelector(
   [routeEntity],
   route => (route.get('allIds')) &&
