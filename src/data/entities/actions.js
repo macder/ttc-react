@@ -60,4 +60,6 @@ export const addDirection = (data, routeId) => ({
 /*console.log('requestRouteList is FSA', isFSA(requestRouteList()));
 console.log('requestRouteConfig is FSA', isFSA(requestRouteConfig()));
 console.log('receiveRouteList is FSA', isFSA(receiveRouteList()));
-console.log('receiveRouteConfig is FSA', isFSA(receiveRouteConfig()));*/
+console.log('receiveRouteConfig is FSA', isFSA(receiveRouteConfig()));
+console.log('addRouteList is FSA', isFSA(addRouteList()));
+console.log('addDirection is FSA', isFSA(addDirection()));*/
