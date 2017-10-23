@@ -5,6 +5,6 @@ import { searchReducer } from './modules/search';
 import {entityReducer} from './data/entities';
 
 export default combineReducers({
-  entity: entityReducer,
+  entities: entityReducer,
   search: searchReducer,
 });
