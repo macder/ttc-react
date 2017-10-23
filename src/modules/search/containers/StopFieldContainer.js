@@ -2,32 +2,35 @@ import { connect } from 'react-redux';
 import { compose, lifecycle, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
-import { getDirectionStopList, isStopFieldFetching } from '../selectors';
-import { selectedStop } from '../actions';
+import { getStopListForDropdown } from '../selectors';
+//import { selectedStop } from '../actions';
 
-const mapStateToProps = state => ({
-  data: getDirectionStopList(state),
-  fetching: isStopFieldFetching(state),
-});
+const mapStateToProps = state => {
+  // getStopListForDropdown(state);
+return {
+  data: getStopListForDropdown(state),
+  //fetching: isStopFieldFetching(state),
+}
+};
 
 const mapDispatchToProps = dispatch => ({
-  stopSelected: stop => dispatch(selectedStop(stop)),
+  // stopSelected: stop => dispatch(selectedStop(stop)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  ...dispatchProps,
+  /*...dispatchProps,
   ...stateProps,
   historyReplace: ownProps.history.replace,
   urlParams: ownProps.match.params,
   defaultValue: ownProps.match.params.stop,
-  placeholder: ownProps.placeholder,
+  placeholder: ownProps.placeholder,*/
 });
 
 const StopFieldContainer = compose(
   connect(
     mapStateToProps,
-    mapDispatchToProps,
-    mergeProps,
+    //mapDispatchToProps,
+    //mergeProps,
   ),
   withSpinnerWhileLoading,
   hideIfNoData,
@@ -37,7 +40,7 @@ const StopFieldContainer = compose(
       data: data.toArray().map(item => item.toObject()),
     }),
   ),
-  withHandlers({
+  /*withHandlers({
     onChange: props => (e, data) => {
       props.stopSelected(data.value);
       props.historyReplace(`/${props.urlParams.route}/${props.urlParams.direction}/${data.value}`);
@@ -49,7 +52,7 @@ const StopFieldContainer = compose(
         this.props.stopSelected(this.props.defaultValue);
       }
     },
-  }),
+  }),*/
 )(DropdownField);
 
 export default (StopFieldContainer);
