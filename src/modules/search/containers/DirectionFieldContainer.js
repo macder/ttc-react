@@ -5,30 +5,20 @@ import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getDirectionListForDropdown, isDirectionListFetching } from '../selectors';
 import { selectDirection } from '../actions';
 
-const mapStateToProps = (state, ownProps) => {
-  // console.dir(getDirectionListForDropdown(state))
-  // getRouteDirections(state);
-return {
+const mapStateToProps = (state, ownProps) => ({
   data: getDirectionListForDropdown(state),
   fetching: isDirectionListFetching(state),
-}
-};
+});
 
 const mapDispatchToProps = dispatch => ({
   action: {
     selectDirection: route => dispatch(selectDirection(route)),
   }
-  // directionSelected: direction => dispatch(selectedDirection(direction)),
 });
 
-/*const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  ...dispatchProps,
-  ...stateProps,
-  historyReplace: ownProps.history.replace,
-  urlParams: ownProps.match.params,
-  defaultValue: ownProps.match.params.direction,
-  placeholder: ownProps.placeholder,
-});*/
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+
+});
 
 const DirectionFieldContainer = compose(
   connect(
@@ -51,13 +41,6 @@ const DirectionFieldContainer = compose(
       // props.historyReplace(`/${props.urlParams.route}/${data.value}`);
     },
   }),
-  /*lifecycle({
-    componentDidMount() {
-      if (this.props.defaultValue) {
-        this.props.directionSelected(this.props.defaultValue);
-      }
-    },
-  }),*/
 )(DropdownField);
 
 export default (DirectionFieldContainer);
