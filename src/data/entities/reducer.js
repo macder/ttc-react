@@ -68,7 +68,19 @@ const stopEntityReducer = (state = initialState, action = {}) => {
   switch (action.type) {
 
     case REQUEST_ROUTE_CONFIG:
-      return state;
+      return state
+        .set('isFetching', action.payload.fetching)
+        .set('error', action.payload.error);
+
+    case RECEIVE_ROUTE_CONFIG:
+      return (!action.error)
+        ? state.set('isFetching', action.payload.fetching)
+        : state
+          .set('isFetching', false)
+          .set('error', action.payload);
+
+    case ADD_STOP:
+      return state.mergeIn(['byId'], action.payload.get('byId'));
 
     default:
       return state;
