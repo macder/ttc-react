@@ -20,18 +20,6 @@ export const directionRecord = Record({
   stop: new List(),
 });
 
-const entityStatusRecord = Record({
-  routeListFetching: false,
-  routeConfigFetching: false,
-});
-
-export const initialEntityState = new Map({
-  direction: new Map(),
-  route: new Map(),
-  stop: new Map(),
-  status: new entityStatusRecord(),
-});
-
 /**
  *
  * @param {Immutable.Map} item
