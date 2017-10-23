@@ -3,7 +3,7 @@ import { compose, lifecycle, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getDirectionListForDropdown, isDirectionListFetching } from '../selectors';
-// import { selectedDirection } from '../actions';
+import { selectDirection } from '../actions';
 
 const mapStateToProps = (state, ownProps) => {
   // console.dir(getDirectionListForDropdown(state))
@@ -14,11 +14,14 @@ return {
 }
 };
 
-/*const mapDispatchToProps = dispatch => ({
-  directionSelected: direction => dispatch(selectedDirection(direction)),
+const mapDispatchToProps = dispatch => ({
+  action: {
+    selectDirection: route => dispatch(selectDirection(route)),
+  }
+  // directionSelected: direction => dispatch(selectedDirection(direction)),
 });
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+/*const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...dispatchProps,
   ...stateProps,
   historyReplace: ownProps.history.replace,
@@ -30,7 +33,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
 const DirectionFieldContainer = compose(
   connect(
     mapStateToProps,
-    // mapDispatchToProps,
+    mapDispatchToProps,
     // mergeProps,
   ),
   withSpinnerWhileLoading,
@@ -41,13 +44,14 @@ const DirectionFieldContainer = compose(
       data: data.toArray().map(item => item.toObject()),
     }),
   ),
-  /*withHandlers({
+  withHandlers({
     onChange: props => (e, data) => {
-      props.directionSelected(data.value);
-      props.historyReplace(`/${props.urlParams.route}/${data.value}`);
+      const { action } = props
+      action.selectDirection(data.value);
+      // props.historyReplace(`/${props.urlParams.route}/${data.value}`);
     },
   }),
-  lifecycle({
+  /*lifecycle({
     componentDidMount() {
       if (this.props.defaultValue) {
         this.props.directionSelected(this.props.defaultValue);
