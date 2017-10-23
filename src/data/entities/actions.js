@@ -4,6 +4,7 @@ export const REQUEST_ROUTE_LIST = 'REQUEST_ROUTE_LIST';
 export const RECEIVE_ROUTE_LIST = 'RECEIVE_ROUTE_LIST';
 export const ADD_ROUTE_LIST = 'ADD_ROUTE_LIST';
 export const ADD_DIRECTION = 'ADD_DIRECTION';
+export const ADD_STOP = 'ADD_STOP';
 export const REQUEST_ROUTE_CONFIG = 'REQUEST_ROUTE_CONFIG';
 export const RECEIVE_ROUTE_CONFIG = 'RECEIVE_ROUTE_CONFIG';
 
@@ -55,6 +56,11 @@ export const addDirection = (data, routeId) => ({
     data,
     routeId,
   }
+});
+
+export const addStop = (payload) => ({
+  type: ADD_STOP,
+  payload,
 });
 
 /*console.log('requestRouteList is FSA', isFSA(requestRouteList()));
