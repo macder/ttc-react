@@ -31,13 +31,10 @@ const selectedRoute = createSelector(
   search => search.get('selectedRoute')
 );
 
-// export const isRouteListFetching = state => state.getIn(['entities', 'status', 'routeListFetching']);
-
 export const isRouteListFetching = createSelector(
   [routeEntity],
   route => route.get('isFetching')
 );
-
 
 export const getRouteList = createSelector(
   [routeEntity],
