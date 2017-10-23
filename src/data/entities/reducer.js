@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux-immutable';
 import { List, Map } from 'immutable';
 import {
-  ADD_ROUTE_LIST, ADD_DIRECTION,
+  ADD_ROUTE_LIST, ADD_DIRECTION, ADD_STOP,
   REQUEST_ROUTE_LIST, RECEIVE_ROUTE_LIST,
   REQUEST_ROUTE_CONFIG, RECEIVE_ROUTE_CONFIG
 } from './actions'
@@ -64,9 +64,21 @@ const directionEntityReducer = (state = initialState, action = {}) => {
   }
 }
 
+const stopEntityReducer = (state = initialState, action = {}) => {
+  switch (action.type) {
+
+    case REQUEST_ROUTE_CONFIG:
+      return state;
+
+    default:
+      return state;
+  }
+}
+
 const entityReducer = combineReducers({
   route: routeEntityReducer,
   direction: directionEntityReducer,
+  stop: stopEntityReducer,
 });
 
 
