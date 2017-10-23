@@ -61,10 +61,6 @@ function* requestRouteList() {
  *
  */
 function* requestRouteConfig() {
-  const args = {
-    nextAction: receiveRouteConfig,
-    normalize: mapEntitiesFromConfig,
-  };
   yield takeEvery(REQUEST_ROUTE_CONFIG, fetch, loadRouteConfig);
 }
 
