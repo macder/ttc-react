@@ -5,7 +5,8 @@ import { mapEntitiesFromConfig, mapRouteEntity } from './models';
 import httpGet from '../../services/httpRequest';
 import {
   REQUEST_ROUTE_LIST, REQUEST_ROUTE_CONFIG,
-  receiveRouteList, receiveRouteConfig
+  receiveRouteList, receiveRouteConfig,
+  addDirection, addRouteList
 } from './actions'
 
 /**
@@ -14,14 +15,33 @@ import {
  * @param {object} args
  * @param {object} action - redux action
  */
-function* fetch(args, action) {
+function* fetch(callback, action) {
   try {
     const data = yield call(httpGet, action.meta.url);
-    const normalized = yield call(args.normalize, data);
-
-    yield put(args.nextAction(normalized));
+    yield call(callback, data);
   } catch (e) {
-    yield put(args.nextAction(e, true));
+    yield call(callback, e, true);
+  }
+}
+
+function* loadRouteList(payload, error = false) {
+  if (!error) {
+    yield put(receiveRouteList({fetching: false}));
+    yield put(addRouteList(mapRouteEntity(payload)));
+  }
+  else {
+    yield put(receiveRouteList(payload, true));
+  }
+}
+
+function* loadRouteConfig(payload, error = false) {
+  if (!error) {
+    yield put(receiveRouteConfig({fetching: false}));
+    const data = mapEntitiesFromConfig(payload);
+    yield put(addDirection(data.get('direction')));
+  }
+  else {
+
   }
 }
 
@@ -30,12 +50,8 @@ function* fetch(args, action) {
  * Allows concurrent fetches.
  *
  */
-function* loadRouteList() {
-  const args = {
-    nextAction: receiveRouteList,
-    normalize: mapRouteEntity,
-  };
-  yield takeEvery(REQUEST_ROUTE_LIST, fetch, args);
+function* requestRouteList() {
+  yield takeEvery(REQUEST_ROUTE_LIST, fetch, loadRouteList);
 }
 
 /**
@@ -43,17 +59,17 @@ function* loadRouteList() {
  * Allows concurrent fetches.
  *
  */
-function* loadRouteConfig() {
+function* requestRouteConfig() {
   const args = {
     nextAction: receiveRouteConfig,
     normalize: mapEntitiesFromConfig,
   };
-  yield takeEvery(REQUEST_ROUTE_CONFIG, fetch, args);
+  yield takeEvery(REQUEST_ROUTE_CONFIG, fetch, loadRouteConfig);
 }
 
 export default function* rootSaga() {
   yield all([
-    loadRouteList(),
-    loadRouteConfig(),
+    requestRouteList(),
+    requestRouteConfig(),
   ]);
 }

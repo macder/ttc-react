@@ -2,6 +2,8 @@ import { isFSA } from 'flux-standard-action';
 
 export const REQUEST_ROUTE_LIST = 'REQUEST_ROUTE_LIST';
 export const RECEIVE_ROUTE_LIST = 'RECEIVE_ROUTE_LIST';
+export const ADD_ROUTE_LIST = 'ADD_ROUTE_LIST';
+export const ADD_DIRECTION = 'ADD_DIRECTION';
 export const REQUEST_ROUTE_CONFIG = 'REQUEST_ROUTE_CONFIG';
 export const RECEIVE_ROUTE_CONFIG = 'RECEIVE_ROUTE_CONFIG';
 
@@ -11,6 +13,7 @@ export const requestRouteList = () => ({
   type: REQUEST_ROUTE_LIST,
   payload: {
     fetching: true,
+    error: false,
   },
   meta: {
     url: 'http://webservices.nextbus.com/service/publicJSONFeed?command=routeList&a=ttc'
@@ -19,6 +22,10 @@ export const requestRouteList = () => ({
 
 export const requestRouteConfig = routeId => ({
   type: REQUEST_ROUTE_CONFIG,
+  payload: {
+    fetching: true,
+    error: false,
+  },
   meta: {
     url: `http://webservices.nextbus.com/service/publicJSONFeed?command=routeConfig&a=ttc&r=${routeId}&terse`
   },
@@ -26,20 +33,24 @@ export const requestRouteConfig = routeId => ({
 
 export const receiveRouteList = (payload, error = false) => ({
   type: RECEIVE_ROUTE_LIST,
-  payload: {
-    fetching: false,
-    data: payload,
-  },
+  payload,
   error,
 });
 
 export const receiveRouteConfig = (payload, error = false) => ({
   type: RECEIVE_ROUTE_CONFIG,
-  payload: {
-    fetching: false,
-    data: payload,
-  },
+  payload,
   error,
+});
+
+export const addRouteList = (payload) => ({
+  type: ADD_ROUTE_LIST,
+  payload,
+});
+
+export const addDirection = (payload) => ({
+  type: ADD_DIRECTION,
+  payload,
 });
 
 /*console.log('requestRouteList is FSA', isFSA(requestRouteList()));
