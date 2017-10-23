@@ -1,15 +1,37 @@
 import { Record, OrderedSet } from 'immutable';
 import { createSelector } from 'reselect';
 
+const searchState = state => state.get('search');
+const routeEntity = state => state.getIn(['entities', 'route']);
+const directionEntity = state => state.getIn(['entities', 'direction']);
+
 const dropdownRecord = new Record({
   key: '',
   value: '',
   text: '',
 });
 
-const routeEntity = state => state.getIn(['entity', 'route']);
+/**
+ * Creates an ordered set of records for a dropdown field
+ * @param {Immutable.List} data
+ * @return {Immutable.OrderedSet}
+ */
+const makeDropdownSet = data => new OrderedSet(
+  data.map(item =>
+    new dropdownRecord({
+      key: item.get('id'),
+      value: item.get('id'),
+      text: item.get('title'),
+    })
+  )
+);
 
-export const isRouteListFetching = state => state.getIn(['entity', 'status', 'routeListFetching']);
+const selectedRoute = createSelector(
+  [searchState],
+  search => search.get('selectedRoute')
+);
+
+export const isRouteListFetching = state => state.getIn(['entities', 'status', 'routeListFetching']);
 
 export const getRouteList = createSelector(
   [routeEntity],
@@ -19,11 +41,17 @@ export const getRouteList = createSelector(
 
 export const getRouteListForDropdown = createSelector(
   [getRouteList],
-  list => (list) && new OrderedSet(list.map(item =>
-    new dropdownRecord({
-      key: item.get('id'),
-      value: item.get('id'),
-      text: item.get('title'),
-    })
-  ))
+  list => (list) && makeDropdownSet(list)
+);
+
+export const getDirectionListForDropdown = createSelector(
+  directionEntity,
+  routeEntity,
+  selectedRoute,
+  (direction, routeList, routeId) =>
+    (routeId && routeList.getIn(['byId', routeId, 'direction']).size) &&
+      makeDropdownSet(
+        routeList.getIn(['byId', routeId, 'direction'])
+          .map(id => direction.getIn(['byId', id]))
+      )
 );
