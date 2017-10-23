@@ -43,7 +43,6 @@ const RouteFieldContainer = compose(
       data: data.toArray().map(item => item.toObject()),
     }),
   ),
-
   withHandlers({
     onChange: props => (e, data) => {
       const { action } = props
