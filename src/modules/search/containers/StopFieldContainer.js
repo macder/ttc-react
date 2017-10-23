@@ -3,7 +3,7 @@ import { compose, lifecycle, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getStopListForDropdown } from '../selectors';
-//import { selectedStop } from '../actions';
+import { selectStop } from '../actions';
 
 const mapStateToProps = state => {
   // getStopListForDropdown(state);
@@ -14,7 +14,10 @@ return {
 };
 
 const mapDispatchToProps = dispatch => ({
-  // stopSelected: stop => dispatch(selectedStop(stop)),
+  action: {
+    selectStop: stop => dispatch(selectStop(stop)),
+  }
+
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -29,7 +32,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
 const StopFieldContainer = compose(
   connect(
     mapStateToProps,
-    //mapDispatchToProps,
+    mapDispatchToProps,
     //mergeProps,
   ),
   withSpinnerWhileLoading,
@@ -40,13 +43,14 @@ const StopFieldContainer = compose(
       data: data.toArray().map(item => item.toObject()),
     }),
   ),
-  /*withHandlers({
+  withHandlers({
     onChange: props => (e, data) => {
-      props.stopSelected(data.value);
-      props.historyReplace(`/${props.urlParams.route}/${props.urlParams.direction}/${data.value}`);
+      const { action } = props
+      action.selectStop(data.value);
+      // props.historyReplace(`/${props.urlParams.route}/${props.urlParams.direction}/${data.value}`);
     },
   }),
-  lifecycle({
+  /*lifecycle({
     componentDidMount() {
       if (this.props.defaultValue) {
         this.props.stopSelected(this.props.defaultValue);
