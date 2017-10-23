@@ -81,4 +81,4 @@ yarn-error.log*
 
 routes
 /data
-/src/modules/search2
+/benchmarks
