@@ -18,13 +18,13 @@ import {
 function* fetch(callback, action) {
   try {
     const data = yield call(httpGet, action.meta.url);
-    yield call(callback, data);
+    yield call(callback, data, action.meta);
   } catch (e) {
     yield call(callback, e, true);
   }
 }
 
-function* loadRouteList(payload, error = false) {
+function* loadRouteList(payload, meta, error = false) {
   if (!error) {
     yield put(receiveRouteList({fetching: false}));
     yield put(addRouteList(mapRouteEntity(payload)));
@@ -34,11 +34,11 @@ function* loadRouteList(payload, error = false) {
   }
 }
 
-function* loadRouteConfig(payload, error = false) {
+function* loadRouteConfig(payload, meta, error = false) {
   if (!error) {
     yield put(receiveRouteConfig({fetching: false}));
     const data = mapEntitiesFromConfig(payload);
-    yield put(addDirection(data.get('direction')));
+    yield put(addDirection(data.get('direction'), meta.routeId));
   }
   else {
 
