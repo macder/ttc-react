@@ -35,11 +35,6 @@ const DirectionFieldContainer = compose(
     mergeProps,
   ),
   lifecycle({
-    componentDidMount() {
-      const { action, defaultValue } = this.props;
-      (defaultValue) &&
-        action.selectDirection(defaultValue);
-    },
     componentWillReceiveProps(nextProps) {
       const { action, selectedRoute, data, fetching } = nextProps;
       (selectedRoute && !data  && !fetching) &&
@@ -59,7 +54,7 @@ const DirectionFieldContainer = compose(
     onChange: props => (e, data) => {
       const { action, historyReplace } = props
       action.selectDirection(data.value);
-      historyReplace(`/${props.urlParams.route}/${data.value}`);
+      // historyReplace(`/${props.urlParams.route}/${data.value}`);
     },
   }),
 )(DropdownField);

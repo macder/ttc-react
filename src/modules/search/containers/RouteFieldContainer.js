@@ -36,8 +36,8 @@ const RouteFieldContainer = compose(
     componentDidMount() {
       const { action, defaultValue } = this.props
       action.requestRouteList();
-      (defaultValue) &&
-        action.selectRoute(defaultValue);
+      // (defaultValue) &&
+        // action.selectRoute(defaultValue);
     }
   }),
   onlyUpdateForKeys(['data', 'fetching']),
@@ -53,7 +53,7 @@ const RouteFieldContainer = compose(
     onChange: props => (e, data) => {
       const { action, historyReplace } = props
       action.selectRoute(data.value);
-      historyReplace(`/${data.value}`);
+      // historyReplace(`/${data.value}`);
     },
   }),
 )(DropdownField);
