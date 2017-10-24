@@ -1,7 +1,7 @@
 // import 'regenerator-runtime/runtime';
 
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-import { mapEntitiesFromConfig, mapRouteEntity } from './models';
+import { mapEntitiesFromConfig, mapPredictions, mapRouteEntity } from './models';
 import httpGet from '../../services/httpRequest';
 import {
   REQUEST_ROUTE_LIST, REQUEST_ROUTE_CONFIG, REQUEST_PREDICTION,
@@ -45,7 +45,12 @@ function* loadRouteConfig(payload, meta, error = false) {
 }
 
 function* loadPredictions(payload, meta, error = false) {
-  console.dir(payload);
+  if (!error) {
+    yield put(receivePrediction({ fetching: false }));
+    yield put(addPrediction(mapPredictions(payload)));
+  } else {
+    yield put(receivePrediction(payload, true));
+  }
 }
 
 /**
