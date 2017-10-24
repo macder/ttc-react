@@ -51,13 +51,15 @@ const directionEntityReducer = (state = initialState, action = {}) => {
 
     case RECEIVE_ROUTE_CONFIG:
       return (!action.error)
-        ? state.set('isFetching', action.payload.fetching)
+        ? state
         : state
           .set('isFetching', false)
           .set('error', action.payload);
 
     case ADD_DIRECTION:
-      return state.mergeIn(['byId'], action.payload.data.get('byId'));
+      return state
+        .mergeIn(['byId'], action.payload.data.get('byId'))
+        .set('isFetching', false);
 
     default:
       return state;
@@ -74,7 +76,7 @@ const stopEntityReducer = (state = initialState, action = {}) => {
 
     case RECEIVE_ROUTE_CONFIG:
       return (!action.error)
-        ? state.set('isFetching', action.payload.fetching)
+        ? state
         : state
           .set('isFetching', false)
           .set('error', action.payload);

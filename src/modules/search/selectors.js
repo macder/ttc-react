@@ -27,7 +27,7 @@ const makeDropdownSet = data => new OrderedSet(
   )
 );
 
-const selectedRoute = createSelector(
+export const selectedRoute = createSelector(
   [searchState],
   search => search.get('selectedRoute')
 );
@@ -52,6 +52,11 @@ export const getRouteList = createSelector(
   route => (route.get('allIds')) &&
     route.get('allIds').map(id => route.getIn(['byId', id]))
 );
+
+export const getLoadedConfigRouteIds = createSelector(
+  [getRouteList],
+  list => list.filter(item => item.direction.size).map(item => item.id)
+)
 
 export const getRouteListForDropdown = createSelector(
   [getRouteList],

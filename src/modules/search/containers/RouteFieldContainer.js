@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import { compose, lifecycle, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
-import { getRouteListForDropdown, isRouteListFetching } from '../selectors';
+import { getLoadedConfigRouteIds, getRouteListForDropdown, isRouteListFetching } from '../selectors';
 import { selectRoute } from '../actions';
-import { requestRouteConfig, requestRouteList } from '../../../data/entities/actions';
+import { requestRouteList } from '../../../data/entities/actions';
 
 const mapStateToProps = (state, ownProps) => ({
   data: getRouteListForDropdown(state),
@@ -15,12 +15,7 @@ const mapDispatchToProps = dispatch => ({
   action: {
     requestRouteList: () => dispatch(requestRouteList()),
     selectRoute: route => dispatch(selectRoute(route)),
-    requestRouteConfig: route => dispatch(requestRouteConfig(route)),
   }
-});
-
-const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-
 });
 
 const RouteFieldContainer = compose(
@@ -47,7 +42,6 @@ const RouteFieldContainer = compose(
     onChange: props => (e, data) => {
       const { action } = props
       action.selectRoute(data.value);
-      action.requestRouteConfig(data.value);
       //props.historyReplace(`/${data.value}`);
     },
   }),
