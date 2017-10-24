@@ -21,6 +21,33 @@ export const directionRecord = Record({
   stop: new List(),
 });
 
+export const predictionRecord = Record({
+  id: '',
+  dirId: '',
+  affectedByLayover: 'false',
+  epochTime: '',
+  isDeparture: 'false',
+  minutes: '',
+  seconds: '',
+  vehicle: '',
+});
+
+/**
+ *
+ * @param {Immutable.Map} item
+ * @return {Immutable.Record}
+ */
+const createPredictionRecord = item => new predictionRecord({
+  id: item.get('tripTag'),
+  dirId: item.get('dirTag'),
+  affectedByLayover: item.get('affectedByLayover'),
+  epochTime: item.get('epochTime'),
+  isDeparture: item.get('isDeparture'),
+  minutes: item.get('minutes'),
+  seconds: item.get('seconds'),
+  vehicle: item.get('vehicle'),
+});
+
 /**
  *
  * @param {Immutable.Map} item
@@ -60,16 +87,17 @@ const createDirectionRecord = item => new directionRecord({
  * Normalizes and converts to Immutable an entity set
  *  eg. route, stop, direction
  * @param {array} data
+ * @param {string} idKey Key name from data to use as UID
  * @param {function} recordCreator
  * @return {Immutable.Map}
  */
-const mapEntity = (data, recordCreator) => new Map([
+const mapEntity = (data, idKey, recordCreator) => new Map([
   ['byId',
     new Map(fromJS(data).map(item =>
-      [item.get('tag'), recordCreator(item)],
+      [item.get(idKey), recordCreator(item)],
     )),
   ],
-]).set('allIds', new List(data.map(item => item.tag)));
+]).set('allIds', new List(data.map(item => item[idKey])));
 
 /**
  * Called immediately after successful API routeConfig fetch
@@ -77,8 +105,8 @@ const mapEntity = (data, recordCreator) => new Map([
  * @return {Immutable.Map}
  */
 export const mapEntitiesFromConfig = data => new Map({
-  stop: mapEntity(data.route.stop, createStopRecord),
-  direction: mapEntity(data.route.direction, createDirectionRecord),
+  stop: mapEntity(data.route.stop, 'tag', createStopRecord),
+  direction: mapEntity(data.route.direction, 'tag', createDirectionRecord),
 });
 
 /**
@@ -86,4 +114,38 @@ export const mapEntitiesFromConfig = data => new Map({
  * @param {array} data Response payload from remote API
  * @return {Immutable.Map}
  */
-export const mapRouteEntity = data => mapEntity(data.route, createRouteRecord);
+export const mapRouteEntity = data => mapEntity(data.route, 'tag', createRouteRecord);
+
+/**
+ *
+ * @param {array || object} prediction
+ * @return {Immutable.Map}
+ */
+const mapPredictionEntity = prediction => mapEntity(
+  (Array.isArray(prediction)) ? prediction : [prediction], // multi : single
+  'tripTag',
+  createPredictionRecord
+);
+
+/**
+ * Called immediately after successful API predictions fetch
+ * @param {array} data Response payload from remote API
+ * @return {Immutable.Map}
+ */
+export const mapPredictions = data => {
+  if (data.predictions.direction) {
+    if (Array.isArray(data.predictions.direction)) { // multi directions
+      return mapPredictionEntity(
+        data.predictions.direction.map(
+          item => (!Array.isArray(item.prediction))
+            ? [item.prediction] // single prediction
+            : item.prediction // multi predictions
+        ).reduce((a, b) => a.concat(b))
+      )
+    } else { // single direction
+      return mapPredictionEntity(
+        data.predictions.direction.prediction
+      );
+    }
+  }
+}
