@@ -124,7 +124,7 @@ export const mapRouteEntity = data => mapEntity(data.route, 'tag', createRouteRe
 const mapPredictionEntity = prediction => mapEntity(
   (Array.isArray(prediction)) ? prediction : [prediction], // multi : single
   'tripTag',
-  createPredictionRecord
+  createPredictionRecord,
 );
 
 /**
@@ -132,20 +132,19 @@ const mapPredictionEntity = prediction => mapEntity(
  * @param {array} data Response payload from remote API
  * @return {Immutable.Map}
  */
-export const mapPredictions = data => {
+export const mapPredictions = (data) => {
   if (data.predictions.direction) {
     if (Array.isArray(data.predictions.direction)) { // multi directions
       return mapPredictionEntity(
         data.predictions.direction.map(
-          item => (!Array.isArray(item.prediction))
+          item => ((!Array.isArray(item.prediction))
             ? [item.prediction] // single prediction
-            : item.prediction // multi predictions
-        ).reduce((a, b) => a.concat(b))
-      )
-    } else { // single direction
-      return mapPredictionEntity(
-        data.predictions.direction.prediction
+            : item.prediction), // multi predictions
+        ).reduce((a, b) => a.concat(b)),
       );
-    }
+    } // single direction
+    return mapPredictionEntity(
+      data.predictions.direction.prediction,
+    );
   }
-}
+};
