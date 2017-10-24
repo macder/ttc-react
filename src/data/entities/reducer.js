@@ -9,7 +9,7 @@ import {
 /**
  * General reducer for actions that request data
  * @param {Immutable.Map} state
- * @param {Object} state
+ * @param {Object} action
  * @return {Immutable.Map}
  */
 const requestFetch = (state, action) => state
@@ -19,14 +19,15 @@ const requestFetch = (state, action) => state
 /**
  * General reducer for resolved fetch
  * @param {Immutable.Map} state
- * @param {Object} state
+ * @param {Object} action
  * @return {Immutable.Map}
  */
 const receiveFetch = (state, action) => ((!action.error)
   ? state
   : state
     .set('isFetching', false)
-    .set('error', action.payload));
+    .set('error', action.payload)
+);
 
 
 const initialState = new Map({
