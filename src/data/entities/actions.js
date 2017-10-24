@@ -35,6 +35,12 @@ export const requestRouteConfig = routeId => ({
   },
 });
 
+export const receivePredictions = (payload, error = false) => ({
+  type: RECEIVE_PREDICTIONS,
+  payload,
+  error,
+});
+
 export const receiveRouteList = (payload, error = false) => ({
   type: RECEIVE_ROUTE_LIST,
   payload,
