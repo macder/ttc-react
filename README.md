@@ -3,6 +3,8 @@
 
 **WIP**
 
+**Refactor in progress on branch:&nbsp;** [feature/normalize](https://github.com/macder/ttc-react/tree/feature/refactor-normalize)
+
 Simple interface to search the next TTC vehicle arrival in real-time.
 
 Leverages the [TTC Real-Time Next Vehicle Arrival (NVAS)](https://www1.toronto.ca/wps/portal/contentonly?vgnextoid=4427790e6f21d210VgnVCM1000003dd60f89RCRD&vgnextchannel=1a66e03bb8d1e310VgnVCM10000071d60f89RCRD) public XML feed
