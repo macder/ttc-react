@@ -95,10 +95,30 @@ const stopEntityReducer = (state = initialState, action = {}) => {
   }
 };
 
+const predictionEntityReducer = (state = initialState, action = {}) => {
+  switch (action.type) {
+    case REQUEST_PREDICTION:
+      return requestFetch(state, action);
+
+    case RECEIVE_PREDICTION:
+      return receiveFetch(state, action);
+
+    case ADD_PREDICTION:
+      return state
+        .set('byId', action.payload.get('byId'))
+        .set('allIds', action.payload.get('allIds'))
+        .set('isFetching', false);
+
+    default:
+      return state;
+  }
+};
+
 const entityReducer = combineReducers({
   route: routeEntityReducer,
   direction: directionEntityReducer,
   stop: stopEntityReducer,
+  prediction: predictionEntityReducer,
 });
 
 
