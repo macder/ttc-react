@@ -1,19 +1,20 @@
 import { isFSA } from 'flux-standard-action';
 
+export const ADD_PREDICTION = 'ADD_PREDICTION';
 export const ADD_ROUTE_LIST = 'ADD_ROUTE_LIST';
 export const ADD_DIRECTION = 'ADD_DIRECTION';
 export const ADD_STOP = 'ADD_STOP';
-export const REQUEST_PREDICTIONS = 'REQUEST_PREDICTIONS';
+export const REQUEST_PREDICTION = 'REQUEST_PREDICTION';
 export const REQUEST_ROUTE_LIST = 'REQUEST_ROUTE_LIST';
 export const REQUEST_ROUTE_CONFIG = 'REQUEST_ROUTE_CONFIG';
-export const RECEIVE_PREDICTIONS = 'RECEIVE_PREDICTIONS';
+export const RECEIVE_PREDICTION = 'RECEIVE_PREDICTION';
 export const RECEIVE_ROUTE_LIST = 'RECEIVE_ROUTE_LIST';
 export const RECEIVE_ROUTE_CONFIG = 'RECEIVE_ROUTE_CONFIG';
 
 // FSA compliant - https://github.com/acdlite/flux-standard-action
 
-export const requestPredictions = () => ({
-  type: REQUEST_PREDICTIONS,
+export const requestPrediction = () => ({
+  type: REQUEST_PREDICTION,
   payload: {
     fetching: true,
     error: false,
@@ -26,7 +27,7 @@ export const requestPredictions = () => ({
     url: '/data/prediction_1dir_multi.json',
     // url: '/data/prediction_nonr.json',
   },
-})
+});
 
 export const requestRouteList = () => ({
   type: REQUEST_ROUTE_LIST,
@@ -51,8 +52,8 @@ export const requestRouteConfig = routeId => ({
   },
 });
 
-export const receivePredictions = (payload, error = false) => ({
-  type: RECEIVE_PREDICTIONS,
+export const receivePrediction = (payload, error = false) => ({
+  type: RECEIVE_PREDICTION,
   payload,
   error,
 });
@@ -67,6 +68,11 @@ export const receiveRouteConfig = (payload, error = false) => ({
   type: RECEIVE_ROUTE_CONFIG,
   payload,
   error,
+});
+
+export const addPrediction = payload => ({
+  type: ADD_PREDICTION,
+  payload,
 });
 
 export const addRouteList = payload => ({

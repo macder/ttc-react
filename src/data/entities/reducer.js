@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux-immutable';
 import { List, Map } from 'immutable';
 import {
-  ADD_ROUTE_LIST, ADD_DIRECTION, ADD_STOP,
+  ADD_ROUTE_LIST, ADD_DIRECTION, ADD_STOP, ADD_PREDICTION,
   REQUEST_ROUTE_LIST, RECEIVE_ROUTE_LIST,
   REQUEST_ROUTE_CONFIG, RECEIVE_ROUTE_CONFIG,
+  REQUEST_PREDICTION, RECEIVE_PREDICTION
 } from './actions';
 
 /**

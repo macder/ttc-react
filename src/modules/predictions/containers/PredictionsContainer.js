@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { connect } from 'react-redux';
 import { compose, lifecycle } from 'recompose';
 import { Predictions } from '../components';
-import { requestPredictions } from '../../../data/entities/actions';
+import { requestPrediction } from '../../../data/entities/actions';
 
 const mapStateToProps = (state, ownProps) => ({
 
@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
   action: {
-    requestPredictions: () => dispatch(requestPredictions()),
+    requestPrediction: () => dispatch(requestPrediction()),
   },
 });
 
@@ -23,7 +23,7 @@ const PredictionsContainer = compose(
   lifecycle({
     componentDidMount() {
       const { action } = this.props;
-      action.requestPredictions();
+      action.requestPrediction();
     },
   }),
 )(Predictions);

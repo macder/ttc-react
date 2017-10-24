@@ -4,9 +4,9 @@ import { all, call, put, takeEvery } from 'redux-saga/effects';
 import { mapEntitiesFromConfig, mapRouteEntity } from './models';
 import httpGet from '../../services/httpRequest';
 import {
-  REQUEST_ROUTE_LIST, REQUEST_ROUTE_CONFIG, REQUEST_PREDICTIONS,
-  receiveRouteList, receiveRouteConfig,
-  addDirection, addRouteList, addStop,
+  REQUEST_ROUTE_LIST, REQUEST_ROUTE_CONFIG, REQUEST_PREDICTION,
+  receiveRouteList, receiveRouteConfig, receivePrediction,
+  addDirection, addRouteList, addStop, addPrediction,
 } from './actions';
 
 /**
@@ -54,7 +54,7 @@ function* loadPredictions(payload, meta, error = false) {
  *
  */
 function* requestPredictions() {
-  yield takeEvery(REQUEST_PREDICTIONS, fetch, loadPredictions);
+  yield takeEvery(REQUEST_PREDICTION, fetch, loadPredictions);
 }
 
 /**
