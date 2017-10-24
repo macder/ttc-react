@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import { compose, lifecycle, withHandlers, withPropsOnChange } from 'recompose';
+import { compose, lifecycle, onlyUpdateForKeys, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
-import { getLoadedConfigRouteIds, getRouteListForDropdown, isRouteListFetching } from '../selectors';
+import { getRouteListForDropdown, isRouteListFetching } from '../selectors';
 import { selectRoute } from '../actions';
 import { requestRouteList } from '../../../data/entities/actions';
 
@@ -18,18 +18,29 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...dispatchProps,
+  ...stateProps,
+  historyReplace: ownProps.history.replace,
+  placeholder: ownProps.placeholder,
+  defaultValue: ownProps.match.params.route,
+});
+
 const RouteFieldContainer = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    // mergeProps,
+    mergeProps,
   ),
   lifecycle({
     componentDidMount() {
-      const { action } = this.props
-      action.requestRouteList()
-    },
+      const { action, defaultValue } = this.props
+      action.requestRouteList();
+      (defaultValue) &&
+        action.selectRoute(defaultValue);
+    }
   }),
+  onlyUpdateForKeys(['data', 'fetching']),
   withSpinnerWhileLoading,
   hideIfNoData,
   withPropsOnChange(
@@ -42,7 +53,7 @@ const RouteFieldContainer = compose(
     onChange: props => (e, data) => {
       const { action } = props
       action.selectRoute(data.value);
-      //props.historyReplace(`/${data.value}`);
+      props.historyReplace(`/${data.value}`);
     },
   }),
 )(DropdownField);
