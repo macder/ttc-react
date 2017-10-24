@@ -7,7 +7,7 @@ import {
 } from './actions';
 
 /**
- *
+ * General reducer for actions that request data
  * @param {Immutable.Map} state
  * @param {Object} state
  * @return {Immutable.Map}
