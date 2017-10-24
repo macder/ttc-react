@@ -51,9 +51,9 @@ const RouteFieldContainer = compose(
   ),
   withHandlers({
     onChange: props => (e, data) => {
-      const { action } = props
+      const { action, historyReplace } = props
       action.selectRoute(data.value);
-      props.historyReplace(`/${data.value}`);
+      historyReplace(`/${data.value}`);
     },
   }),
 )(DropdownField);
