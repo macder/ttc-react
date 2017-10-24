@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { compose, lifecycle, withHandlers, withPropsOnChange } from 'recompose';
+import { compose, lifecycle, onlyUpdateForKeys, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getDirectionListForDropdown, isDirectionListFetching, selectedRoute } from '../selectors';
@@ -20,22 +20,33 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-
+  ...dispatchProps,
+  ...stateProps,
+  historyReplace: ownProps.history.replace,
+  urlParams: ownProps.match.params,
+  placeholder: ownProps.placeholder,
+  defaultValue: ownProps.match.params.direction,
 });
 
 const DirectionFieldContainer = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    // mergeProps,
+    mergeProps,
   ),
   lifecycle({
+    componentDidMount() {
+      const { action, defaultValue } = this.props;
+      (defaultValue) &&
+        action.selectDirection(defaultValue);
+    },
     componentWillReceiveProps(nextProps) {
       const { action, selectedRoute, data, fetching } = nextProps;
       (selectedRoute && !data  && !fetching) &&
         action.requestRouteConfig(selectedRoute)
     },
   }),
+  onlyUpdateForKeys(['data', 'fetching']),
   withSpinnerWhileLoading,
   hideIfNoData,
   withPropsOnChange(
@@ -46,9 +57,9 @@ const DirectionFieldContainer = compose(
   ),
   withHandlers({
     onChange: props => (e, data) => {
-      const { action } = props
+      const { action, historyReplace } = props
       action.selectDirection(data.value);
-      // props.historyReplace(`/${props.urlParams.route}/${data.value}`);
+      historyReplace(`/${props.urlParams.route}/${data.value}`);
     },
   }),
 )(DropdownField);
