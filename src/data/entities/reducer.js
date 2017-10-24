@@ -16,6 +16,18 @@ const requestFetch = (state, action) => state
   .set('isFetching', action.payload.fetching)
   .set('error', action.payload.error);
 
+/**
+ * General reducer for resolved fetch
+ * @param {Immutable.Map} state
+ * @param {Object} state
+ * @return {Immutable.Map}
+ */
+const receiveFetch = (state, action) => ((!action.error)
+  ? state
+  : state
+    .set('isFetching', false)
+    .set('error', action.payload));
+
 
 const initialState = new Map({
   allIds: new List(),
@@ -26,19 +38,17 @@ const initialState = new Map({
 
 const routeEntityReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case REQUEST_ROUTE_LIST: return requestFetch(state, action);
+    case REQUEST_ROUTE_LIST:
+      return requestFetch(state, action);
 
     case RECEIVE_ROUTE_LIST:
-      return (!action.error)
-        ? state.set('isFetching', action.payload.fetching)
-        : state
-          .set('isFetching', false)
-          .set('error', action.payload);
+      return receiveFetch(state, action);
 
     case ADD_ROUTE_LIST:
       return state
         .set('byId', action.payload.get('byId'))
-        .set('allIds', action.payload.get('allIds'));
+        .set('allIds', action.payload.get('allIds'))
+        .set('isFetching', false);
 
     case ADD_DIRECTION:
       return state
@@ -51,14 +61,11 @@ const routeEntityReducer = (state = initialState, action = {}) => {
 
 const directionEntityReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case REQUEST_ROUTE_CONFIG: return requestFetch(state, action);
+    case REQUEST_ROUTE_CONFIG:
+      return requestFetch(state, action);
 
     case RECEIVE_ROUTE_CONFIG:
-      return (!action.error)
-        ? state
-        : state
-          .set('isFetching', false)
-          .set('error', action.payload);
+      return receiveFetch(state, action);
 
     case ADD_DIRECTION:
       return state
@@ -72,14 +79,11 @@ const directionEntityReducer = (state = initialState, action = {}) => {
 
 const stopEntityReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case REQUEST_ROUTE_CONFIG: return requestFetch(state, action);
+    case REQUEST_ROUTE_CONFIG:
+      return requestFetch(state, action);
 
     case RECEIVE_ROUTE_CONFIG:
-      return (!action.error)
-        ? state
-        : state
-          .set('isFetching', false)
-          .set('error', action.payload);
+      return receiveFetch(state, action);
 
     case ADD_STOP:
       return state.mergeIn(['byId'], action.payload.get('byId'));
