@@ -139,12 +139,12 @@ export const mapPredictions = (data) => {
         data.predictions.direction.map(
           item => ((!Array.isArray(item.prediction))
             ? [item.prediction] // single prediction
-            : item.prediction), // multi predictions
-        ).reduce((a, b) => a.concat(b)),
+            : item.prediction // multi predictions
+          )).reduce((a, b) => a.concat(b))
       );
     } // single direction
     return mapPredictionEntity(
-      data.predictions.direction.prediction,
+      data.predictions.direction.prediction
     );
   }
   return null; // no predictions
