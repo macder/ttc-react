@@ -6,6 +6,17 @@ import {
   REQUEST_ROUTE_CONFIG, RECEIVE_ROUTE_CONFIG,
 } from './actions';
 
+/**
+ *
+ * @param {Immutable.Map} state
+ * @param {Object} state
+ * @return {Immutable.Map}
+ */
+const requestFetch = (state, action) => state
+  .set('isFetching', action.payload.fetching)
+  .set('error', action.payload.error);
+
+
 const initialState = new Map({
   allIds: new List(),
   byId: new Map(),
@@ -15,10 +26,7 @@ const initialState = new Map({
 
 const routeEntityReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case REQUEST_ROUTE_LIST:
-      return state
-        .set('isFetching', action.payload.fetching)
-        .set('error', action.payload.error);
+    case REQUEST_ROUTE_LIST: return requestFetch(state, action);
 
     case RECEIVE_ROUTE_LIST:
       return (!action.error)
@@ -43,10 +51,7 @@ const routeEntityReducer = (state = initialState, action = {}) => {
 
 const directionEntityReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case REQUEST_ROUTE_CONFIG:
-      return state
-        .set('isFetching', action.payload.fetching)
-        .set('error', action.payload.error);
+    case REQUEST_ROUTE_CONFIG: return requestFetch(state, action);
 
     case RECEIVE_ROUTE_CONFIG:
       return (!action.error)
@@ -67,10 +72,7 @@ const directionEntityReducer = (state = initialState, action = {}) => {
 
 const stopEntityReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case REQUEST_ROUTE_CONFIG:
-      return state
-        .set('isFetching', action.payload.fetching)
-        .set('error', action.payload.error);
+    case REQUEST_ROUTE_CONFIG: return requestFetch(state, action);
 
     case RECEIVE_ROUTE_CONFIG:
       return (!action.error)
