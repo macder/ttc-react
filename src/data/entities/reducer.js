@@ -3,15 +3,15 @@ import { List, Map } from 'immutable';
 import {
   ADD_ROUTE_LIST, ADD_DIRECTION, ADD_STOP,
   REQUEST_ROUTE_LIST, RECEIVE_ROUTE_LIST,
-  REQUEST_ROUTE_CONFIG, RECEIVE_ROUTE_CONFIG
-} from './actions'
+  REQUEST_ROUTE_CONFIG, RECEIVE_ROUTE_CONFIG,
+} from './actions';
 
 const initialState = new Map({
   allIds: new List(),
   byId: new Map(),
   isFetching: false,
   error: false,
-})
+});
 
 const routeEntityReducer = (state = initialState, action = {}) => {
   switch (action.type) {
@@ -34,7 +34,7 @@ const routeEntityReducer = (state = initialState, action = {}) => {
 
     case ADD_DIRECTION:
       return state
-      .setIn(['byId', action.payload.routeId, 'direction'], action.payload.data.get('allIds'));
+        .setIn(['byId', action.payload.routeId, 'direction'], action.payload.data.get('allIds'));
 
     default:
       return state;
@@ -43,7 +43,6 @@ const routeEntityReducer = (state = initialState, action = {}) => {
 
 const directionEntityReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-
     case REQUEST_ROUTE_CONFIG:
       return state
         .set('isFetching', action.payload.fetching)
@@ -64,11 +63,10 @@ const directionEntityReducer = (state = initialState, action = {}) => {
     default:
       return state;
   }
-}
+};
 
 const stopEntityReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-
     case REQUEST_ROUTE_CONFIG:
       return state
         .set('isFetching', action.payload.fetching)
@@ -87,7 +85,7 @@ const stopEntityReducer = (state = initialState, action = {}) => {
     default:
       return state;
   }
-}
+};
 
 const entityReducer = combineReducers({
   route: routeEntityReducer,
@@ -96,5 +94,4 @@ const entityReducer = combineReducers({
 });
 
 
-
-export default entityReducer
+export default entityReducer;

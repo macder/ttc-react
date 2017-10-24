@@ -7,7 +7,7 @@ import {
   REQUEST_ROUTE_LIST, REQUEST_ROUTE_CONFIG,
   receiveRouteList, receiveRouteConfig,
   addDirection, addRouteList, addStop,
-} from './actions'
+} from './actions';
 
 /**
  * Worker Saga: will be fired on
@@ -26,22 +26,20 @@ function* fetch(callback, action) {
 
 function* loadRouteList(payload, meta, error = false) {
   if (!error) {
-    yield put(receiveRouteList({fetching: false}));
+    yield put(receiveRouteList({ fetching: false }));
     yield put(addRouteList(mapRouteEntity(payload)));
-  }
-  else {
+  } else {
     yield put(receiveRouteList(payload, true));
   }
 }
 
 function* loadRouteConfig(payload, meta, error = false) {
   if (!error) {
-    yield put(receiveRouteConfig({fetching: false}));
+    yield put(receiveRouteConfig({ fetching: false }));
     const data = mapEntitiesFromConfig(payload);
     yield put(addDirection(data.get('direction'), meta.routeId));
     yield put(addStop(data.get('stop')));
-  }
-  else {
+  } else {
 
   }
 }

@@ -8,12 +8,12 @@ export const ADD_TODO = 'search/ADD_TODO';
 
 // TEMP
 const makeActionCreator = (type, ...argNames) => (...args) => {
-  let action = { type, payload: {} }
+  const action = { type, payload: {} };
   argNames.forEach((arg, index) =>
-    action.payload[argNames[index]] = args[index]
-  )
-  return action
-}
+    action.payload[argNames[index]] = args[index],
+  );
+  return action;
+};
 
 export const selectRoute = makeActionCreator(SELECT_ROUTE, 'selected', 'test');
 export const selectDirection = makeActionCreator(SELECT_DIRECTION, 'selected');

@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   action: {
     selectStop: stop => dispatch(selectStop(stop)),
-  }
+  },
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -23,7 +23,7 @@ const StopFieldContainer = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    //mergeProps,
+    // mergeProps,
   ),
   hideIfNoData,
   withPropsOnChange(
@@ -34,7 +34,7 @@ const StopFieldContainer = compose(
   ),
   withHandlers({
     onChange: props => (e, data) => {
-      const { action } = props
+      const { action } = props;
       action.selectStop(data.value);
       // props.historyReplace(`/${props.urlParams.route}/${props.urlParams.direction}/${data.value}`);
     },

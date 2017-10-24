@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { SELECT_ROUTE, SELECT_DIRECTION, SELECT_STOP } from './actions'
+import { SELECT_ROUTE, SELECT_DIRECTION, SELECT_STOP } from './actions';
 
 const initialState = new Map({
   selectedRoute: null,

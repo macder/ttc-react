@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
   action: {
     selectDirection: direction => dispatch(selectDirection(direction)),
     requestRouteConfig: route => dispatch(requestRouteConfig(route)),
-  }
+  },
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -37,8 +37,8 @@ const DirectionFieldContainer = compose(
   lifecycle({
     componentWillReceiveProps(nextProps) {
       const { action, selectedRoute, data, fetching } = nextProps;
-      (selectedRoute && !data  && !fetching) &&
-        action.requestRouteConfig(selectedRoute)
+      (selectedRoute && !data && !fetching) &&
+        action.requestRouteConfig(selectedRoute);
     },
   }),
   onlyUpdateForKeys(['data', 'fetching']),
@@ -52,7 +52,7 @@ const DirectionFieldContainer = compose(
   ),
   withHandlers({
     onChange: props => (e, data) => {
-      const { action, historyReplace } = props
+      const { action, historyReplace } = props;
       action.selectDirection(data.value);
       // historyReplace(`/${props.urlParams.route}/${data.value}`);
     },

@@ -23,44 +23,44 @@ const makeDropdownSet = data => new OrderedSet(
       key: item.get('id'),
       value: item.get('id'),
       text: item.get('title'),
-    })
-  )
+    }),
+  ),
 );
 
 export const selectedRoute = createSelector(
   [searchState],
-  search => search.get('selectedRoute')
+  search => search.get('selectedRoute'),
 );
 
 const selectedDirection = createSelector(
   [searchState],
-  search => search.get('selectedDirection')
+  search => search.get('selectedDirection'),
 );
 
 export const isRouteListFetching = createSelector(
   [routeEntity],
-  route => route.get('isFetching')
+  route => route.get('isFetching'),
 );
 
 export const isDirectionListFetching = createSelector(
   [directionEntity],
-  direction => direction.get('isFetching')
+  direction => direction.get('isFetching'),
 );
 
 export const getRouteList = createSelector(
   [routeEntity],
   route => (route.get('allIds')) &&
-    route.get('allIds').map(id => route.getIn(['byId', id]))
+    route.get('allIds').map(id => route.getIn(['byId', id])),
 );
 
 export const getLoadedConfigRouteIds = createSelector(
   [getRouteList],
-  list => list.filter(item => item.direction.size).map(item => item.id)
-)
+  list => list.filter(item => item.direction.size).map(item => item.id),
+);
 
 export const getRouteListForDropdown = createSelector(
   [getRouteList],
-  list => (list) && makeDropdownSet(list)
+  list => (list) && makeDropdownSet(list),
 );
 
 export const getDirectionListForDropdown = createSelector(
@@ -74,8 +74,8 @@ export const getDirectionListForDropdown = createSelector(
   ) &&
     makeDropdownSet(
       routeList.getIn(['byId', routeId, 'direction'])
-        .map(id => direction.getIn(['byId', id]))
-    )
+        .map(id => direction.getIn(['byId', id])),
+    ),
 );
 
 export const getStopListForDropdown = createSelector(
@@ -86,6 +86,6 @@ export const getStopListForDropdown = createSelector(
     (directionId && directionList.getIn(['byId', directionId, 'stop'])) &&
       makeDropdownSet(
         directionList.getIn(['byId', directionId, 'stop'])
-          .map(id => stop.getIn(['byId', id]))
-      )
+          .map(id => stop.getIn(['byId', id])),
+      ),
 );

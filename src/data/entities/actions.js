@@ -17,8 +17,8 @@ export const requestRouteList = () => ({
     error: false,
   },
   meta: {
-    url: 'http://webservices.nextbus.com/service/publicJSONFeed?command=routeList&a=ttc'
-  }
+    url: 'http://webservices.nextbus.com/service/publicJSONFeed?command=routeList&a=ttc',
+  },
 });
 
 export const requestRouteConfig = routeId => ({
@@ -29,7 +29,7 @@ export const requestRouteConfig = routeId => ({
   },
   meta: {
     routeId,
-    url: `http://webservices.nextbus.com/service/publicJSONFeed?command=routeConfig&a=ttc&r=${routeId}&terse`
+    url: `http://webservices.nextbus.com/service/publicJSONFeed?command=routeConfig&a=ttc&r=${routeId}&terse`,
   },
 });
 
@@ -45,7 +45,7 @@ export const receiveRouteConfig = (payload, error = false) => ({
   error,
 });
 
-export const addRouteList = (payload) => ({
+export const addRouteList = payload => ({
   type: ADD_ROUTE_LIST,
   payload,
 });
@@ -55,17 +55,17 @@ export const addDirection = (data, routeId) => ({
   payload: {
     data,
     routeId,
-  }
+  },
 });
 
-export const addStop = (payload) => ({
+export const addStop = payload => ({
   type: ADD_STOP,
   payload,
 });
 
-/*console.log('requestRouteList is FSA', isFSA(requestRouteList()));
+/* console.log('requestRouteList is FSA', isFSA(requestRouteList()));
 console.log('requestRouteConfig is FSA', isFSA(requestRouteConfig()));
 console.log('receiveRouteList is FSA', isFSA(receiveRouteList()));
 console.log('receiveRouteConfig is FSA', isFSA(receiveRouteConfig()));
 console.log('addRouteList is FSA', isFSA(addRouteList()));
-console.log('addDirection is FSA', isFSA(addDirection()));*/
+console.log('addDirection is FSA', isFSA(addDirection())); */

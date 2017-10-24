@@ -15,7 +15,7 @@ const mapDispatchToProps = dispatch => ({
   action: {
     requestRouteList: () => dispatch(requestRouteList()),
     selectRoute: route => dispatch(selectRoute(route)),
-  }
+  },
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -34,11 +34,11 @@ const RouteFieldContainer = compose(
   ),
   lifecycle({
     componentDidMount() {
-      const { action, defaultValue } = this.props
+      const { action, defaultValue } = this.props;
       action.requestRouteList();
       // (defaultValue) &&
-        // action.selectRoute(defaultValue);
-    }
+      // action.selectRoute(defaultValue);
+    },
   }),
   onlyUpdateForKeys(['data', 'fetching']),
   withSpinnerWhileLoading,
@@ -51,7 +51,7 @@ const RouteFieldContainer = compose(
   ),
   withHandlers({
     onChange: props => (e, data) => {
-      const { action, historyReplace } = props
+      const { action, historyReplace } = props;
       action.selectRoute(data.value);
       // historyReplace(`/${data.value}`);
     },
