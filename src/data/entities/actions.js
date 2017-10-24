@@ -13,18 +13,18 @@ export const RECEIVE_ROUTE_CONFIG = 'RECEIVE_ROUTE_CONFIG';
 
 // FSA compliant - https://github.com/acdlite/flux-standard-action
 
-export const requestPrediction = () => ({
+export const requestPrediction = (routeId, stopId) => ({
   type: REQUEST_PREDICTION,
   payload: {
     fetching: true,
     error: false,
   },
   meta: {
-    // url: `http://webservices.nextbus.com/service/publicJSONFeed?command=predictions&a=ttc&r=${routeId}&s=${stopId}`,
+    url: `http://webservices.nextbus.com/service/publicJSONFeed?command=predictions&a=ttc&r=${routeId}&s=${stopId}`,
     // url: '/data/prediction_2dirs_multi.json',
     // url: '/data/prediction_1dir_single.json',
     // url: '/data/prediction_2dirs_1multi_1single.json',
-    url: '/data/prediction_1dir_multi.json',
+    // url: '/data/prediction_1dir_multi.json',
     // url: '/data/prediction_nonr.json',
   },
 });
