@@ -1,0 +1,1 @@
+export { PredictionsContainer } from './containers';
