@@ -147,4 +147,5 @@ export const mapPredictions = (data) => {
       data.predictions.direction.prediction,
     );
   }
+  return null;
 };
