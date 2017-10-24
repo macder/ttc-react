@@ -4,7 +4,7 @@ import { all, call, put, takeEvery } from 'redux-saga/effects';
 import { mapEntitiesFromConfig, mapRouteEntity } from './models';
 import httpGet from '../../services/httpRequest';
 import {
-  REQUEST_ROUTE_LIST, REQUEST_ROUTE_CONFIG,
+  REQUEST_ROUTE_LIST, REQUEST_ROUTE_CONFIG, REQUEST_PREDICTIONS,
   receiveRouteList, receiveRouteConfig,
   addDirection, addRouteList, addStop,
 } from './actions';
@@ -44,6 +44,19 @@ function* loadRouteConfig(payload, meta, error = false) {
   }
 }
 
+function* loadPredictions(payload, meta, error = false) {
+  console.dir(payload);
+}
+
+/**
+ * Starts fetch on each dispatched `REQUEST_PREDICTIONS` action.
+ * Allows concurrent fetches.
+ *
+ */
+function* requestPredictions() {
+  yield takeEvery(REQUEST_PREDICTIONS, fetch, loadPredictions);
+}
+
 /**
  * Starts fetch on each dispatched `REQUEST_ROUTE_LIST` action.
  * Allows concurrent fetches.
@@ -64,6 +77,7 @@ function* requestRouteConfig() {
 
 export default function* rootSaga() {
   yield all([
+    requestPredictions(),
     requestRouteList(),
     requestRouteConfig(),
   ]);
