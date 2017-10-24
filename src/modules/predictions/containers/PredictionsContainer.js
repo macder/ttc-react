@@ -6,9 +6,6 @@ import { getPredictionForList, getSelectedRoute, getSelectedStop, isPredictionFe
 import { requestPrediction } from '../../../data/entities/actions';
 import { withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
 
-const shouldFetchData = props =>
-  (props.route && props.stop && !props.data && !props.fetching && !props.error);
-
 const mapStateToProps = (state, ownProps) => ({
   data: getPredictionForList(state),
   fetching: isPredictionFetching(state),
