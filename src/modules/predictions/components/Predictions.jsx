@@ -1,9 +1,15 @@
 import React from 'react';
+import List from '../../core/components/List';
 
-const Predictions = () => {
+const Predictions = (props) => {
+  console.dir(props)
   return (
     <div className="c-predictions">
-      <p>Predictions</p>
+      <List
+        items={props.data}
+        listClass='c-predictions__list'
+        isSelect
+      />
     </div>
   );
 }
