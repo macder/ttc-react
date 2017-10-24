@@ -40,7 +40,7 @@ function* loadRouteConfig(payload, meta, error = false) {
     yield put(addDirection(data.get('direction'), meta.routeId));
     yield put(addStop(data.get('stop')));
   } else {
-
+    yield put(receiveRouteConfig(payload, true));
   }
 }
 
