@@ -1,4 +1,4 @@
-import { isFSA } from 'flux-standard-action';
+// import { isFSA } from 'flux-standard-action';
 
 export const ADD_PREDICTION = 'ADD_PREDICTION';
 export const ADD_ROUTE_LIST = 'ADD_ROUTE_LIST';
