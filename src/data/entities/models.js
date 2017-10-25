@@ -132,13 +132,13 @@ const mapPredictionEntity = prediction => mapEntity(
  * @param {array} data
  * @return {array}
  */
-const combineMultiDirPredictions = data => {
-  return data.map(
-    item => ((!Array.isArray(item.prediction))
-      ? [item.prediction] // single prediction
-      : item.prediction // multi predictions
-    )).reduce((a, b) => a.concat(b))
-}
+const combineMultiDirPredictions = data => data.map(
+  item => ((!Array.isArray(item.prediction))
+    ? [item.prediction] // single prediction
+    : item.prediction // multi predictions
+  )
+).reduce((a, b) => a.concat(b));
+
 
 /**
  * Called immediately after successful API predictions fetch
