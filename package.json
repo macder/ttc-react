@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/macder/ttc-react#readme",
   "dependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.17.0",
     "babel-polyfill": "^6.26.0",
     "flux-standard-action": "^1.2.0",
     "immutable": "^4.0.0-rc.9",
@@ -30,10 +30,10 @@
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.2.2",
     "react-tap-event-plugin": "^2.0.1",
-    "recompose": "^0.25.1",
+    "recompose": "^0.26.0",
     "redux": "^3.7.2",
     "redux-immutable": "^4.0.0",
-    "redux-saga": "^0.15.6",
+    "redux-saga": "^0.16.0",
     "reselect": "^3.0.1",
     "semantic-ui-react": "^0.75.1"
   },
