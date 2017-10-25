@@ -173,7 +173,7 @@ const mapMultiDirPredictions = predictions => {
 /**
  * Called immediately after successful API predictions fetch
  * @param {array} data Response payload from remote API
- * @return {Immutable.Map}
+ * @return {Immutable.Map || null}
  */
 export const mapPredictions = (data) => {
   if (data.predictions.direction) {
