@@ -14,5 +14,4 @@ const Predictions = (props) => (
   </Segment>
 );
 
-
 export default (Predictions);
