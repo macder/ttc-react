@@ -6,7 +6,7 @@ const routeEntity = state => state.getIn(['entities', 'route']);
 const directionEntity = state => state.getIn(['entities', 'direction']);
 const stopEntity = state => state.getIn(['entities', 'stop']);
 
-const dropdownRecord = new Record({
+const DropdownRecord = new Record({
   key: '',
   value: '',
   text: '',
@@ -19,7 +19,7 @@ const dropdownRecord = new Record({
  */
 const makeDropdownSet = data => new OrderedSet(
   data.map(item =>
-    new dropdownRecord({
+    new DropdownRecord({
       key: item.get('id'),
       value: item.get('id'),
       text: item.get('title'),
