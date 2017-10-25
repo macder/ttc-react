@@ -1,4 +1,4 @@
-import 'regenerator-runtime/runtime';
+// import 'regenerator-runtime/runtime';
 
 import { all, call, put, takeEvery } from 'redux-saga/effects';
 import { mapEntitiesFromConfig, mapPredictions, mapRouteEntity } from './models';
