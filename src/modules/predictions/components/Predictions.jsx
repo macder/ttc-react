@@ -2,11 +2,11 @@ import React from 'react';
 import { Segment } from 'semantic-ui-react'
 import List from '../../core/components/List';
 
-const Predictions = (props) => (
+const Predictions = ({ data }) => (
   <Segment>
     <div className="c-predictions">
       <List
-        items={props.data}
+        items={data}
         listClass='c-predictions__list'
         isSelect
       />
