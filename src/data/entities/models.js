@@ -150,9 +150,12 @@ export const mapPredictions = (data) => {
       const predictions = mapPredictionEntity(
         combineMultiDirPredictions(data.predictions.direction)
       );
-      return predictions.set(
-        'dirIds',
-        predictions.get('byId').map(item => item.dirId).toSet()
+
+      return predictions.set('byDirIds',
+        predictions.get('byId')
+          .map(item => item.dirId)
+          .groupBy(item => item)
+          .map(item => item.map((x, k) => k).toList())
       );
     } // single direction
     return mapPredictionEntity(
