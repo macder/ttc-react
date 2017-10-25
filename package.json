@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/macder/ttc-react#readme",
   "dependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.17.0",
     "babel-polyfill": "^6.26.0",
     "flux-standard-action": "^1.2.0",
     "immutable": "^4.0.0-rc.9",
