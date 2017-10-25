@@ -46,9 +46,6 @@ const PredictionsContainer = compose(
       data: data.toArray().map(item => item.toObject())
     })
   ),
-  mapProps(
-    ({ data }) => ({ data })
-  ),
 )(Predictions);
 
 export default (PredictionsContainer);
