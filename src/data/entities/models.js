@@ -135,12 +135,16 @@ const mapPredictionEntity = prediction => mapEntity(
 export const mapPredictions = (data) => {
   if (data.predictions.direction) {
     if (Array.isArray(data.predictions.direction)) { // multi directions
-      return mapPredictionEntity(
+      const predictions = mapPredictionEntity(
         data.predictions.direction.map(
           item => ((!Array.isArray(item.prediction))
             ? [item.prediction] // single prediction
             : item.prediction // multi predictions
           )).reduce((a, b) => a.concat(b))
+      );
+      return predictions.set(
+        'dirIds',
+        predictions.get('byId').map(item => item.dirId).toSet()
       );
     } // single direction
     return mapPredictionEntity(
