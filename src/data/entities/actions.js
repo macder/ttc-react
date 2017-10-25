@@ -49,7 +49,7 @@ export const requestRouteConfig = routeId => ({
   },
   meta: {
     routeId,
-    url: `http://webservices.nextbus.com/service/publicJSONFeed?command=routeConfig&a=ttc&r=${routeId}&terse`,
+    url: `http://webservices.nextbus.com/service/publicJSONFeed?command=routeConfig&a=ttc&r=${routeId}&terse&verbose`,
   },
 });
 

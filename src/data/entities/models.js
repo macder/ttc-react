@@ -18,6 +18,7 @@ export const DirectionRecord = Record({
   routeId: '',
   title: '',
   name: '',
+  useForUI: '',
   stop: new List(),
 });
 
@@ -80,6 +81,7 @@ const createDirectionRecord = item => new DirectionRecord({
   title: item.get('title'),
   routeId: item.get('branch'),
   name: item.get('name'),
+  useForUI: !!(item.get('useForUI') === 'true') && true,
   stop: new List(item.get('stop').map(stop => stop.get('tag'))),
 });
 

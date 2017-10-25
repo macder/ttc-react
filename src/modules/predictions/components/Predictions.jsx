@@ -1,9 +1,9 @@
 import React from 'react';
+import { Segment } from 'semantic-ui-react'
 import List from '../../core/components/List';
 
-const Predictions = (props) => {
-  console.dir(props)
-  return (
+const Predictions = (props) => (
+  <Segment>
     <div className="c-predictions">
       <List
         items={props.data}
@@ -11,7 +11,7 @@ const Predictions = (props) => {
         isSelect
       />
     </div>
-  );
-}
+  </Segment>
+);
 
 export default (Predictions);
