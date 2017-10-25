@@ -1,44 +1,29 @@
 import { connect } from 'react-redux';
-import { compose, withHandlers, withPropsOnChange } from 'recompose';
+import { compose, lifecycle, onlyUpdateForKeys, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
-import { withDataOnInit, hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
-import { getRouteList, getSelectedRoute, isRouteListFetching } from '../selectors';
-import { loadRoutesRequest, loadRouteConfigRequest, selectedRoute } from '../actions';
+import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
+import { getRouteListForDropdown, isRouteListFetching } from '../selectors';
+import { selectRoute } from '../actions';
+import { requestRouteList } from '../../../data/entities/actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  data: getRouteList(state),
+  data: getRouteListForDropdown(state),
   fetching: isRouteListFetching(state),
-  selected: getSelectedRoute(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  requestData: () => dispatch(loadRoutesRequest()),
-  requestRouteConfig: route => dispatch(loadRouteConfigRequest(route)),
-  routeSelected: route => dispatch(selectedRoute(route)),
+  action: {
+    requestRouteList: () => dispatch(requestRouteList()),
+    selectRoute: route => dispatch(selectRoute(route)),
+  },
 });
-
-const valueFromURL = (isInitLoad, value, dispatchProps) => {
-  if (isInitLoad && value) {
-    dispatchProps.routeSelected(value);
-    dispatchProps.requestRouteConfig(value);
-  }
-  return value;
-}
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...dispatchProps,
-  requestData: (!stateProps.data && !stateProps.fetching) && (
-    () => dispatchProps.requestData()
-  ),
-  data: stateProps.data,
+  ...stateProps,
   historyReplace: ownProps.history.replace,
-  defaultValue: valueFromURL(
-    (stateProps.data && !stateProps.selected),
-    ownProps.match.params.route,
-    dispatchProps,
-  ),
   placeholder: ownProps.placeholder,
-  fetching: stateProps.fetching,
+  defaultValue: ownProps.match.params.route,
 });
 
 const RouteFieldContainer = compose(
@@ -47,7 +32,15 @@ const RouteFieldContainer = compose(
     mapDispatchToProps,
     mergeProps,
   ),
-  withDataOnInit,
+  lifecycle({
+    componentDidMount() {
+      const { action, defaultValue } = this.props;
+      action.requestRouteList();
+      // (defaultValue) &&
+      // action.selectRoute(defaultValue);
+    },
+  }),
+  onlyUpdateForKeys(['data', 'fetching']),
   withSpinnerWhileLoading,
   hideIfNoData,
   withPropsOnChange(
@@ -58,9 +51,9 @@ const RouteFieldContainer = compose(
   ),
   withHandlers({
     onChange: props => (e, data) => {
-      props.routeSelected(data.value);
-      props.requestRouteConfig(data.value);
-      props.historyReplace('/'+ data.value);
+      const { action, historyReplace } = props;
+      action.selectRoute(data.value);
+      // historyReplace(`/${data.value}`);
     },
   }),
 )(DropdownField);

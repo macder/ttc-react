@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux-immutable';
-import searchReducer from './modules/search/reducer';
-import predictionsReducer from './modules/predictions/reducer';
+import { searchReducer } from './modules/search';
+// import predictionsReducer from './modules/predictions/reducer';
+
+import { entityReducer } from './data/entities';
 
 export default combineReducers({
-  searchState: searchReducer,
-  predictionState: predictionsReducer,
+  entities: entityReducer,
+  search: searchReducer,
 });
