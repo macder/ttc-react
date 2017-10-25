@@ -152,29 +152,34 @@ const mapPredictionsByDirId = predictionsById =>
     .map(item => item.map((x, k) => k).toList())
 
 /**
+ * Normalize and make immutable multi dir predictions
+ * @param {array} predictions
+ * @return {Immutable.Map}
+ */
+const mapMultiDirPredictions = predictions => {
+  const predictionsMap = mapPredictionEntity(
+    combineMultiDirPredictions(predictions)
+  );
+  const withByDirId = predictionsMap.set(
+    'byDirId',
+    mapPredictionsByDirId(predictionsMap.get('byId'))
+  );
+  return withByDirId.set(
+    'allDirIds',
+    withByDirId.get('byDirId').map((item, id) => id).toList()
+  );
+}
+
+/**
  * Called immediately after successful API predictions fetch
  * @param {array} data Response payload from remote API
  * @return {Immutable.Map}
  */
 export const mapPredictions = (data) => {
   if (data.predictions.direction) {
-    if (Array.isArray(data.predictions.direction)) { // multi directions
-      const predictions = mapPredictionEntity(
-        combineMultiDirPredictions(data.predictions.direction)
-      );
-      const withByDirId = predictions.set(
-        'byDirId',
-        mapPredictionsByDirId(predictions.get('byId'))
-      );
-      return withByDirId.set(
-        'allDirIds',
-        withByDirId.get('byDirId').map(
-          (item, id) => id).toList()
-      );
-    } // single direction
-    return mapPredictionEntity(
-      data.predictions.direction.prediction
-    );
+    return (Array.isArray(data.predictions.direction))
+      ? mapMultiDirPredictions(data.predictions.direction) // multi dir
+      : mapPredictionEntity(data.predictions.direction.prediction); // single dir
   }
   return null; // no predictions
 };
