@@ -114,11 +114,18 @@ const predictionEntityReducer = (state = predictionInitialState, action = {}) =>
 
     case ADD_PREDICTION:
       if (action.payload) {
-        return state
+        const newState = state
           .set('byId', action.payload.get('byId'))
           .set('allIds', action.payload.get('allIds'))
           .set('isFetching', false);
+
+        return (action.payload.has('byDirId'))
+          ? newState
+            .set('byDirId', action.payload.get('byDirId'))
+            .set('allDirIds', action.payload.get('allDirIds'))
+          : newState;
       }
+
       return state
         .set('isFetching', false)
         .set('isEmpty', true);
