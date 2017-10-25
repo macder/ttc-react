@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { compose, lifecycle, withHandlers, withPropsOnChange } from 'recompose';
+import { compose, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData } from '../../core/enhancers';
 import { getStopListForDropdown } from '../selectors';
@@ -15,15 +15,10 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-
-});
-
 const StopFieldContainer = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    // mergeProps,
   ),
   hideIfNoData,
   withPropsOnChange(

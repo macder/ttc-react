@@ -52,5 +52,3 @@ export const getPredictionForList = createSelector(
   [getPrediction],
   prediction => (prediction) && makeListItemSet(prediction)
 );
-
-
