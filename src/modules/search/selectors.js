@@ -74,7 +74,8 @@ export const getDirectionListForDropdown = createSelector(
   ) &&
     makeDropdownSet(
       routeList.getIn(['byId', routeId, 'direction'])
-        .map(id => direction.getIn(['byId', id])),
+        .map(id => direction.getIn(['byId', id]))
+        .filter(item => item.useForUI),
     ),
 );
 
