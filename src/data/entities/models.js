@@ -138,6 +138,17 @@ const combineMultiDirPredictions = data => data.map(
     : item.prediction // multi predictions
   )).reduce((a, b) => a.concat(b));
 
+/**
+ *
+ * @param {Immutable.Map} predictionsById
+ * @return {Immutable.Map}
+ */
+const mapPredictionsByDirId = predictionsById =>
+  predictionsById
+    .map(item => item.dirId)
+    .groupBy(item => item)
+    .map(item => item.map((x, k) => k).toList())
+
 
 /**
  * Called immediately after successful API predictions fetch
@@ -151,11 +162,9 @@ export const mapPredictions = (data) => {
         combineMultiDirPredictions(data.predictions.direction)
       );
 
-      return predictions.set('byDirIds',
-        predictions.get('byId')
-          .map(item => item.dirId)
-          .groupBy(item => item)
-          .map(item => item.map((x, k) => k).toList())
+      return predictions.set(
+        'byDirIds',
+        mapPredictionsByDirId(predictions.get('byId'))
       );
     } // single direction
     return mapPredictionEntity(
