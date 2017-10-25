@@ -149,7 +149,6 @@ const mapPredictionsByDirId = predictionsById =>
     .groupBy(item => item)
     .map(item => item.map((x, k) => k).toList())
 
-
 /**
  * Called immediately after successful API predictions fetch
  * @param {array} data Response payload from remote API
