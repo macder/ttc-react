@@ -22,7 +22,7 @@
     "axios": "^0.16.2",
     "babel-polyfill": "^6.26.0",
     "flux-standard-action": "^1.2.0",
-    "immutable": "^3.8.2",
+    "immutable": "^4.0.0-rc.9",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.2",
