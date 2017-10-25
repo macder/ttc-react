@@ -21,7 +21,8 @@
   "dependencies": {
     "axios": "^0.16.2",
     "babel-polyfill": "^6.26.0",
-    "immutable": "^4.0.0-rc.9",
+    "flux-standard-action": "^1.2.0",
+    "immutable": "^3.8.2",
     "normalizr": "^3.2.4",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
@@ -35,7 +36,7 @@
     "redux-immutable": "^4.0.0",
     "redux-saga": "^0.15.6",
     "reselect": "^3.0.1",
-    "semantic-ui-react": "^0.75.0"
+    "semantic-ui-react": "^0.75.1"
   },
   "devDependencies": {
     "babel-core": "6.25.0",

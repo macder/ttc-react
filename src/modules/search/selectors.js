@@ -1,163 +1,91 @@
 import { Record, OrderedSet } from 'immutable';
 import { createSelector } from 'reselect';
 
-const searchState = state => state.get('searchState');
+const searchState = state => state.get('search');
+const routeEntity = state => state.getIn(['entities', 'route']);
+const directionEntity = state => state.getIn(['entities', 'direction']);
+const stopEntity = state => state.getIn(['entities', 'stop']);
 
-const routeList = createSelector(
-  [searchState],
-  search => search.getIn(['data', 'routeList', 'payload']),
+const DropdownRecord = new Record({
+  key: '',
+  value: '',
+  text: '',
+});
+
+/**
+ * Creates an ordered set of records for a dropdown field
+ * @param {Immutable.List} data
+ * @return {Immutable.OrderedSet}
+ */
+const makeDropdownSet = data => new OrderedSet(
+  data.map(item =>
+    new DropdownRecord({
+      key: item.get('id'),
+      value: item.get('id'),
+      text: item.get('title'),
+    }),
+  ),
 );
 
-const routeConfig = createSelector(
+export const selectedRoute = createSelector(
   [searchState],
-  search => search.getIn(['data', 'routeConfig', 'payload']),
+  search => search.get('selectedRoute'),
 );
 
 const selectedDirection = createSelector(
   [searchState],
-  search => search.getIn(['directionField', 'selected']),
-);
-
-const stopList = createSelector(
-  [routeConfig],
-  config => (config) && config.get('stop'),
-);
-
-export const isRouteFieldVisible = createSelector(
-  [searchState],
-  search => search.getIn(['routeField', 'visible']),
-);
-
-export const isDirectionFieldVisible = createSelector(
-  [searchState],
-  search => search.getIn(['directionField', 'visible']),
-);
-
-export const isStopFieldVisible = createSelector(
-  [searchState],
-  search => search.getIn(['stopField', 'visible']),
+  search => search.get('selectedDirection'),
 );
 
 export const isRouteListFetching = createSelector(
-  [searchState],
-  search => search.getIn(['data', 'routeList', 'fetching']),
+  [routeEntity],
+  route => route.get('isFetching'),
 );
 
-export const isRouteConfigFetching = createSelector(
-  [searchState],
-  search => search.getIn(['data', 'routeConfig', 'fetching']),
+export const isDirectionListFetching = createSelector(
+  [directionEntity],
+  direction => direction.get('isFetching'),
 );
 
-export const isStopFieldFetching = createSelector(
-  selectedDirection,
-  isRouteConfigFetching,
-  (direction, fetching) => {
-    const isDirectionSelected = (direction) && true;
-    return (fetching && isDirectionSelected);
-  },
-);
-
-// Get selected route
-export const getSelectedRoute = createSelector(
-  [searchState],
-  search => search.getIn(['routeField', 'selected']),
-);
-
-export const getSelectedDirection = createSelector(
-  [selectedDirection],
-  direction => direction
-);
-
-export const getSelectedStop = createSelector(
-  [searchState],
-  search => search.getIn(['stopField', 'selected']),
-);
-
-// Get route list array for 'Route' autocomplete field
 export const getRouteList = createSelector(
-  [routeList],
-  (list) => {
-    const routeRecord = new Record({
-      key: '',
-      value: '',
-      text: '',
-    });
-
-    return (list) && new OrderedSet(list.map(item =>
-      new routeRecord({
-        key: item.get('tag'),
-        value: item.get('tag'),
-        text: item.get('title'),
-      }),
-    ));
-  },
+  [routeEntity],
+  route => (route.get('allIds')) &&
+    route.get('allIds').map(id => route.getIn(['byId', id])),
 );
 
-// Get complete route config object
-export const getRouteConfig = createSelector(
-  [routeConfig],
-  config => config,
+export const getLoadedConfigRouteIds = createSelector(
+  [getRouteList],
+  list => list.filter(item => item.direction.size).map(item => item.id),
 );
 
-// Get direction list array for 'Direction' autocomplete field
-export const getDirectionList = createSelector(
-  [routeConfig],
-  (config) => {
-    const directionRecord = new Record({
-      key: '',
-      value: '',
-      text: '',
-    });
-    return (config) && new OrderedSet(config.get('direction').map(item =>
-      new directionRecord({
-        key: item.get('tag'),
-        value: item.get('tag'),
-        text: item.get('title'),
-      }),
-    ));
-  },
+export const getRouteListForDropdown = createSelector(
+  [getRouteList],
+  list => (list) && makeDropdownSet(list),
 );
 
-const getDirectionConfig = createSelector(
-  routeConfig,
+export const getDirectionListForDropdown = createSelector(
+  directionEntity,
+  routeEntity,
+  selectedRoute,
+  (direction, routeList, routeId) => (
+    routeId &&
+    routeList.get('byId').size &&
+    routeList.getIn(['byId', routeId, 'direction']).size
+  ) &&
+    makeDropdownSet(
+      routeList.getIn(['byId', routeId, 'direction'])
+        .map(id => direction.getIn(['byId', id])),
+    ),
+);
+
+export const getStopListForDropdown = createSelector(
+  stopEntity,
+  directionEntity,
   selectedDirection,
-  (config, directionTag) => {
-    if (directionTag) {
-      return config.get('direction').find(row =>
-        (directionTag === row.get('tag')),
-      );
-    }
-    return null;
-  },
-);
-
-// Get stop list for a routes direction
-export const getDirectionStopList = createSelector(
-  getDirectionConfig,
-  stopList,
-  (direction, allStops) => {
-    if (direction) {
-      if (direction.get('stop')) {
-        const stopTags = direction.get('stop');
-        const list = stopTags.map((item) => {
-          const tag = item.get('tag');
-          return allStops
-            .find(row => (tag === row.get('tag')));
-        });
-        const stopRecord = new Record({
-          key: '',
-          value: '',
-          text: '',
-        });
-        return new OrderedSet(list.map(item =>
-          new stopRecord({
-            key: item.get('tag'),
-            value: item.get('tag'),
-            text: item.get('title'),
-          }),
-        ));
-      }
-    }
-    return null;
-  },
+  (stop, directionList, directionId) =>
+    (directionId && directionList.getIn(['byId', directionId, 'stop'])) &&
+      makeDropdownSet(
+        directionList.getIn(['byId', directionId, 'stop'])
+          .map(id => stop.getIn(['byId', id])),
+      ),
 );

@@ -1,65 +1,57 @@
+import React from 'react';
 import { connect } from 'react-redux';
-import { compose, withHandlers, withState } from 'recompose';
-import { withDataOnUpdate, withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
-import { BaseComponent } from '../components';
-import withEmptyPredictions from './withEmptyPredictions';
-import withSinglePrediction from './withSinglePrediction';
-import withSingeRouteMultiPredictions from './withSingeRouteMultiPredictions';
-import withMultiRouteMultiPredictions from './withMultiRouteMultiPredictions';
-import withMultiRouteMixedPredictions from './withMultiRouteMixedPredictions';
-import { getError, getPrediction, getRoute, getStop, isFetching } from '../selectors';
-import { clearPredictions, loadPredictionsRequest } from '../actions';
+import { branch, compose, lifecycle, mapProps, renderComponent, withPropsOnChange } from 'recompose';
+import { Predictions, PredictionsEmpty } from '../components';
+import {
+  getPredictionForList, getSelectedRoute,
+  getSelectedStop, isPredictionFetching,
+  isPredictionEmpty
+} from '../selectors';
+import { clearPrediction, requestPrediction } from '../../../data/entities/actions';
+import { withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
 
-const shouldFetchData = props =>
-  (props.route && props.stop && !props.data && !props.fetching && !props.error);
-
-const shouldClearData = props =>
-  ((!props.route || !props.stop) && (props.data || props.error));
-
-const mapStateToProps = state => ({
-  data: getPrediction(state),
-  route: getRoute(state),
-  stop: getStop(state),
-  fetching: isFetching(state),
-  error: getError(state),
-});
+const mapStateToProps = (state, ownProps) => ({
+  data: getPredictionForList(state),
+  fetching: isPredictionFetching(state),
+  route: getSelectedRoute(state),
+  stop: getSelectedStop(state),
+  empty: isPredictionEmpty(state),
+})
 
 const mapDispatchToProps = dispatch => ({
-  requestFetch: (route, stop) => dispatch(loadPredictionsRequest(route, stop)),
-  clearPredictions: () => dispatch(clearPredictions()),
+  action: {
+    requestPrediction: (route, stop) => dispatch(requestPrediction(route, stop)),
+    clearPrediction: () => dispatch(clearPrediction()),
+  },
 });
 
-const mergeProps = (stateProps, dispatchProps) => ({
-  requestData: (shouldFetchData(stateProps)) && (
-    () => dispatchProps.requestFetch(stateProps.route, stateProps.stop)
-  ),
-  clearData: (shouldClearData(stateProps)) && (
-    () => dispatchProps.clearPredictions()
-  ),
-  data: stateProps.data,
-  fetching: stateProps.fetching,
-});
-
-const enhance = compose(
+const PredictionsContainer = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
   ),
-  withDataOnUpdate,
+  lifecycle({
+    componentWillReceiveProps(nextProps) {
+      const { action, route, stop, data, fetching, empty } = nextProps;
+      (route && stop && !data && !fetching && !empty) &&
+        action.requestPrediction(route, stop);
+
+      (stop !== this.props.stop && (data || empty)) &&
+        action.clearPrediction();
+    },
+  }),
+  branch(
+    ({ empty }) => empty,
+    renderComponent(PredictionsEmpty)
+  ),
   withSpinnerWhileLoading,
   hideIfNoData,
-  withState('selectedPrediction', 'setActive', ''),
-  withHandlers({
-    onItemClick: props => (e,d) => {
-      props.setActive(d.value);
-    }
-  }),
-  withEmptyPredictions,
-  withSinglePrediction,
-  withSingeRouteMultiPredictions,
-  withMultiRouteMultiPredictions,
-  withMultiRouteMixedPredictions,
-);
+  withPropsOnChange(
+    ['data'],
+    ({ data }) => (data) && ({
+      data: data.toArray().map(item => item.toObject())
+    })
+  ),
+)(Predictions);
 
-export default enhance(BaseComponent);
+export default (PredictionsContainer);

@@ -1,95 +1,24 @@
-import * as t from './actionTypes';
+// import { isFSA } from 'flux-standard-action';
 
-/**
- *
- * @return {object}
- */
-export const loadRoutesFailure = e => ({
-  type: t.LOAD_ROUTES_FAILURE,
-  fetching: false,
-  payload: null,
-  error: e.message,
-});
+export const SELECT_ROUTE = 'search/SELECT_ROUTE';
+export const SELECT_DIRECTION = 'search/SELECT_DIRECTION';
+export const SELECT_STOP = 'search/SELECT_STOP';
 
-/**
- *
- * @return {object}
- */
-export const loadRoutesRequest = () => ({
-  type: t.LOAD_ROUTES_REQUEST,
-  fetching: true,
-  url: 'http://webservices.nextbus.com/service/publicJSONFeed?command=routeList&a=ttc',
-});
+export const ADD_TODO = 'search/ADD_TODO';
 
-/**
- *
- * @param {object} payload.
- * @return {object}
- */
-export const loadRoutesSuccess = payload => ({
-  type: t.LOAD_ROUTES_SUCCESS,
-  fetching: false,
-  payload,
-});
+// TEMP
+const makeActionCreator = (type, ...argNames) => (...args) => {
+  const action = { type, payload: {} };
+  argNames.forEach((arg, index) =>
+    action.payload[argNames[index]] = args[index],
+  );
+  return action;
+};
 
-/**
- *
- * @return {object}
- */
-export const loadRouteConfigRequest = routeTag => ({
-  type: t.LOAD_ROUTE_CONFIG_REQUEST,
-  fetching: true,
-  payload: null,
-  url: `http://webservices.nextbus.com/service/publicJSONFeed?command=routeConfig&a=ttc&r=${routeTag}&terse`,
-});
+export const selectRoute = makeActionCreator(SELECT_ROUTE, 'selected', 'test');
+export const selectDirection = makeActionCreator(SELECT_DIRECTION, 'selected');
+export const selectStop = makeActionCreator(SELECT_STOP, 'selected');
 
-/**
- *
- * @return {object}
- */
-export const loadRouteConfigSuccess = payload => ({
-  type: t.LOAD_ROUTE_CONFIG_SUCCESS,
-  fetching: false,
-  payload,
-});
-
-/**
- *
- * @return {object}
- */
-export const loadRouteConfigFailure = e => ({
-  type: t.LOAD_ROUTE_CONFIG_FAILURE,
-  fetching: false,
-  payload: null,
-  error: e.message,
-});
-
-/**
- *
- * @param {object} route.
- * @return {object}
- */
-export const selectedRoute = routeTag => ({
-  type: t.SELECTED_ROUTE,
-  selected: routeTag,
-});
-
-/**
- *
- * @param {object} route.
- * @return {object}
- */
-export const selectedDirection = directionTag => ({
-  type: t.SELECTED_DIRECTION,
-  selected: directionTag,
-});
-
-/**
- *
- * @param {object} route.
- * @return {object}
- */
-export const selectedStop = stop => ({
-  type: t.SELECTED_STOP,
-  selected: stop,
-});
+// console.log('selectRoute is FSA', isFSA(selectRoute()));
+// console.log('selectDirection is FSA', isFSA(selectDirection()));
+// console.log('selectStop is FSA', isFSA(selectStop()));
