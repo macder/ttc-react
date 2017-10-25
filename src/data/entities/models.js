@@ -128,6 +128,19 @@ const mapPredictionEntity = prediction => mapEntity(
 );
 
 /**
+ *
+ * @param {array} data
+ * @return {array}
+ */
+const combineMultiDirPredictions = data => {
+  return data.map(
+    item => ((!Array.isArray(item.prediction))
+      ? [item.prediction] // single prediction
+      : item.prediction // multi predictions
+    )).reduce((a, b) => a.concat(b))
+}
+
+/**
  * Called immediately after successful API predictions fetch
  * @param {array} data Response payload from remote API
  * @return {Immutable.Map}
@@ -136,11 +149,7 @@ export const mapPredictions = (data) => {
   if (data.predictions.direction) {
     if (Array.isArray(data.predictions.direction)) { // multi directions
       const predictions = mapPredictionEntity(
-        data.predictions.direction.map(
-          item => ((!Array.isArray(item.prediction))
-            ? [item.prediction] // single prediction
-            : item.prediction // multi predictions
-          )).reduce((a, b) => a.concat(b))
+        combineMultiDirPredictions(data.predictions.direction)
       );
       return predictions.set(
         'dirIds',
