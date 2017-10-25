@@ -1,8 +1,9 @@
-import { Record, OrderedSet } from 'immutable';
+import { Map, Record, OrderedSet } from 'immutable';
 import { createSelector } from 'reselect';
 
 const searchState = state => state.get('search');
 const predictionEntity = state => state.getIn(['entities', 'prediction']);
+const directionEntity = state => state.getIn(['entities', 'direction']);
 
 const listItemRecord = new Record({
   key: '',
@@ -51,4 +52,21 @@ export const getPrediction = createSelector(
 export const getPredictionForList = createSelector(
   [getPrediction],
   prediction => (prediction) && makeListItemSet(prediction)
+);
+
+export const getPredictionTest = createSelector(
+  predictionEntity,
+  directionEntity,
+  (prediction, direction) => (
+    prediction &&
+    prediction.has('byDirId')
+  ) &&
+    prediction.get('allDirIds').map(item => new Map({
+      title: direction.getIn(['byId', item]).title,
+      prediction: makeListItemSet(
+        prediction.getIn(['byDirId', item]).map(id =>
+          prediction.getIn(['byId', id])
+        )
+      ),
+    }))
 );
