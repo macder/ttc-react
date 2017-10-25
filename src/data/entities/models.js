@@ -160,7 +160,6 @@ export const mapPredictions = (data) => {
       const predictions = mapPredictionEntity(
         combineMultiDirPredictions(data.predictions.direction)
       );
-
       return predictions.set(
         'byDirIds',
         mapPredictionsByDirId(predictions.get('byId'))
