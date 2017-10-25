@@ -96,7 +96,15 @@ const stopEntityReducer = (state = initialState, action = {}) => {
   }
 };
 
-const predictionEntityReducer = (state = initialState, action = {}) => {
+const predictionInitialState = new Map({
+  allIds: new List(),
+  byId: new Map(),
+  isFetching: false,
+  error: false,
+  isEmpty: false,
+});
+
+const predictionEntityReducer = (state = predictionInitialState, action = {}) => {
   switch (action.type) {
     case REQUEST_PREDICTION:
       return requestFetch(state, action);
@@ -111,12 +119,15 @@ const predictionEntityReducer = (state = initialState, action = {}) => {
           .set('allIds', action.payload.get('allIds'))
           .set('isFetching', false);
       }
-      return state.set('isEmpty', true);
+      return state
+        .set('isFetching', false)
+        .set('isEmpty', true);
 
     case CLEAR_PREDICTION:
       return state
         .set('byId', new Map())
-        .set('allIds', new List());
+        .set('allIds', new List())
+        .set('isEmpty', false);
 
     default:
       return state;

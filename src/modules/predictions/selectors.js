@@ -27,6 +27,11 @@ export const isPredictionFetching = createSelector(
   prediction => prediction.get('isFetching'),
 );
 
+export const isPredictionEmpty = createSelector(
+  [predictionEntity],
+  prediction => prediction.get('isEmpty')
+);
+
 export const getSelectedRoute = createSelector(
   [searchState],
   search => search.get('selectedRoute')
