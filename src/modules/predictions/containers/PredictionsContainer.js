@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { compose, lifecycle, withPropsOnChange } from 'recompose';
 import { Predictions } from '../components';
 import { getPredictionForList, getSelectedRoute, getSelectedStop, isPredictionFetching } from '../selectors';
-import { requestPrediction } from '../../../data/entities/actions';
+import { clearPrediction, requestPrediction } from '../../../data/entities/actions';
 import { withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -17,6 +17,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = dispatch => ({
   action: {
     requestPrediction: (route, stop) => dispatch(requestPrediction(route, stop)),
+    clearPrediction: () => dispatch(clearPrediction()),
   },
 });
 
@@ -30,6 +31,9 @@ const PredictionsContainer = compose(
       const { action, route, stop, data, fetching } = nextProps;
       (route && stop && !data && !fetching) &&
         action.requestPrediction(route, stop);
+
+      (stop !== this.props.stop && data) &&
+        action.clearPrediction();
     },
   }),
   withSpinnerWhileLoading,

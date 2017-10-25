@@ -4,7 +4,8 @@ import {
   ADD_ROUTE_LIST, ADD_DIRECTION, ADD_STOP, ADD_PREDICTION,
   REQUEST_ROUTE_LIST, RECEIVE_ROUTE_LIST,
   REQUEST_ROUTE_CONFIG, RECEIVE_ROUTE_CONFIG,
-  REQUEST_PREDICTION, RECEIVE_PREDICTION
+  REQUEST_PREDICTION, RECEIVE_PREDICTION,
+  CLEAR_PREDICTION
 } from './actions';
 
 /**
@@ -111,6 +112,11 @@ const predictionEntityReducer = (state = initialState, action = {}) => {
           .set('isFetching', false);
       }
       return state.set('isEmpty', true);
+
+    case CLEAR_PREDICTION:
+      return state
+        .set('byId', new Map())
+        .set('allIds', new List());
 
     default:
       return state;

@@ -10,6 +10,7 @@ export const REQUEST_ROUTE_CONFIG = 'REQUEST_ROUTE_CONFIG';
 export const RECEIVE_PREDICTION = 'RECEIVE_PREDICTION';
 export const RECEIVE_ROUTE_LIST = 'RECEIVE_ROUTE_LIST';
 export const RECEIVE_ROUTE_CONFIG = 'RECEIVE_ROUTE_CONFIG';
+export const CLEAR_PREDICTION = 'CLEAR_PREDICTION';
 
 // FSA compliant - https://github.com/acdlite/flux-standard-action
 
@@ -91,6 +92,10 @@ export const addDirection = (data, routeId) => ({
 export const addStop = payload => ({
   type: ADD_STOP,
   payload,
+});
+
+export const clearPrediction = () => ({
+  type: CLEAR_PREDICTION,
 });
 
 /* console.log('requestRouteList is FSA', isFSA(requestRouteList()));
