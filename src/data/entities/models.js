@@ -1,19 +1,19 @@
 import { fromJS, List, Map, OrderedSet, Record } from 'immutable';
 
-export const routeRecord = Record({
+export const RouteRecord = Record({
   id: '',
   title: '',
   direction: new List(),
 });
 
-export const stopRecord = Record({
+export const StopRecord = Record({
   id: '',
   title: '',
   lat: '',
   lon: '',
 });
 
-export const directionRecord = Record({
+export const DirectionRecord = Record({
   id: '',
   routeId: '',
   title: '',
@@ -21,7 +21,7 @@ export const directionRecord = Record({
   stop: new List(),
 });
 
-export const predictionRecord = Record({
+export const PredictionRecord = Record({
   id: '',
   dirId: '',
   affectedByLayover: 'false',
@@ -37,7 +37,7 @@ export const predictionRecord = Record({
  * @param {Immutable.Map} item
  * @return {Immutable.Record}
  */
-const createPredictionRecord = item => new predictionRecord({
+const createPredictionRecord = item => new PredictionRecord({
   id: item.get('tripTag'),
   dirId: item.get('dirTag'),
   affectedByLayover: item.get('affectedByLayover'),
@@ -53,7 +53,7 @@ const createPredictionRecord = item => new predictionRecord({
  * @param {Immutable.Map} item
  * @return {Immutable.Record}
  */
-const createRouteRecord = item => new routeRecord({
+const createRouteRecord = item => new RouteRecord({
   id: item.get('tag'),
   title: item.get('title'),
 });
@@ -63,7 +63,7 @@ const createRouteRecord = item => new routeRecord({
  * @param {Immutable.Map} item
  * @return {Immutable.Record}
  */
-const createStopRecord = item => new stopRecord({
+const createStopRecord = item => new StopRecord({
   id: item.get('tag'),
   title: item.get('title'),
   lat: item.get('lat'),
@@ -75,12 +75,12 @@ const createStopRecord = item => new stopRecord({
  * @param {Immutable.Map} item
  * @return {Immutable.Record}
  */
-const createDirectionRecord = item => new directionRecord({
+const createDirectionRecord = item => new DirectionRecord({
   id: item.get('tag'),
   title: item.get('title'),
   routeId: item.get('branch'),
   name: item.get('name'),
-  stop: new List(item.get('stop').map(item => item.get('tag'))),
+  stop: new List(item.get('stop').map(stop => stop.get('tag'))),
 });
 
 /**
@@ -136,8 +136,7 @@ const combineMultiDirPredictions = data => data.map(
   item => ((!Array.isArray(item.prediction))
     ? [item.prediction] // single prediction
     : item.prediction // multi predictions
-  )
-).reduce((a, b) => a.concat(b));
+  )).reduce((a, b) => a.concat(b));
 
 
 /**
