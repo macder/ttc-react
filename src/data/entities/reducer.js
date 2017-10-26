@@ -5,7 +5,6 @@ import {
   REQUEST_ROUTE_LIST, RECEIVE_ROUTE_LIST,
   REQUEST_ROUTE_CONFIG, RECEIVE_ROUTE_CONFIG,
   REQUEST_PREDICTION, RECEIVE_PREDICTION,
-  CLEAR_PREDICTION
 } from './actions';
 
 /**
@@ -96,6 +95,14 @@ const stopEntityReducer = (state = initialState, action = {}) => {
   }
 };
 
+const clearPrediction = (state) =>
+  state
+    .set('byId', new Map())
+    .set('allIds', new List())
+    .delete('byDirId')
+    .delete('allDirIds')
+    .set('isEmpty', false);
+
 const predictionInitialState = new Map({
   allIds: new List(),
   byId: new Map(),
@@ -130,11 +137,14 @@ const predictionEntityReducer = (state = predictionInitialState, action = {}) =>
         .set('isFetching', false)
         .set('isEmpty', true);
 
-    case CLEAR_PREDICTION:
-      return state
-        .set('byId', new Map())
-        .set('allIds', new List())
-        .set('isEmpty', false);
+    case 'search/SELECT_ROUTE':
+      return clearPrediction(state);
+
+    case 'search/SELECT_DIRECTION':
+      return clearPrediction(state);
+
+    case 'search/SELECT_STOP':
+      return clearPrediction(state);
 
     default:
       return state;

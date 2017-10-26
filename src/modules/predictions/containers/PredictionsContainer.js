@@ -7,7 +7,7 @@ import {
   getSelectedStop, isPredictionFetching,
   isPredictionEmpty
 } from '../selectors';
-import { clearPrediction, requestPrediction } from '../../../data/entities/actions';
+import { requestPrediction } from '../../../data/entities/actions';
 import { withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -21,7 +21,6 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = dispatch => ({
   action: {
     requestPrediction: (route, stop) => dispatch(requestPrediction(route, stop)),
-    clearPrediction: () => dispatch(clearPrediction()),
   },
 });
 
@@ -35,9 +34,6 @@ const PredictionsContainer = compose(
       const { action, route, stop, data, fetching, empty } = nextProps;
       (route && stop && !data && !fetching && !empty) &&
         action.requestPrediction(route, stop);
-
-      (stop !== this.props.stop && (data || empty)) &&
-        action.clearPrediction();
     },
   }),
   branch(
