@@ -2,14 +2,21 @@ import React from 'react';
 import { Segment } from 'semantic-ui-react'
 import List from '../../core/components/List';
 
-const Predictions = (props) => (
+import './Predictions.scss';
+
+const Predictions = ({ data }) => (
   <Segment>
     <div className="c-predictions">
-      <List
-        items={props.data}
-        listClass='c-predictions__list'
-        isSelect
-      />
+      {data.map(value =>
+        <div key={value.key} className='c-predictions__wrap'>
+          <p>{value.title}</p>
+          <List
+            items={value.prediction}
+            listClass='c-predictions__list'
+            isSelect
+          />
+        </div>
+      )}
     </div>
   </Segment>
 );

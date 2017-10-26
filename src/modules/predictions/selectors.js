@@ -1,8 +1,9 @@
-import { Record, OrderedSet } from 'immutable';
+import { Map, List, Record, OrderedSet } from 'immutable';
 import { createSelector } from 'reselect';
 
 const searchState = state => state.get('search');
 const predictionEntity = state => state.getIn(['entities', 'prediction']);
+const directionEntity = state => state.getIn(['entities', 'direction']);
 
 const listItemRecord = new Record({
   key: '',
@@ -37,6 +38,11 @@ export const getSelectedRoute = createSelector(
   search => search.get('selectedRoute')
 );
 
+export const getSelectedDirection = createSelector(
+  [searchState],
+  search => search.get('selectedDirection')
+);
+
 export const getSelectedStop = createSelector(
   [searchState],
   search => search.get('selectedStop')
@@ -48,7 +54,32 @@ export const getPrediction = createSelector(
     prediction.get('allIds').map(id => prediction.getIn(['byId', id]))
 );
 
+const multiDirPredictionList = (prediction, direction) =>
+  prediction.get('allDirIds').map(dirId => new Map({
+    title: direction.getIn(['byId', dirId ]).title,
+    prediction: makeListItemSet(
+      prediction.getIn(['byDirId', dirId]).map(
+        id => prediction.getIn(['byId', id])
+      )
+    ),
+    key: dirId,
+  }))
+
 export const getPredictionForList = createSelector(
-  [getPrediction],
-  prediction => (prediction) && makeListItemSet(prediction)
+  predictionEntity,
+  directionEntity,
+  getSelectedDirection,
+  (prediction, direction, selectedDir) => {
+    if (!!(prediction.get('byId').size)) {
+      return (prediction.has('byDirId'))
+        ? multiDirPredictionList(prediction, direction)
+        : new List([new Map({
+            title: direction.getIn(['byId', selectedDir]).title,
+            prediction: makeListItemSet(
+              prediction.get('allIds').map(id => prediction.getIn(['byId', id]))
+            ),
+            key: '01',
+          })])
+    }
+  }
 );
