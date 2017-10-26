@@ -13,6 +13,6 @@ const makeActionCreator = (type, ...argNames) => (...args) => {
   return action;
 };
 
-export const selectRoute = makeActionCreator(SELECT_ROUTE, 'selected', 'test');
+export const selectRoute = makeActionCreator(SELECT_ROUTE, 'selected');
 export const selectDirection = makeActionCreator(SELECT_DIRECTION, 'selected');
 export const selectStop = makeActionCreator(SELECT_STOP, 'selected');
