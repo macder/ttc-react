@@ -18,16 +18,16 @@ export const DirectionRecord = Record({
   routeId: '',
   title: '',
   name: '',
-  useForUI: '',
+  useForUI: false,
   stop: new List(),
 });
 
 export const PredictionRecord = Record({
   id: '',
   dirId: '',
-  affectedByLayover: 'false',
+  affectedByLayover: false,
   epochTime: '',
-  isDeparture: 'false',
+  isDeparture: false,
   minutes: '',
   seconds: '',
   vehicle: '',
@@ -41,9 +41,9 @@ export const PredictionRecord = Record({
 const createPredictionRecord = item => new PredictionRecord({
   id: item.get('tripTag'),
   dirId: item.get('dirTag'),
-  affectedByLayover: item.get('affectedByLayover'),
+  affectedByLayover: !!(item.get('affectedByLayover') === 'true') && true,
   epochTime: item.get('epochTime'),
-  isDeparture: item.get('isDeparture'),
+  isDeparture: !!(item.get('isDeparture') === 'true') && true,
   minutes: item.get('minutes'),
   seconds: item.get('seconds'),
   vehicle: item.get('vehicle'),
@@ -152,24 +152,34 @@ const mapPredictionsByDirId = predictionsById =>
     .map(item => item.map((x, k) => k).toList())
 
 /**
+ * Normalize and make immutable multi dir predictions
+ * @param {array} predictions
+ * @return {Immutable.Map}
+ */
+const mapMultiDirPredictions = predictions => {
+  const predictionsMap = mapPredictionEntity(
+    combineMultiDirPredictions(predictions)
+  );
+  const withByDirId = predictionsMap.set(
+    'byDirId',
+    mapPredictionsByDirId(predictionsMap.get('byId'))
+  );
+  return withByDirId.set(
+    'allDirIds',
+    withByDirId.get('byDirId').map((item, id) => id).toList()
+  );
+}
+
+/**
  * Called immediately after successful API predictions fetch
  * @param {array} data Response payload from remote API
- * @return {Immutable.Map}
+ * @return {Immutable.Map || null}
  */
 export const mapPredictions = (data) => {
   if (data.predictions.direction) {
-    if (Array.isArray(data.predictions.direction)) { // multi directions
-      const predictions = mapPredictionEntity(
-        combineMultiDirPredictions(data.predictions.direction)
-      );
-      return predictions.set(
-        'byDirIds',
-        mapPredictionsByDirId(predictions.get('byId'))
-      );
-    } // single direction
-    return mapPredictionEntity(
-      data.predictions.direction.prediction
-    );
+    return (Array.isArray(data.predictions.direction))
+      ? mapMultiDirPredictions(data.predictions.direction) // multi dir
+      : mapPredictionEntity(data.predictions.direction.prediction); // single dir
   }
   return null; // no predictions
 };
