@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { branch, compose, lifecycle, mapProps, renderComponent, withPropsOnChange } from 'recompose';
+import { branch, compose, lifecycle, renderComponent, withPropsOnChange } from 'recompose';
 import { Predictions, PredictionsEmpty } from '../components';
 import {
   getPredictionForList, getSelectedRoute,
