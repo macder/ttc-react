@@ -5,11 +5,17 @@ import List from '../../core/components/List';
 const Predictions = ({ data }) => (
   <Segment>
     <div className="c-predictions">
-      <List
-        items={data}
-        listClass='c-predictions__list'
-        isSelect
-      />
+    {data.map(value =>
+      <div key={value.key}>
+        <p>{value.title}</p>
+        <List
+          items={value.prediction}
+          listClass='c-predictions__list'
+          isSelect
+        />
+      </div>
+    )}
+
     </div>
   </Segment>
 );

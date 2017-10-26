@@ -49,7 +49,7 @@ const PredictionsContainer = compose(
   withPropsOnChange(
     ['data'],
     ({ data }) => (data) && ({
-      data: data.toArray().map(item => item.toObject())
+      data: data.toJS()
     })
   ),
 )(Predictions);

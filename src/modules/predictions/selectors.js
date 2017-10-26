@@ -55,13 +55,14 @@ export const getPrediction = createSelector(
 );
 
 const multiDirPredictionList = (prediction, direction) =>
-  prediction.get('allDirIds').map(item => new Map({
-    title: direction.getIn(['byId', item]).title,
+  prediction.get('allDirIds').map(dirId => new Map({
+    title: direction.getIn(['byId', dirId ]).title,
     prediction: makeListItemSet(
-      prediction.getIn(['byDirId', item]).map(
+      prediction.getIn(['byDirId', dirId]).map(
         id => prediction.getIn(['byId', id])
       )
     ),
+    key: dirId,
   }))
 
 export const getPredictionForList = createSelector(
@@ -72,12 +73,12 @@ export const getPredictionForList = createSelector(
     if (!!(prediction.get('byId').size)) {
       return (prediction.has('byDirId'))
         ? multiDirPredictionList(prediction, direction)
-
         : new List([new Map({
             title: direction.getIn(['byId', selectedDir]).title,
             prediction: makeListItemSet(
               prediction.get('allIds').map(id => prediction.getIn(['byId', id]))
-            )
+            ),
+            key: '01',
           })])
     }
   }
