@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node node_modules/.bin/webpack-dev-server",
     "build": "node node_modules/webpack/bin/webpack --watch",
-    "dist": "node node_modules/webpack/bin/webpack -p"
+    "dist": "node node_modules/webpack/bin/webpack -p --progress"
   },
   "repository": {
     "type": "git",
