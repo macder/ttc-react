@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { compose, lifecycle, withHandlers, withPropsOnChange } from 'recompose';
+import { compose, lifecycle, onlyUpdateForKeys, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData } from '../../core/enhancers';
 import { getStopListForDropdown } from '../selectors';
@@ -36,6 +36,7 @@ const StopFieldContainer = compose(
       (defaultValue) && action.selectStop(defaultValue);
     }
   }),
+  onlyUpdateForKeys(['data', 'fetching']),
   hideIfNoData,
   withPropsOnChange(
     ['data'],

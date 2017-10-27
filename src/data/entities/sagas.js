@@ -59,7 +59,7 @@ function* loadPredictions(payload, meta, error = false) {
  *
  */
 function* requestPredictions() {
-  yield takeEvery(REQUEST_PREDICTION, fetch, loadPredictions);
+  yield takeLatest(REQUEST_PREDICTION, fetch, loadPredictions);
 }
 
 /**

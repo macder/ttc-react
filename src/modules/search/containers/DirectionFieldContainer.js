@@ -6,7 +6,7 @@ import { getDirectionListForDropdown, isDirectionListFetching, selectedRoute } f
 import { selectDirection } from '../actions';
 import { requestRouteConfig } from '../../../data/entities/actions';
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, ownProps) =>({
   data: getDirectionListForDropdown(state),
   selectedRoute: selectedRoute(state),
   fetching: isDirectionListFetching(state),
@@ -36,8 +36,9 @@ const DirectionFieldContainer = compose(
   ),
   lifecycle({
     componentDidMount() {
-      const { action, defaultValue } = this.props;
-      (defaultValue) && action.selectDirection(defaultValue);
+      const { action, defaultValue} = this.props;
+      (defaultValue) &&
+        action.selectDirection(defaultValue);
     },
     componentWillReceiveProps(nextProps) {
       const { action, selectedRoute, data, fetching } = nextProps;

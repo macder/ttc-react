@@ -4,7 +4,7 @@ import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getRouteListForDropdown, isRouteListFetching } from '../selectors';
 import { selectRoute } from '../actions';
-import { requestRouteList } from '../../../data/entities/actions';
+import { requestRouteList, requestRouteConfig } from '../../../data/entities/actions';
 
 const mapStateToProps = (state, ownProps) => ({
   data: getRouteListForDropdown(state),

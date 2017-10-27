@@ -52,10 +52,6 @@ const routeEntityReducer = (state = initialState, action = {}) => {
         .set('allIds', action.payload.get('allIds'))
         .set('isFetching', false);
 
-    case ADD_DIRECTION:
-      return state
-        .setIn(['byId', action.payload.routeId, 'direction'], action.payload.data.get('allIds'));
-
     default:
       return state;
   }
@@ -72,6 +68,7 @@ const directionEntityReducer = (state = initialState, action = {}) => {
     case ADD_DIRECTION:
       return state
         .mergeIn(['byId'], action.payload.data.get('byId'))
+        .setIn(['byRouteId', action.payload.routeId], action.payload.data.get('allIds'))
         .set('isFetching', false);
 
     default:
