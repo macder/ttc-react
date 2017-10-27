@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { compose, withHandlers, withPropsOnChange } from 'recompose';
+import { compose, lifecycle, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData } from '../../core/enhancers';
 import { getStopListForDropdown } from '../selectors';
@@ -15,11 +15,27 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...dispatchProps,
+  ...stateProps,
+  historyReplace: ownProps.history.replace,
+  urlParams: ownProps.match.params,
+  defaultValue: ownProps.match.params.stop,
+  placeholder: ownProps.placeholder,
+});
+
 const StopFieldContainer = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps,
+    mergeProps,
   ),
+  lifecycle({
+    componentDidMount() {
+      const { action, defaultValue } = this.props;
+      (defaultValue) && action.selectStop(defaultValue);
+    }
+  }),
   hideIfNoData,
   withPropsOnChange(
     ['data'],
@@ -28,10 +44,9 @@ const StopFieldContainer = compose(
     }),
   ),
   withHandlers({
-    onChange: props => (e, data) => {
-      const { action } = props;
+    onChange: ({ action, historyReplace, urlParams }) => (e, data) => {
       action.selectStop(data.value);
-      // props.historyReplace(`/${props.urlParams.route}/${props.urlParams.direction}/${data.value}`);
+      historyReplace(`/${urlParams.route}/${urlParams.direction}/${data.value}`);
     },
   }),
 )(DropdownField);

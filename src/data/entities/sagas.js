@@ -1,6 +1,6 @@
 // import 'regenerator-runtime/runtime';
 
-import { all, call, put, takeEvery } from 'redux-saga/effects';
+import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { mapEntitiesFromConfig, mapPredictions, mapRouteEntity } from './models';
 import httpGet from '../../services/httpRequest';
 import {
@@ -36,7 +36,7 @@ function* loadRouteList(payload, meta, error = false) {
 function* loadRouteConfig(payload, meta, error = false) {
   if (!error) {
     yield put(receiveRouteConfig({ fetching: false }));
-    const data = mapEntitiesFromConfig(payload);
+    const data = yield call(mapEntitiesFromConfig, payload);
     yield put(addDirection(data.get('direction'), meta.routeId));
     yield put(addStop(data.get('stop')));
   } else {
@@ -68,7 +68,7 @@ function* requestPredictions() {
  *
  */
 function* requestRouteList() {
-  yield takeEvery(REQUEST_ROUTE_LIST, fetch, loadRouteList);
+  yield takeLatest(REQUEST_ROUTE_LIST, fetch, loadRouteList);
 }
 
 /**
@@ -77,7 +77,7 @@ function* requestRouteList() {
  *
  */
 function* requestRouteConfig() {
-  yield takeEvery(REQUEST_ROUTE_CONFIG, fetch, loadRouteConfig);
+  yield takeLatest(REQUEST_ROUTE_CONFIG, fetch, loadRouteConfig);
 }
 
 export default function* rootSaga() {

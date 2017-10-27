@@ -53,6 +53,11 @@ export const getRouteList = createSelector(
     route.get('allIds').map(id => route.getIn(['byId', id])),
 );
 
+const getStopList = createSelector(
+  stopEntity,
+  stop => (stop.get('byId').size) ? stop : null
+);
+
 export const getLoadedConfigRouteIds = createSelector(
   [getRouteList],
   list => list.filter(item => item.direction.size).map(item => item.id),
@@ -60,7 +65,7 @@ export const getLoadedConfigRouteIds = createSelector(
 
 export const getRouteListForDropdown = createSelector(
   [getRouteList],
-  list => (list) && makeDropdownSet(list),
+  list => (list.size) && makeDropdownSet(list),
 );
 
 export const getDirectionListForDropdown = createSelector(
@@ -80,13 +85,13 @@ export const getDirectionListForDropdown = createSelector(
 );
 
 export const getStopListForDropdown = createSelector(
-  stopEntity,
+  getStopList,
   directionEntity,
   selectedDirection,
   (stop, directionList, directionId) =>
-    (directionId && directionList.getIn(['byId', directionId, 'stop'])) &&
+    !!(stop && directionId && directionList.getIn(['byId', directionId, 'stop'])) &&
       makeDropdownSet(
         directionList.getIn(['byId', directionId, 'stop'])
           .map(id => stop.getIn(['byId', id])),
-      ),
+      )
 );
