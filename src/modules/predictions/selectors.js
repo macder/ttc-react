@@ -5,7 +5,7 @@ const searchState = state => state.get('search');
 const predictionEntity = state => state.getIn(['entities', 'prediction']);
 const directionEntity = state => state.getIn(['entities', 'direction']);
 
-const listItemRecord = new Record({
+const ListItemRecord = new Record({
   key: '',
   header: '',
   icon: '',
@@ -14,7 +14,7 @@ const listItemRecord = new Record({
 
 const makeListItemSet = data => new OrderedSet(
   data.map(item =>
-    new listItemRecord({
+    new ListItemRecord({
       key: item.get('id'),
       header: `${item.get('minutes')} Minutes`,
       icon: 'marker',
