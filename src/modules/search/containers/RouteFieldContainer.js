@@ -4,7 +4,7 @@ import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
 import { getRouteListForDropdown, isRouteListFetching } from '../selectors';
 import { selectRoute } from '../actions';
-import { requestRouteList } from '../../../data/entities/actions';
+import { requestRouteList, requestRouteConfig } from '../../../data/entities/actions';
 
 const mapStateToProps = (state, ownProps) => ({
   data: getRouteListForDropdown(state),
@@ -36,8 +36,7 @@ const RouteFieldContainer = compose(
     componentDidMount() {
       const { action, defaultValue } = this.props;
       action.requestRouteList();
-      // (defaultValue) &&
-      // action.selectRoute(defaultValue);
+      (defaultValue) && action.selectRoute(defaultValue);
     },
   }),
   onlyUpdateForKeys(['data', 'fetching']),
@@ -50,10 +49,9 @@ const RouteFieldContainer = compose(
     }),
   ),
   withHandlers({
-    onChange: props => (e, data) => {
-      const { action, historyReplace } = props;
+    onChange: ({ action, historyReplace }) => (e, data) => {
       action.selectRoute(data.value);
-      // historyReplace(`/${data.value}`);
+      historyReplace(`/${data.value}`);
     },
   }),
 )(DropdownField);

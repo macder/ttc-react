@@ -6,7 +6,7 @@ const routeEntity = state => state.getIn(['entities', 'route']);
 const directionEntity = state => state.getIn(['entities', 'direction']);
 const stopEntity = state => state.getIn(['entities', 'stop']);
 
-const DropdownRecord = new Record({
+const DropdownRecord = Record({
   key: '',
   value: '',
   text: '',
@@ -17,7 +17,7 @@ const DropdownRecord = new Record({
  * @param {Immutable.List} data
  * @return {Immutable.OrderedSet}
  */
-const makeDropdownSet = data => new OrderedSet(
+const makeDropdownSet = data => OrderedSet(
   data.map(item =>
     new DropdownRecord({
       key: item.get('id'),
@@ -49,44 +49,39 @@ export const isDirectionListFetching = createSelector(
 
 export const getRouteList = createSelector(
   [routeEntity],
-  route => (route.get('allIds')) &&
+  route => (route.get('allIds').size) &&
     route.get('allIds').map(id => route.getIn(['byId', id])),
 );
 
-export const getLoadedConfigRouteIds = createSelector(
-  [getRouteList],
-  list => list.filter(item => item.direction.size).map(item => item.id),
+const getStopList = createSelector(
+  stopEntity,
+  stop => (stop.get('byId').size) ? stop : null
 );
 
 export const getRouteListForDropdown = createSelector(
   [getRouteList],
-  list => (list) && makeDropdownSet(list),
+  list => (list.size) ? makeDropdownSet(list) : null
 );
 
 export const getDirectionListForDropdown = createSelector(
   directionEntity,
-  routeEntity,
   selectedRoute,
-  (direction, routeList, routeId) => (
-    routeId &&
-    routeList.get('byId').size &&
-    routeList.getIn(['byId', routeId, 'direction']).size
-  ) &&
+  (direction, routeId) => (direction.hasIn(['byRouteId', routeId])) &&
     makeDropdownSet(
-      routeList.getIn(['byId', routeId, 'direction'])
+      direction.getIn(['byRouteId', routeId])
         .map(id => direction.getIn(['byId', id]))
-        .filter(item => item.useForUI),
-    ),
+        .filter(item => item.useForUI)
+    )
 );
 
 export const getStopListForDropdown = createSelector(
-  stopEntity,
+  getStopList,
   directionEntity,
   selectedDirection,
   (stop, directionList, directionId) =>
-    (directionId && directionList.getIn(['byId', directionId, 'stop'])) &&
+    !!(stop && directionId && directionList.getIn(['byId', directionId, 'stop'])) &&
       makeDropdownSet(
         directionList.getIn(['byId', directionId, 'stop'])
           .map(id => stop.getIn(['byId', id])),
-      ),
+      )
 );
