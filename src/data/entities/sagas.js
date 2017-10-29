@@ -27,7 +27,8 @@ function* fetch(callback, action) {
 function* loadRouteList(payload, meta, error = false) {
   if (!error) {
     yield put(receiveRouteList({ fetching: false }));
-    yield put(addRouteList(mapRouteEntity(payload)));
+    const normalizedMap = yield call(mapRouteEntity, payload);
+    yield put(addRouteList(normalizedMap));
   } else {
     yield put(receiveRouteList(payload, true));
   }
@@ -36,9 +37,9 @@ function* loadRouteList(payload, meta, error = false) {
 function* loadRouteConfig(payload, meta, error = false) {
   if (!error) {
     yield put(receiveRouteConfig({ fetching: false }));
-    const data = yield call(mapEntitiesFromConfig, payload);
-    yield put(addDirection(data.get('direction'), meta.routeId));
-    yield put(addStop(data.get('stop')));
+    const normalizedMap = yield call(mapEntitiesFromConfig, payload);
+    yield put(addDirection(normalizedMap.get('direction'), meta.routeId));
+    yield put(addStop(normalizedMap.get('stop')));
   } else {
     yield put(receiveRouteConfig(payload, true));
   }
@@ -47,7 +48,8 @@ function* loadRouteConfig(payload, meta, error = false) {
 function* loadPredictions(payload, meta, error = false) {
   if (!error) {
     yield put(receivePrediction({ fetching: false }));
-    yield put(addPrediction(mapPredictions(payload)));
+    const normalizedMap = yield call(mapPredictions, payload);
+    yield put(addPrediction(normalizedMap));
   } else {
     yield put(receivePrediction(payload, true));
   }
@@ -82,8 +84,8 @@ function* requestRouteConfig() {
 
 export default function* rootSaga() {
   yield all([
-    requestPredictions(),
     requestRouteList(),
     requestRouteConfig(),
+    requestPredictions(),
   ]);
 }
