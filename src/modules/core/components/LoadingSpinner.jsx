@@ -1,6 +1,6 @@
 import React from 'react';
 import { Loader } from 'semantic-ui-react';
-import './LoadingSpinner.scss';
+import 'semantic-ui-css/components/loader.min.css';
 
 const LoadingSpinner = () => (
   <div className="c-loading-spinner">

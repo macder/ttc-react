@@ -1,4 +1,5 @@
 const path = require('path');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const ROOT_PATH = path.resolve(__dirname);
 
@@ -7,13 +8,13 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(ROOT_PATH, 'build'),
-    publicPath: '/build',
+    publicPath: '/build/',
   },
   resolve: {
     extensions: ['.js', '.jsx'],
   },
   module: {
-    loaders: [
+    rules: [
       /* {
         test: /\.js$/,
         include: path.resolve(process.cwd(), 'src'),
@@ -38,6 +39,25 @@ module.exports = {
           'sass-loader',
         ],
       },
+      {
+        test: /\.css$/,
+        include: path.resolve(process.cwd(), 'node_modules/semantic-ui-css'),
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: [
+            {
+              loader: 'css-loader',
+            },
+          ],
+        })
+      },
+      {
+        test: /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png$/,
+        loader: 'file-loader',
+      },
     ],
   },
+  plugins: [
+    new ExtractTextPlugin('styles.css'),
+  ]
 };

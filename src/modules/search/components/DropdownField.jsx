@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import './DropdownField.scss';
+import 'semantic-ui-css/components/dropdown.min.css';
 
 const DropdownField = ({ data, placeholder, onChange, defaultValue }) => (
   <div className="c-input__dropdown">

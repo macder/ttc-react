@@ -1,7 +1,6 @@
 import React from 'react'
 import { SearchForm } from '../modules/search';
 import { PredictionsContainer as Predictions } from '../modules/predictions';
-import './App.scss';
 
 const App = () => (
   <div>
