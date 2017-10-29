@@ -70,7 +70,7 @@ export const getPredictionForList = createSelector(
   directionEntity,
   getSelectedDirection,
   (prediction, direction, selectedDir) => {
-    if (!!(prediction.get('byId').size)) {
+    if (!!(prediction.get('byId').size && direction.get('byId').size)) {
       return (prediction.has('byDirId'))
         ? multiDirPredictionList(prediction, direction)
         : new List([new Map({
