@@ -26,8 +26,8 @@ function* fetch(callback, action) {
 
 function* loadRouteList(payload, meta, error = false) {
   if (!error) {
-    const normalizedMap = yield call(mapRouteEntity, payload);
     yield put(receiveRouteList({ fetching: false }));
+    const normalizedMap = yield call(mapRouteEntity, payload);
     yield put(addRouteList(normalizedMap));
   } else {
     yield put(receiveRouteList(payload, true));
@@ -36,8 +36,8 @@ function* loadRouteList(payload, meta, error = false) {
 
 function* loadRouteConfig(payload, meta, error = false) {
   if (!error) {
-    const normalizedMap = yield call(mapEntitiesFromConfig, payload);
     yield put(receiveRouteConfig({ fetching: false }));
+    const normalizedMap = yield call(mapEntitiesFromConfig, payload);
     yield put(addDirection(normalizedMap.get('direction'), meta.routeId));
     yield put(addStop(normalizedMap.get('stop')));
   } else {
@@ -47,8 +47,8 @@ function* loadRouteConfig(payload, meta, error = false) {
 
 function* loadPredictions(payload, meta, error = false) {
   if (!error) {
-    const normalizedMap = yield call(mapPredictions, payload);
     yield put(receivePrediction({ fetching: false }));
+    const normalizedMap = yield call(mapPredictions, payload);
     yield put(addPrediction(normalizedMap));
   } else {
     yield put(receivePrediction(payload, true));

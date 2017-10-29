@@ -32,7 +32,7 @@ const PredictionsContainer = compose(
   lifecycle({
     componentWillReceiveProps(nextProps) {
       const { action, route, stop, data, fetching, empty } = nextProps;
-      (route && stop && !data && !fetching && !empty) &&
+      (route && stop && !empty && !!(!data && !fetching && !this.props.fetching)) &&
         action.requestPrediction(route, stop);
     },
   }),
