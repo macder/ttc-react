@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { List as SemanticList } from 'semantic-ui-react';
+import './List.scss';
 
 const List = ({ items, isSelect, listClass, onItemClick }) => (
   <SemanticList
