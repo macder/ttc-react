@@ -2,13 +2,13 @@ import { connect } from 'react-redux';
 import { compose, lifecycle, onlyUpdateForKeys, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
 import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
-import { getDirectionListForDropdown, isDirectionListFetching, selectedRoute } from '../selectors';
+import { getDirectionListForDropdown, isDirectionListFetching, getSelectedRoute } from '../selectors';
 import { selectDirection } from '../actions';
 import { requestRouteConfig } from '../../../data/entities/actions';
 
 const mapStateToProps = (state, ownProps) =>({
   data: getDirectionListForDropdown(state),
-  selectedRoute: selectedRoute(state),
+  selectedRoute: getSelectedRoute(state),
   fetching: isDirectionListFetching(state),
 });
 
