@@ -1,7 +1,7 @@
 // import 'regenerator-runtime/runtime';
 
 import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
-import { mapEntitiesFromConfig, mapPredictions, mapRouteEntity } from './models';
+import { mapEntitiesFromConfig, mapHttpError, mapPredictions, mapRouteEntity } from './models';
 import httpGet from '../../services/httpRequest';
 import {
   REQUEST_ROUTE_LIST, REQUEST_ROUTE_CONFIG, REQUEST_PREDICTION,
@@ -20,7 +20,8 @@ function* fetch(callback, action) {
     const data = yield call(httpGet, action.meta.url);
     yield call(callback, data, action.meta);
   } catch (e) {
-    yield call(callback, e, true);
+    const error = yield call(mapHttpError, e);
+    yield call(callback, error, null, true);
   }
 }
 

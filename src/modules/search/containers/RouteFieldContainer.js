@@ -1,14 +1,17 @@
 import { connect } from 'react-redux';
 import { compose, lifecycle, onlyUpdateForKeys, withHandlers, withPropsOnChange } from 'recompose';
 import { DropdownField } from '../components';
-import { hideIfNoData, withSpinnerWhileLoading } from '../../core/enhancers';
-import { getRouteListForDropdown, isRouteListFetching } from '../selectors';
+import { hideIfNoData, withHttpRequestError, withSpinnerWhileLoading } from '../../core/enhancers';
+import { getRouteListForDropdown, isRouteListFetching, getEntityError, routeEntity } from '../selectors';
 import { selectRoute } from '../actions';
 import { requestRouteList, requestRouteConfig } from '../../../data/entities/actions';
+
+import Immutable from 'immutable';
 
 const mapStateToProps = (state, ownProps) => ({
   data: getRouteListForDropdown(state),
   fetching: isRouteListFetching(state),
+  error: getEntityError(routeEntity, state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -41,6 +44,7 @@ const RouteFieldContainer = compose(
   }),
   onlyUpdateForKeys(['data', 'fetching']),
   withSpinnerWhileLoading,
+  withHttpRequestError,
   hideIfNoData,
   withPropsOnChange(
     ['data'],
