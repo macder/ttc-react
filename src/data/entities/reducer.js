@@ -78,6 +78,10 @@ const directionEntityReducer = (state = initialState, action = {}) => {
         .setIn(['byRouteId', action.payload.routeId], action.payload.data.get('allIds'))
         .set('isFetching', false);
 
+    case 'search/SELECT_ROUTE':
+      return state
+        .set('error', false)
+
     default:
       return state;
   }
