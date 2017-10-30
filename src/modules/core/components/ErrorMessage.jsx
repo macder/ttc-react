@@ -4,6 +4,7 @@ import { Message, Icon } from 'semantic-ui-react'
 
 import 'semantic-ui-css/components/message.min.css';
 import 'semantic-ui-css/components/icon.min.css';
+import './ErrorMessage.scss';
 
 const ErrorMessage = ({ error }) => (
   <div className="c-error-message">
