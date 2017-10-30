@@ -32,7 +32,8 @@ export const requestRouteList = () => ({
     error: false,
   },
   meta: {
-    url: 'http://webservices.nextbus.com/service/publicJSONFeed?command=routeList&a=ttc',
+    // url: 'http://webservices.nextbus.com/service/publicJSONFeed?command=routeList&a=ttc',
+    url: '/data/routeList.json',
   },
 });
 

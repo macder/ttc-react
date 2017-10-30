@@ -27,14 +27,35 @@ const makeDropdownSet = data => OrderedSet(
   ),
 );
 
-export const selectedRoute = createSelector(
-  [searchState],
-  search => search.get('selectedRoute'),
+const isValid = state => (selected, validIds) => {
+  return validIds.includes(selected);
+}
+
+export const getSelectedRoute = createSelector(
+  routeEntity,
+  searchState,
+  isValid,
+  (route, search, isValid) =>
+    (isValid(search.get('selectedRoute'), route.get('allIds'))) &&
+      search.get('selectedRoute')
 );
 
-const selectedDirection = createSelector(
-  [searchState],
-  search => search.get('selectedDirection'),
+export const getSelectedDirection = createSelector(
+  directionEntity,
+  searchState,
+  isValid,
+  (direction, search, isValid) =>
+    (isValid(search.get('selectedDirection'), direction.get('allIds'))) &&
+      search.get('selectedDirection')
+);
+
+export const getSelectedStop = createSelector(
+  stopEntity,
+  searchState,
+  isValid,
+  (stop, search, isValid) =>
+    (isValid(search.get('selectedStop'), stop.get('allIds'))) &&
+      search.get('selectedStop')
 );
 
 export const isRouteListFetching = createSelector(
@@ -65,7 +86,7 @@ export const getRouteListForDropdown = createSelector(
 
 export const getDirectionListForDropdown = createSelector(
   directionEntity,
-  selectedRoute,
+  getSelectedRoute,
   (direction, routeId) => (direction.hasIn(['byRouteId', routeId])) &&
     makeDropdownSet(
       direction.getIn(['byRouteId', routeId])
@@ -77,7 +98,7 @@ export const getDirectionListForDropdown = createSelector(
 export const getStopListForDropdown = createSelector(
   getStopList,
   directionEntity,
-  selectedDirection,
+  getSelectedDirection,
   (stop, directionList, directionId) =>
     !!(stop && directionId && directionList.getIn(['byId', directionId, 'stop'])) &&
       makeDropdownSet(
