@@ -1,6 +1,8 @@
 import React from 'react';
 import { Segment } from 'semantic-ui-react'
 
+import 'semantic-ui-css/components/segment.min.css';
+
 const PredictionsEmpty = () => (
   <Segment>
     <div className="c-predictions">

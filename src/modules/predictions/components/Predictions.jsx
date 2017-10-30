@@ -3,6 +3,7 @@ import { Segment } from 'semantic-ui-react'
 import List from '../../core/components/List';
 
 import './Predictions.scss';
+import 'semantic-ui-css/components/segment.min.css';
 
 const Predictions = ({ data }) => (
   <Segment>
