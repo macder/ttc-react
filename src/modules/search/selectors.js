@@ -2,9 +2,9 @@ import { Record, OrderedSet } from 'immutable';
 import { createSelector } from 'reselect';
 
 const searchState = state => state.get('search');
-const routeEntity = state => state.getIn(['entities', 'route']);
-const directionEntity = state => state.getIn(['entities', 'direction']);
-const stopEntity = state => state.getIn(['entities', 'stop']);
+export const routeEntity = state => state.getIn(['entities', 'route']);
+export const directionEntity = state => state.getIn(['entities', 'direction']);
+export const stopEntity = state => state.getIn(['entities', 'stop']);
 
 const DropdownRecord = Record({
   key: '',
@@ -30,6 +30,11 @@ const makeDropdownSet = data => OrderedSet(
 const isValid = state => (selected, validIds) => {
   return validIds.includes(selected);
 }
+
+export const getEntityError = (entitySelector, state) => createSelector(
+  entitySelector,
+  (entity) => entity.get('error')
+)(state);
 
 export const getSelectedRoute = createSelector(
   routeEntity,

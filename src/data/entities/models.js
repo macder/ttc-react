@@ -32,6 +32,14 @@ export const PredictionRecord = Record({
   vehicle: '',
 });
 
+export const HttpErrorRecord = Record({
+  url: '',
+  status: '',
+  statusText: '',
+  message: '',
+  stack: '',
+});
+
 /**
  *
  * @param {Immutable.Map} item
@@ -83,6 +91,26 @@ const createDirectionRecord = item => new DirectionRecord({
   useForUI: !!(item.get('useForUI') === 'true') && true,
   stop: new List(item.get('stop').map(stop => stop.get('tag'))),
 });
+
+/**
+ *
+ * @param {XMLHttpRequest} e
+ * @return {Immutable.Record}
+ */
+const createHttpErrorRecord = e => new HttpErrorRecord({
+  url: e.request.responseURL,
+  status: e.request.status,
+  statusText: e.request.statusText,
+  message: e.message,
+  stack: e.stack,
+});
+
+/**
+ * Creates an error record from a XMLHttpRequest object
+ * @param {XMLHttpRequest} e
+ * @return {Immutable.Record}
+ */
+export const mapHttpError = e => createHttpErrorRecord(e);
 
 /**
  * Normalizes and converts to Immutable an entity set
