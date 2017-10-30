@@ -24,6 +24,11 @@ const makeListItemSet = data => new OrderedSet(
   ),
 );
 
+export const getPredictionError = createSelector(
+  predictionEntity,
+  prediction => prediction.get('error')
+);
+
 export const isPredictionFetching = createSelector(
   [predictionEntity],
   prediction => prediction.get('isFetching'),

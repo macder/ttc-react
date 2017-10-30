@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { branch, compose, lifecycle, renderComponent, withPropsOnChange } from 'recompose';
 import { Predictions, PredictionsEmpty } from '../components';
-import { getPredictionForList,isPredictionFetching, isPredictionEmpty } from '../selectors';
+import { getPredictionForList, getPredictionError, isPredictionFetching, isPredictionEmpty } from '../selectors';
 import { getSelectedDirection, getSelectedRoute, getSelectedStop } from '../../search';
 import { requestPrediction } from '../../../data/entities/actions';
-import { withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
+import { withSpinnerWhileLoading, withHttpRequestError, hideIfNoData } from '../../core/enhancers';
 
 const mapStateToProps = (state, ownProps) => ({
   data: getPredictionForList(state),
@@ -14,6 +14,7 @@ const mapStateToProps = (state, ownProps) => ({
   stop: getSelectedStop(state),
   direction: getSelectedDirection(state),
   empty: isPredictionEmpty(state),
+  error: getPredictionError(state),
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -27,6 +28,7 @@ const PredictionsContainer = compose(
     mapStateToProps,
     mapDispatchToProps,
   ),
+  withHttpRequestError,
   lifecycle({
     componentWillReceiveProps(nextProps) {
       const { action, direction, route, stop, data, fetching, empty } = nextProps;
