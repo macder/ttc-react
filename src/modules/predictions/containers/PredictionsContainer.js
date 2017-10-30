@@ -28,14 +28,14 @@ const PredictionsContainer = compose(
     mapStateToProps,
     mapDispatchToProps,
   ),
-  withHttpRequestError,
   lifecycle({
     componentWillReceiveProps(nextProps) {
-      const { action, direction, route, stop, data, fetching, empty } = nextProps;
-      (route && direction && stop && !empty && !data && !fetching) &&
+      const { action, direction, route, stop, data, fetching, empty, error } = nextProps;
+      (route && direction && stop && !empty && !data && !fetching && !error) &&
         action.requestPrediction(route, stop);
     },
   }),
+  withHttpRequestError,
   branch(
     ({ empty }) => empty,
     renderComponent(PredictionsEmpty)

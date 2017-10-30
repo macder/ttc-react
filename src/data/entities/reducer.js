@@ -25,6 +25,7 @@ const requestFetch = (state, action) => state
  */
 const receiveFetch = (state, action) => ((!action.error)
   ? state
+    .set('error', false)
   : state
     .set('isFetching', false)
     .set('error', action.payload)
@@ -106,7 +107,8 @@ const clearPrediction = (state) => state
   .set('allIds', new List())
   .delete('byDirId')
   .delete('allDirIds')
-  .set('isEmpty', false);
+  .set('isEmpty', false)
+  .set('error', false);
 
 const predictionInitialState = new Map({
   allIds: new List(),
