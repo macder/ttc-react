@@ -35,19 +35,19 @@ const DirectionFieldContainer = compose(
     mapDispatchToProps,
     mergeProps,
   ),
-  withHttpRequestError,
   lifecycle({
     componentDidMount() {
-      const { action, defaultValue} = this.props;
+      const { action, defaultValue } = this.props;
       (defaultValue) &&
         action.selectDirection(defaultValue);
     },
     componentWillReceiveProps(nextProps) {
-      const { action, selectedRoute, data, fetching } = nextProps;
-      (selectedRoute && !data && !fetching) &&
+      const { action, selectedRoute, data, fetching, error } = nextProps;
+      (selectedRoute && !data && !fetching && !error) &&
         action.requestRouteConfig(selectedRoute);
     },
   }),
+  withHttpRequestError,
   onlyUpdateForKeys(['data', 'fetching']),
   withSpinnerWhileLoading,
   hideIfNoData,
