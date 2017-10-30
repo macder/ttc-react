@@ -30,7 +30,6 @@ const receiveFetch = (state, action) => ((!action.error)
     .set('error', action.payload)
 );
 
-
 const initialState = new Map({
   allIds: new List(),
   byId: new Map(),
@@ -57,6 +56,11 @@ const routeEntityReducer = (state = initialState, action = {}) => {
   }
 };
 
+const concatList = (prevItems, newItems) => prevItems
+  .toOrderedSet()
+  .union(newItems)
+  .toList();
+
 const directionEntityReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case REQUEST_ROUTE_CONFIG:
@@ -66,8 +70,10 @@ const directionEntityReducer = (state = initialState, action = {}) => {
       return receiveFetch(state, action);
 
     case ADD_DIRECTION:
+      const nextAllIds = concatList(state.get('allIds'), action.payload.data.get('allIds'));
       return state
         .mergeIn(['byId'], action.payload.data.get('byId'))
+        .set('allIds', nextAllIds)
         .setIn(['byRouteId', action.payload.routeId], action.payload.data.get('allIds'))
         .set('isFetching', false);
 
@@ -85,20 +91,22 @@ const stopEntityReducer = (state = initialState, action = {}) => {
       return receiveFetch(state, action);
 
     case ADD_STOP:
-      return state.mergeIn(['byId'], action.payload.get('byId'));
+      const nextAllIds = concatList(state.get('allIds'), action.payload.get('allIds'));
+      return state
+        .mergeIn(['byId'], action.payload.get('byId'))
+        .set('allIds', nextAllIds);
 
     default:
       return state;
   }
 };
 
-const clearPrediction = (state) =>
-  state
-    .set('byId', new Map())
-    .set('allIds', new List())
-    .delete('byDirId')
-    .delete('allDirIds')
-    .set('isEmpty', false);
+const clearPrediction = (state) => state
+  .set('byId', new Map())
+  .set('allIds', new List())
+  .delete('byDirId')
+  .delete('allDirIds')
+  .set('isEmpty', false);
 
 const predictionInitialState = new Map({
   allIds: new List(),

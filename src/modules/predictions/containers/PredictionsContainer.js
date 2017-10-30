@@ -2,11 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { branch, compose, lifecycle, renderComponent, withPropsOnChange } from 'recompose';
 import { Predictions, PredictionsEmpty } from '../components';
-import {
-  getPredictionForList, getSelectedRoute,
-  getSelectedStop, isPredictionFetching,
-  isPredictionEmpty
-} from '../selectors';
+import { getPredictionForList,isPredictionFetching, isPredictionEmpty } from '../selectors';
+import { getSelectedDirection, getSelectedRoute, getSelectedStop } from '../../search';
 import { requestPrediction } from '../../../data/entities/actions';
 import { withSpinnerWhileLoading, hideIfNoData } from '../../core/enhancers';
 
@@ -15,6 +12,7 @@ const mapStateToProps = (state, ownProps) => ({
   fetching: isPredictionFetching(state),
   route: getSelectedRoute(state),
   stop: getSelectedStop(state),
+  direction: getSelectedDirection(state),
   empty: isPredictionEmpty(state),
 })
 
@@ -31,8 +29,8 @@ const PredictionsContainer = compose(
   ),
   lifecycle({
     componentWillReceiveProps(nextProps) {
-      const { action, route, stop, data, fetching, empty } = nextProps;
-      (route && stop && !empty && !!(!data && !fetching && !this.props.fetching)) &&
+      const { action, direction, route, stop, data, fetching, empty } = nextProps;
+      (route && direction && stop && !empty && !data && !fetching) &&
         action.requestPrediction(route, stop);
     },
   }),
