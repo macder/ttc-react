@@ -25,6 +25,7 @@ const requestFetch = (state, action) => state
  */
 const receiveFetch = (state, action) => ((!action.error)
   ? state
+    .set('error', false)
   : state
     .set('isFetching', false)
     .set('error', action.payload)
@@ -77,6 +78,10 @@ const directionEntityReducer = (state = initialState, action = {}) => {
         .setIn(['byRouteId', action.payload.routeId], action.payload.data.get('allIds'))
         .set('isFetching', false);
 
+    case 'search/SELECT_ROUTE':
+      return state
+        .set('error', false)
+
     default:
       return state;
   }
@@ -106,7 +111,8 @@ const clearPrediction = (state) => state
   .set('allIds', new List())
   .delete('byDirId')
   .delete('allDirIds')
-  .set('isEmpty', false);
+  .set('isEmpty', false)
+  .set('error', false);
 
 const predictionInitialState = new Map({
   allIds: new List(),
